@@ -19,7 +19,8 @@ export default async function OrderDetailPage({ params }: { params: { id: string
     notFound();
   }
 
-  const order = result.order;
+  // Serialize order to convert Date fields to strings for the client component
+  const order = JSON.parse(JSON.stringify(result.order));
 
   return (
     <div>
