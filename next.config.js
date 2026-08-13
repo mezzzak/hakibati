@@ -12,11 +12,6 @@ const nextConfig = withPWA({
     domains: ['localhost'],
     unoptimized: true,
   },
-  i18n: {
-    locales: ['ar', 'fr'],
-    defaultLocale: 'ar',
-    localeDetection: false,
-  },
 });
 
 module.exports = nextConfig;
