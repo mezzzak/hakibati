@@ -44,7 +44,7 @@ export function Testimonials() {
   useEffect(() => {
     getApprovedReviews(9).then((result) => {
       if (result.success && result.reviews) {
-        setReviews(result.reviews as Review[]);
+        setReviews(JSON.parse(JSON.stringify(result.reviews)) as Review[]);
       }
       setLoading(false);
     });

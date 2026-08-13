@@ -13,7 +13,8 @@ export default async function AccountReviewsPage() {
   }
 
   const result = await getUserReviews(session.user.id);
-  const reviews = result.success && result.reviews ? result.reviews : [];
+  const reviewsRaw = result.success && result.reviews ? result.reviews : [];
+  const reviews = JSON.parse(JSON.stringify(reviewsRaw));
 
   return (
     <div>

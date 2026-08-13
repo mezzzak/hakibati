@@ -24,21 +24,27 @@ const STAFF_ROLES = ['ADMIN', 'MASTER_ADMIN', 'ORDER_CONFIRMATION_AGENT', 'PREP_
 export default async function AdminDashboardPage() {
   const session = await getServerSession(authOptions);
 
-  if (!session?.user || !STAFF_ROLES.includes(session.user.role)) {
+  if (!session?.user) {
     redirect('/');
   }
 
   const role = session.user.role;
+  if (!role || !STAFF_ROLES.includes(role)) {
+    redirect('/');
+  }
+
   const isAdmin = role === 'ADMIN' || role === 'MASTER_ADMIN';
 
-  const [analyticsResult, notifResult] = await Promise.all([
-    isAdmin ? getAdminAnalytics() : Promise.resolve({ success: false }),
-    getAdminNotifications(role),
-  ]);
+  let analytics = null;
+  if (isAdmin) {
+    const analyticsResult = await getAdminAnalytics();
+    if (analyticsResult.success && 'data' in analyticsResult) {
+      analytics = analyticsResult.data;
+    }
+  }
 
+  const notifResult = await getAdminNotifications(role);
   const notifs = notifResult.success && notifResult.data ? notifResult.data : { pendingOrders: 0, pendingReviews: 0, breakdown: { pendingConfirmation: 0, confirmed: 0, dispatched: 0 }, total: 0 };
-
-  const analytics = analyticsResult.success && analyticsResult.data ? analyticsResult.data : null;
 
   const statusLabels: Record<string, string> = {
     PENDING_CONFIRMATION: 'بانتظار التأكيد',
