@@ -1,0 +1,58 @@
+{
+  "name": "حقيبتي - الأدوات المدرسية",
+  "short_name": "حقيبتي",
+  "description": "منصة حقيبتي لتوفير مجموعات الأدوات المدرسية الجاهزة مع التوصيل إلى جميع ولايات الجزائر. اختر الصف، اضغط، واستلم!",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["shopping", "education"],
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-narrow.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "الحقائب المدرسية",
+      "short_name": "الحقائب",
+      "description": "تصفح الحقائب المدرسية الجاهزة",
+      "url": "/packs",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "طلباتي",
+      "short_name": "طلباتي",
+      "description": "عرض سجل الطلبات",
+      "url": "/account/orders",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}

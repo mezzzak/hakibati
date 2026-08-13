@@ -1,0 +1,259 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+  MASTER_ADMIN
+  ORDER_CONFIRMATION_AGENT
+  PREP_AGENT
+  SHIPPING_AGENT
+}
+
+enum GradeLevel {
+  AP1
+  AP2
+  AP3
+  AP4
+  AP5
+  AM1
+  AM2
+  AM3
+  AM4
+  AS1
+  AS2
+  AS3
+  CUSTOM
+}
+
+enum OrderStatus {
+  PENDING_CONFIRMATION
+  CONFIRMED
+  DISPATCHED
+  DELIVERED
+  CANCELLED
+}
+
+enum ShippingMethod {
+  HOME_DELIVERY
+  OFFICE_PICKUP
+  STOP_DESK
+  YALIDINE
+  ECO_SHIPPING
+}
+
+model User {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  email     String?  @unique
+  fullName  String
+  password  String?
+  role      Role     @default(CUSTOMER)
+  wilaya    String
+  commune   String?
+  address   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cartItems CartItem[]
+  orders    Order[]
+  reviews   Review[]
+}
+
+model SupplyItem {
+  id             String   @id @default(cuid())
+  nameAr         String
+  nameFr         String?
+  descriptionAr  String?
+  descriptionFr  String?
+  brand          String?
+  category       String
+  imageUrl       String?
+  unitPriceDZD   Int
+  costPriceDZD   Int      @default(0)
+  retailPriceDZD Int      @default(0)
+  stockQuantity  Int      @default(0)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  packItems PackItem[]
+  cartItems CartItem[]
+  orderItems OrderItem[]
+
+  @@index([category])
+  @@index([isActive])
+}
+
+model HakibatiPack {
+  id               String     @id @default(cuid())
+  nameAr           String
+  nameFr           String?
+  descriptionAr    String?
+  descriptionFr    String?
+  gradeLevel       GradeLevel
+  imageUrl         String?
+  basePriceDZD     Int
+  discountPercent  Int        @default(0)
+  isActive         Boolean    @default(true)
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  items      PackItem[]
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  @@index([gradeLevel])
+  @@index([isActive])
+}
+
+model PackItem {
+  id         String  @id @default(cuid())
+  quantity   Int     @default(1)
+  isOptional Boolean @default(false)
+
+  supplyItemId String
+  supplyItem   SupplyItem @relation(fields: [supplyItemId], references: [id], onDelete: Cascade)
+
+  hakibatiPackId String
+  hakibatiPack   HakibatiPack @relation(fields: [hakibatiPackId], references: [id], onDelete: Cascade)
+
+  @@index([hakibatiPackId])
+  @@index([supplyItemId])
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  quantity  Int      @default(1)
+  sessionId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  supplyItemId String?
+  supplyItem   SupplyItem? @relation(fields: [supplyItemId], references: [id], onDelete: SetNull)
+
+  hakibatiPackId String?
+  hakibatiPack   HakibatiPack? @relation(fields: [hakibatiPackId], references: [id], onDelete: SetNull)
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([sessionId])
+  @@index([supplyItemId])
+  @@index([hakibatiPackId])
+}
+
+model Order {
+  id              String         @id @default(cuid())
+  orderNumber     String         @unique
+  status          OrderStatus    @default(PENDING_CONFIRMATION)
+  shippingMethod  ShippingMethod
+  shippingCostDZD Int
+  subtotalDZD     Int
+  totalDZD        Int
+  customerName    String
+  customerPhone   String
+  customerEmail   String?
+  guestName       String?
+  guestPhone      String?
+  wilaya          String
+  commune         String
+  address         String
+  notes           String?
+  adminNotes      String?
+  confirmedAt     DateTime?
+  dispatchedAt    DateTime?
+  deliveredAt     DateTime?
+  cancelledAt     DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  items    OrderItem[]
+  callLogs CallLog[]
+  reviews  Review[]
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([userId])
+  @@index([orderNumber])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id             String @id @default(cuid())
+  quantity       Int
+  unitPriceDZD   Int
+  totalPriceDZD  Int
+  itemName       String?
+
+  supplyItemId String?
+  supplyItem   SupplyItem? @relation(fields: [supplyItemId], references: [id], onDelete: SetNull)
+
+  hakibatiPackId String?
+  hakibatiPack   HakibatiPack? @relation(fields: [hakibatiPackId], references: [id], onDelete: SetNull)
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([supplyItemId])
+  @@index([hakibatiPackId])
+}
+
+model CallLog {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  agentName String?
+  outcome   String   // REACHED, NO_ANSWER, WRONG_NUMBER, CANCELLED
+  notes     String?
+  createdAt DateTime @default(now())
+
+  @@index([orderId])
+  @@index([createdAt])
+}
+
+model ShippingRate {
+  id        String   @id @default(cuid())
+  wilaya    String
+  method    String   // HOME_DELIVERY, STOP_DESK, etc.
+  costDZD   Int
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([wilaya, method])
+  @@index([wilaya])
+  @@index([method])
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  rating      Int      // 1-5 stars
+  comment     String
+  authorName  String?
+  isAnonymous Boolean  @default(false)
+  isApproved  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([isApproved])
+  @@index([orderId])
+  @@index([userId])
+  @@index([createdAt])
+}
