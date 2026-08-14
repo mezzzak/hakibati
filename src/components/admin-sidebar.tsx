@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/components/language-provider';
 import { getAdminNotifications } from '@/lib/admin-actions';
 import {
   LayoutDashboard,
@@ -76,12 +77,12 @@ const ALL_NAV_ITEMS = [
   },
 ];
 
-const ROLE_LABELS: Record<string, string> = {
-  ADMIN: 'مسؤول',
-  MASTER_ADMIN: 'مدير النظام',
-  ORDER_CONFIRMATION_AGENT: 'وكيل تأكيد الطلبات',
-  PREP_AGENT: 'وكيل تجهيز الطلبات',
-  SHIPPING_AGENT: 'وكيل الشحن',
+const ROLE_LABELS: Record<string, { ar: string; fr: string }> = {
+  ADMIN: { ar: 'مسؤول', fr: 'Administrateur' },
+  MASTER_ADMIN: { ar: 'مدير النظام', fr: 'Directeur système' },
+  ORDER_CONFIRMATION_AGENT: { ar: 'وكيل تأكيد الطلبات', fr: 'Agent confirmation' },
+  PREP_AGENT: { ar: 'وكيل تجهيز الطلبات', fr: 'Agent préparation' },
+  SHIPPING_AGENT: { ar: 'وكيل الشحن', fr: 'Agent livraison' },
 };
 
 interface AdminSidebarProps {
@@ -97,6 +98,7 @@ interface AdminSidebarProps {
 
 export function AdminSidebar({ userName, role, notifications }: AdminSidebarProps) {
   const pathname = usePathname();
+  const { t, isAr } = useLanguage();
   const navItems = ALL_NAV_ITEMS.filter((item) => item.roles.includes(role));
 
   const [liveNotifs, setLiveNotifs] = useState(notifications);
@@ -137,7 +139,7 @@ export function AdminSidebar({ userName, role, notifications }: AdminSidebarProp
             <ShieldCheck className="h-5 w-5 text-primary-foreground" />
           </div>
           <div>
-            <p className="text-sm font-bold">لوحة الإدارة</p>
+            <p className="text-sm font-bold">{t('لوحة الإدارة', 'Administration')}</p>
             <p className="text-xs text-muted-foreground">{userName}</p>
           </div>
         </div>
@@ -145,7 +147,7 @@ export function AdminSidebar({ userName, role, notifications }: AdminSidebarProp
         {/* Role Badge */}
         <div className="px-4 pt-3">
           <span className="inline-flex rounded-md bg-primary/10 px-2 py-1 text-[11px] font-bold text-primary">
-            {ROLE_LABELS[role] || role}
+            {ROLE_LABELS[role] ? (isAr ? ROLE_LABELS[role].ar : ROLE_LABELS[role].fr) : role}
           </span>
         </div>
 
@@ -167,7 +169,7 @@ export function AdminSidebar({ userName, role, notifications }: AdminSidebarProp
                 )}
               >
                 <Icon className="h-5 w-5" />
-                <span className="flex-1">{item.label}</span>
+                <span className="flex-1">{isAr ? item.label : item.labelFr}</span>
                 {badgeCount > 0 && (
                   <span className="flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-red-500 px-1.5 text-[10px] font-bold text-white">
                     {badgeCount}
@@ -185,7 +187,7 @@ export function AdminSidebar({ userName, role, notifications }: AdminSidebarProp
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowRight className="h-4 w-4" />
-            <span>العودة للموقع</span>
+            <span>{t('العودة للموقع', 'Retour au site')}</span>
           </Link>
         </div>
       </div>
