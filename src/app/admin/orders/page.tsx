@@ -15,6 +15,7 @@ import {
   XCircle,
   Eye,
   RefreshCw,
+  Phone,
 } from 'lucide-react';
 
 const statusLabels: Record<string, { ar: string; fr: string }> = {
@@ -134,7 +135,8 @@ export default function AdminOrdersPage() {
         ) : orders.length === 0 ? (
           <div className="text-center py-16 text-muted-foreground">{t('لا توجد طلبات', 'Aucune commande')}</div>
         ) : (
-          <div className="overflow-x-auto">
+          {/* Desktop table */}
+          <div className="hidden sm:block overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-muted/50">
@@ -180,6 +182,52 @@ export default function AdminOrdersPage() {
                 })}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile cards */}
+          <div className="sm:hidden divide-y">
+            {orders.map((order) => {
+              const cfg = statusConfig[order.status] || statusConfig.PENDING_CONFIRMATION;
+              const StatusIcon = cfg.icon;
+              return (
+                <div
+                  key={order.id}
+                  className="p-4 active:bg-muted/50 transition-colors"
+                  onClick={() => openOrder(order)}
+                >
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div>
+                      <p className="font-mono font-bold text-sm">{order.orderNumber}</p>
+                      <p className="text-sm font-semibold mt-0.5">{order.customerName}</p>
+                    </div>
+                    <Badge className={cfg.color}>
+                      <StatusIcon className="h-3 w-3 mr-1" />
+                      {tabs.find((t) => t.key === order.status)?.label || order.status}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="space-y-1 text-muted-foreground">
+                      <p>{displayPhone(order.customerPhone)}</p>
+                      <p>{order.wilaya}</p>
+                      <p>{formatDate(order.createdAt)}</p>
+                    </div>
+                    <div className="text-end">
+                      <p className="font-bold text-primary text-base">{formatDZD(order.totalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 mt-3">
+                    <a
+                      href={`tel:${order.customerPhone}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
+                    >
+                      <Phone className="h-3.5 w-3.5" />
+                      {t('اتصال', 'Appeler')}
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

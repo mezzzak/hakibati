@@ -5,6 +5,7 @@ import { LanguageProvider } from '@/components/language-provider';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { CartDrawer } from '@/components/cart-drawer';
+import { MobileBottomNav } from '@/components/mobile-bottom-nav';
 import { InstallBanner } from '@/components/install-banner';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ScrollToTop } from '@/components/scroll-to-top';
@@ -94,10 +95,11 @@ export default function RootLayout({
             <ScrollToTop />
             <Header />
             <ErrorBoundary>
-              <main>{children}</main>
+              <main className="md:pb-0 pb-16">{children}</main>
             </ErrorBoundary>
             <CartDrawer />
             <Footer />
+            <MobileBottomNav />
             <InstallBanner />
             <ToasterWrapper />
           </LanguageProvider>

@@ -1,6 +1,6 @@
 'use client';
 
-import { ShoppingCart, MapPin, Globe, Menu, X, UserCircle, Phone, Truck, MessageSquare, LayoutDashboard } from 'lucide-react';
+import { ShoppingCart, MapPin, Globe, UserCircle, Phone } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { UserDropdown } from '@/components/user-dropdown';
 import Link from 'next/link';
@@ -10,13 +10,10 @@ import { useLanguage } from '@/components/language-provider';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
-const STAFF_ROLES = ['ADMIN', 'MASTER_ADMIN', 'ORDER_CONFIRMATION_AGENT', 'PREP_AGENT', 'SHIPPING_AGENT'];
-
 export function Header() {
   const { totalItems, toggleCart } = useCartStore();
   const { language, setLanguage, t } = useLanguage();
   const { data: session } = useSession();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -103,95 +100,8 @@ export function Header() {
             )}
           </Button>
 
-          {/* Mobile menu toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t bg-background px-4 py-3 space-y-3">
-          <nav className="flex flex-col gap-1">
-            <Link
-              href="/packs"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
-            >
-              <ShoppingCart className="h-4 w-4 text-primary" />
-              {t('الحقائب المدرسية', 'Kits scolaires')}
-            </Link>
-            <Link
-              href="/how-to-order"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
-            >
-              <MapPin className="h-4 w-4 text-primary" />
-              {t('كيفية الطلب', 'Comment commander')}
-            </Link>
-            <Link
-              href="/delivery"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
-            >
-              <Truck className="h-4 w-4 text-primary" />
-              {t('طرق التوصيل', 'Modes de livraison')}
-            </Link>
-            <Link
-              href="/faq"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
-            >
-              <MessageSquare className="h-4 w-4 text-primary" />
-              {t('الأسئلة الشائعة', 'FAQ')}
-            </Link>
-            {mounted && session?.user && (
-              <>
-                <div className="border-t my-1" />
-                <Link
-                  href="/account/orders"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
-                >
-                  <UserCircle className="h-4 w-4 text-primary" />
-                  {t('طلباتي', 'Mes commandes')}
-                </Link>
-                {STAFF_ROLES.includes(session.user.role as string) && (
-                  <Link
-                    href="/admin/dashboard"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
-                  >
-                    <LayoutDashboard className="h-4 w-4" />
-                    {t('لوحة التحكم', 'Administration')}
-                  </Link>
-                )}
-              </>
-            )}
-          </nav>
-          <div className="border-t pt-2 space-y-2">
-            <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-primary" />
-              <Badge variant="success" className="text-xs">
-                {t('التوصيل لـ 58 ولاية', 'Livraison vers 58 wilayas')}
-              </Badge>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-primary" />
-              <Badge variant="outline" className="text-xs border-primary/30 inline-flex items-center gap-1">
-                <span>{t('مركز الاتصال:', 'Centre d\'appel:')}</span>
-                <span dir="ltr">0663 14 17 88</span>
-              </Badge>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   );
 }
