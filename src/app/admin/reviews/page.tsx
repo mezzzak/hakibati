@@ -84,7 +84,7 @@ export default function AdminReviewsPage() {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex items-center gap-2">
+      <div className="flex overflow-x-auto gap-2 pb-1 scrollbar-hide">
         <button
           onClick={() => setStatus('all')}
           className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${status === 'all' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:bg-muted/80'}`}

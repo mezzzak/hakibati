@@ -109,12 +109,12 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Status Tabs */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex overflow-x-auto gap-2 pb-1 scrollbar-hide">
         {tabs.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+            className={`shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
               activeTab === tab.key
                 ? 'bg-primary text-primary-foreground'
                 : 'bg-muted text-muted-foreground hover:bg-muted/80'

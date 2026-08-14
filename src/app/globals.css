@@ -88,6 +88,13 @@
   .shadow-card-hover {
     box-shadow: 0 0 0 1px hsl(var(--primary) / 0.15), 0 4px 8px -2px hsl(var(--primary) / 0.08), 0 12px 32px -4px hsl(var(--primary) / 0.06);
   }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Print styles for receipts */
