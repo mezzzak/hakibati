@@ -376,7 +376,7 @@ export default function AdminPacksPage() {
           <div className="space-y-1.5">
             <label className="text-sm font-medium">{t('المستوى الدراسي', 'Niveau scolaire')} *</label>
             <select required value={form.gradeLevel} onChange={(e) => setForm({ ...form, gradeLevel: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              {gradeLevels.map((g) => (<option key={g.value} value={g.value}>{'labelAr' in g ? t(g.labelAr, g.labelFr) : g.label}</option>))}
+              {gradeLevels.map((g) => (<option key={g.value} value={g.value}>{'labelAr' in g ? t(g.labelAr!, g.labelFr!) : g.label}</option>))}
             </select>
           </div>
           <div className="grid grid-cols-2 gap-4">
