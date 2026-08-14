@@ -450,82 +450,133 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
         <div className="space-y-3">
           {items.map((item, index) => {
             const alternatives = getAlternatives(item);
+            const itemName = isAr ? item.supplyItem.nameAr : (item.supplyItem.nameFr || item.supplyItem.nameAr);
+            const itemSubName = item.supplyItem.nameFr && item.supplyItem.nameAr
+              ? (isAr ? item.supplyItem.nameFr : item.supplyItem.nameAr)
+              : null;
+
             return (
               <div
                 key={`${item.supplyItem.id}-${index}`}
-                className={`flex items-center gap-3 rounded-xl border p-4 transition-all ${
+                className={`rounded-xl border p-3 sm:p-4 transition-all ${
                   item.included
                     ? 'bg-card border-border'
                     : 'bg-muted/30 border-muted opacity-60'
                 }`}
               >
-                <Checkbox
-                  checked={item.included}
-                  onCheckedChange={() => toggleItem(index)}
-                />
-
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-bold text-muted-foreground">
-                  {(isAr ? item.supplyItem.nameAr : (item.supplyItem.nameFr || item.supplyItem.nameAr)).slice(0, 2)}
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold text-sm sm:text-base truncate">{isAr ? item.supplyItem.nameAr : (item.supplyItem.nameFr || item.supplyItem.nameAr)}</p>
+                {/* Mobile: two-row layout | Desktop: single row */}
+                <div className="flex items-start gap-3">
+                  {/* Checkbox — bigger on mobile */}
+                  <div className="pt-0.5">
+                    <Checkbox
+                      checked={item.included}
+                      onCheckedChange={() => toggleItem(index)}
+                    />
                   </div>
-                  {item.supplyItem.nameFr && item.supplyItem.nameAr && (
-                    <p className="text-xs text-muted-foreground truncate">{isAr ? item.supplyItem.nameFr : item.supplyItem.nameAr}</p>
-                  )}
-                  <p className="text-sm font-bold text-primary mt-0.5">
-                    {formatDZD(item.supplyItem.unitPriceDZD)}
-                    <span className="text-xs font-normal text-muted-foreground mr-1">
-                      / {t('الوحدة', 'unité')}
-                    </span>
-                  </p>
-                </div>
 
-                <div className="flex items-center gap-1.5">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-8 w-8 rounded-md"
-                    onClick={() => updateQuantity(index, -1)}
-                    disabled={!item.included}
-                  >
-                    <Minus className="h-3 w-3" />
-                  </Button>
-                  <span className="w-7 text-center text-sm font-bold">{item.quantity}</span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-8 w-8 rounded-md"
-                    onClick={() => updateQuantity(index, 1)}
-                    disabled={!item.included}
-                  >
-                    <Plus className="h-3 w-3" />
-                  </Button>
-                </div>
+                  {/* Product icon */}
+                  <div className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-bold text-muted-foreground">
+                    {itemName.slice(0, 2)}
+                  </div>
 
-                <div className="flex flex-col gap-1">
-                  {alternatives.length > 0 && (
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-sm sm:text-base leading-tight">{itemName}</p>
+                    {itemSubName && (
+                      <p className="text-xs text-muted-foreground mt-0.5">{itemSubName}</p>
+                    )}
+                    <p className="text-sm font-bold text-primary mt-1">
+                      {formatDZD(item.supplyItem.unitPriceDZD)}
+                      <span className="text-xs font-normal text-muted-foreground mr-1">
+                        / {t('الوحدة', 'unité')}
+                      </span>
+                    </p>
+                  </div>
+
+                  {/* Desktop actions */}
+                  <div className="hidden sm:flex items-center gap-1.5">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="h-8 w-8 rounded-md"
+                      onClick={() => updateQuantity(index, -1)}
+                      disabled={!item.included}
+                    >
+                      <Minus className="h-3 w-3" />
+                    </Button>
+                    <span className="w-7 text-center text-sm font-bold">{item.quantity}</span>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="h-8 w-8 rounded-md"
+                      onClick={() => updateQuantity(index, 1)}
+                      disabled={!item.included}
+                    >
+                      <Plus className="h-3 w-3" />
+                    </Button>
+                  </div>
+
+                  <div className="hidden sm:flex flex-col gap-1">
+                    {alternatives.length > 0 && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 rounded-md text-muted-foreground hover:text-primary"
+                        onClick={() => openSwapDrawer(index)}
+                        title={t('استبدال المنتج', 'Changer de marque')}
+                      >
+                        <Layers className="h-4 w-4" />
+                      </Button>
+                    )}
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 rounded-md text-muted-foreground hover:text-primary"
-                      onClick={() => openSwapDrawer(index)}
-                      title={t('استبدال المنتج', 'Changer de marque')}
+                      className="h-8 w-8 rounded-md text-muted-foreground hover:text-destructive"
+                      onClick={() => removeItem(index)}
+                      title={t('إزالة', 'Retirer')}
                     >
-                      <Layers className="h-4 w-4" />
+                      <X className="h-4 w-4" />
                     </Button>
-                  )}
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 rounded-md text-muted-foreground hover:text-destructive"
-                    onClick={() => removeItem(index)}
-                    title={t('إزالة', 'Retirer')}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
+                  </div>
+                </div>
+
+                {/* Mobile: quantity + actions row */}
+                <div className="flex sm:hidden items-center justify-between mt-3 pl-7">
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => updateQuantity(index, -1)}
+                      disabled={!item.included}
+                      className="flex h-8 w-8 items-center justify-center rounded-lg border bg-background text-foreground disabled:opacity-40 active:bg-muted transition-colors"
+                    >
+                      <Minus className="h-3.5 w-3.5" />
+                    </button>
+                    <span className="w-8 text-center text-sm font-bold">{item.quantity}</span>
+                    <button
+                      onClick={() => updateQuantity(index, 1)}
+                      disabled={!item.included}
+                      className="flex h-8 w-8 items-center justify-center rounded-lg border bg-background text-foreground disabled:opacity-40 active:bg-muted transition-colors"
+                    >
+                      <Plus className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    {alternatives.length > 0 && (
+                      <button
+                        onClick={() => openSwapDrawer(index)}
+                        className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground active:bg-muted transition-colors"
+                        title={t('استبدال', 'Changer')}
+                      >
+                        <Layers className="h-4 w-4" />
+                      </button>
+                    )}
+                    <button
+                      onClick={() => removeItem(index)}
+                      className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground active:bg-muted transition-colors"
+                      title={t('إزالة', 'Retirer')}
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             );
@@ -582,31 +633,31 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
       </div>
 
       {/* Sticky Total Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-30 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
-        <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-3 sm:py-4">
-          <div>
-            <p className="text-xs sm:text-sm text-muted-foreground">
-              {t('المجموع الإجمالي', 'Total général')}
+      <div className="fixed bottom-0 left-0 right-0 z-30 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:bottom-0 bottom-[60px]">
+        <div className="container mx-auto flex items-center justify-between gap-3 px-4 py-3">
+          <div className="min-w-0">
+            <p className="text-[10px] sm:text-xs text-muted-foreground">
+              {includedCount} {t('عنصر', 'articles')} · {t('المجموع', 'Total')}
             </p>
-            <p className="text-xl sm:text-2xl font-extrabold text-primary">
+            <p className="text-lg sm:text-2xl font-extrabold text-primary leading-tight">
               {formatDZD(calculateTotal)}
             </p>
           </div>
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 shrink-0">
             <Button
               variant="outline"
-              size="lg"
-              className="hidden sm:flex gap-2 text-sm px-4"
+              size="sm"
+              className="hidden sm:flex gap-2 text-sm"
               asChild
             >
               <Link href="/#grade-selector">
                 <Package className="h-4 w-4" />
-                {t('أضف حزمة أخرى', 'Ajouter un autre kit')}
+                {t('أضف حزمة أخرى', 'Ajouter')}
               </Link>
             </Button>
             <Button
-              size="lg"
-              className={`gap-2 text-base px-6 sm:px-8 transition-all ${
+              size="default"
+              className={`gap-2 text-sm px-5 h-11 rounded-xl transition-all ${
                 addedToCart ? 'bg-green-600 hover:bg-green-600' : ''
               }`}
               onClick={addToCart}
@@ -614,13 +665,13 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
             >
               {addedToCart ? (
                 <>
-                  <Check className="h-5 w-5" />
-                  {t('تمت الإضافة', 'Ajouté')}
+                  <Check className="h-4 w-4" />
+                  <span className="hidden sm:inline">{t('تمت الإضافة', 'Ajouté')}</span>
                 </>
               ) : (
                 <>
-                  <ShoppingCart className="h-5 w-5" />
-                  {t('أضف إلى السلة', 'Ajouter au panier')}
+                  <ShoppingCart className="h-4 w-4" />
+                  {t('أضف إلى السلة', 'Ajouter')}
                 </>
               )}
             </Button>

@@ -185,43 +185,47 @@ export default function AdminOrdersPage() {
           </div>
 
           {/* Mobile cards */}
-          <div className="sm:hidden divide-y">
+          <div className="sm:hidden space-y-3 p-3">
             {orders.map((order) => {
               const cfg = statusConfig[order.status] || statusConfig.PENDING_CONFIRMATION;
               const StatusIcon = cfg.icon;
               return (
                 <div
                   key={order.id}
-                  className="p-4 active:bg-muted/50 transition-colors"
+                  className="rounded-xl border bg-card p-4 shadow-sm active:bg-muted/40 transition-colors"
                   onClick={() => openOrder(order)}
                 >
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div>
-                      <p className="font-mono font-bold text-sm">{order.orderNumber}</p>
-                      <p className="text-sm font-semibold mt-0.5">{order.customerName}</p>
+                  {/* Top row: order number + status + amount */}
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="font-mono font-bold text-sm shrink-0">{order.orderNumber}</span>
+                      <Badge className={`${cfg.color} text-[10px] px-1.5 py-0.5 shrink-0`}>
+                        <StatusIcon className="h-2.5 w-2.5 mr-0.5" />
+                        {tabs.find((t) => t.key === order.status)?.label || order.status}
+                      </Badge>
                     </div>
-                    <Badge className={cfg.color}>
-                      <StatusIcon className="h-3 w-3 mr-1" />
-                      {tabs.find((t) => t.key === order.status)?.label || order.status}
-                    </Badge>
+                    <span className="font-bold text-primary text-sm shrink-0">
+                      {formatDZD(order.totalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}
+                    </span>
                   </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <div className="space-y-1 text-muted-foreground">
-                      <p>{displayPhone(order.customerPhone)}</p>
-                      <p>{order.wilaya}</p>
-                      <p>{formatDate(order.createdAt)}</p>
-                    </div>
-                    <div className="text-end">
-                      <p className="font-bold text-primary text-base">{formatDZD(order.totalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</p>
-                    </div>
+
+                  {/* Customer info */}
+                  <p className="font-semibold text-sm text-foreground truncate">{order.customerName}</p>
+                  <div className="flex items-center gap-3 mt-1.5 text-xs text-muted-foreground">
+                    <span>{displayPhone(order.customerPhone)}</span>
+                    <span>·</span>
+                    <span>{order.wilaya}</span>
                   </div>
-                  <div className="flex items-center gap-2 mt-3">
+
+                  {/* Bottom actions */}
+                  <div className="flex items-center justify-between mt-3 pt-3 border-t">
+                    <span className="text-xs text-muted-foreground">{formatDate(order.createdAt)}</span>
                     <a
                       href={`tel:${order.customerPhone}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
+                      className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground active:opacity-80 transition-opacity"
                     >
-                      <Phone className="h-3.5 w-3.5" />
+                      <Phone className="h-3 w-3" />
                       {t('اتصال', 'Appeler')}
                     </a>
                   </div>

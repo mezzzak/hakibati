@@ -34,39 +34,39 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="container relative mx-auto px-4 pt-16 pb-20 sm:pt-20 sm:pb-28">
+      <div className="container relative mx-auto px-4 pt-10 pb-8 sm:pt-20 sm:pb-28">
         <div className="mx-auto max-w-3xl text-center">
           {/* Trust pill */}
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm text-primary">
-            <Clock className="h-4 w-4" />
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-xs sm:text-sm text-primary">
+            <Clock className="h-3.5 w-3.5" />
             <span>{t('موسم العودة إلى المدارس 2026', 'Rentrée scolaire 2026')}</span>
           </div>
 
-          <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+          <h1 className="text-[28px] sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-tight">
             {t('وفر وقتك وجهدك', 'Gagnez du temps et de l\'effort')}
           </h1>
-          <p className="mt-5 text-lg leading-relaxed text-muted-foreground sm:text-xl max-w-xl mx-auto">
+          <p className="mt-3 text-base sm:text-xl leading-relaxed text-muted-foreground max-w-xl mx-auto">
             {t(
               'حقيبة أدوات طفلك كاملة تصلك إلى باب المنزل بنقرة واحدة',
               'Un kit scolaire complet livré à votre porte en un clic'
             )}
           </p>
 
-          <div className="mt-7 flex flex-wrap justify-center gap-4">
+          <div className="mt-5 sm:mt-7">
             <Button
               size="lg"
               onClick={scrollToGrades}
-              className="gap-2 rounded-xl text-base shadow-elevated transition-all duration-200 ease-out-expo hover:shadow-card-hover hover:-translate-y-0.5"
+              className="w-full sm:w-auto gap-2 rounded-xl text-sm sm:text-base shadow-elevated h-12 sm:h-11"
             >
               {t('اختر حقيبة طفلك', 'Choisissez le kit de votre enfant')}
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-foreground/20">
-                <ArrowDown className="h-3.5 w-3.5" />
+              <span className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-primary-foreground/20">
+                <ArrowDown className="h-3 w-3" />
               </span>
             </Button>
           </div>
 
-          {/* Trust indicators */}
-          <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-3">
+          {/* Trust indicators — horizontal scroll on mobile */}
+          <div className="mt-8 sm:mt-16 flex overflow-x-auto gap-3 pb-2 scrollbar-hide sm:grid sm:grid-cols-3 sm:gap-5 sm:pb-0">
             {[
               { icon: Package, title: t('حقائب جاهزة', 'Kits prêts'), desc: t('مختارة بعناية لكل مستوى دراسي', 'Sélectionnés pour chaque niveau') },
               { icon: Truck, title: t('توصيل سريع', 'Livraison rapide'), desc: t('إلى جميع ولايات الجزائر', 'Vers toutes les wilayas d\'Algérie') },
@@ -74,15 +74,15 @@ export function HeroSection() {
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="group flex flex-col items-center gap-3 rounded-2xl border bg-background/90 p-5 shadow-card transition-all duration-300 ease-out-expo hover:shadow-card-hover hover:-translate-y-1"
+                className="group flex shrink-0 w-[160px] sm:w-auto flex-col items-center gap-2 sm:gap-3 rounded-2xl border bg-background/90 p-4 sm:p-5 shadow-card"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 transition-transform duration-300 ease-out-expo group-hover:scale-110">
-                  <item.icon className="h-6 w-6 text-primary" />
+                <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-primary/10">
+                  <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
-                <h3 className="font-bold text-foreground">
+                <h3 className="font-bold text-sm sm:text-base text-foreground">
                   {item.title}
                 </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   {item.desc}
                 </p>
               </div>

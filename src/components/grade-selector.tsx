@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/components/language-provider';
+import { cn } from '@/lib/utils';
 import { GradeLevel, getGradeCategory, getGradeLabel, getCategoryLabel, type GradeCategory } from '@/types';
 import { BookOpen, School, GraduationCap, ChevronLeft, ChevronRight, Palette, Layers } from 'lucide-react';
 
@@ -101,120 +102,180 @@ export function GradeSelector() {
           </p>
         </div>
 
-        {/* Step 1: Categories */}
-        {!selectedCategory && (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+        {/* Mobile: horizontal scroll all grades */}
+        <div className="sm:hidden">
+          <div className="flex overflow-x-auto gap-2.5 pb-3 scrollbar-hide snap-x snap-mandatory">
+            {/* Category pills */}
             {categories.map((cat) => {
               const Icon = cat.icon;
               return (
                 <button
                   key={cat.category}
-                  onClick={() => setSelectedCategory(cat.category)}
-                  className={`group relative flex flex-col items-center gap-5 rounded-2xl border-2 ${cat.borderColor} bg-gradient-to-br ${cat.color} p-6 sm:p-8 text-center transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-card-hover ${cat.hoverBorder} overflow-hidden`}
+                  onClick={() => setSelectedCategory(selectedCategory === cat.category ? null : cat.category)}
+                  className={cn(
+                    'snap-start shrink-0 flex items-center gap-2 rounded-full border-2 px-4 py-2.5 transition-all',
+                    selectedCategory === cat.category
+                      ? `${cat.borderColor} ${cat.iconBg} ${cat.iconColor} font-semibold`
+                      : 'border-border bg-background text-foreground'
+                  )}
                 >
-                  <div className="absolute -right-6 -bottom-6 opacity-[0.06] transition-transform duration-500 ease-out-expo group-hover:scale-110 group-hover:rotate-6">
-                    <Icon className="h-40 w-40" />
-                  </div>
-                  <div className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-xl ${cat.iconBg} ${cat.iconColor} transition-transform duration-300 ease-out-expo group-hover:scale-110`}>
-                    <Icon className="h-8 w-8" />
-                  </div>
-                  <div className="relative z-10">
-                    <h3 className="text-2xl font-extrabold text-foreground tracking-tight">
-                      {getCategoryLabel(cat.category, isAr ? 'ar' : 'fr')}
-                    </h3>
-                    <p className="mt-2 text-sm font-medium text-muted-foreground">
-                      {t(`${cat.count} مستويات`, `${cat.count} niveaux`)}
-                    </p>
-                  </div>
-                  <div className={`relative z-10 mt-2 flex items-center gap-2 text-sm font-semibold ${cat.iconColor} opacity-0 translate-x-2 transition-all duration-300 ease-out-expo group-hover:opacity-100 group-hover:translate-x-0`}>
-                    <span>{t('اختر المستوى', 'Choisir le niveau')}</span>
-                    <ChevronLeft className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:-translate-x-0.5" />
-                  </div>
+                  <Icon className="h-4 w-4" />
+                  <span className="text-sm font-medium whitespace-nowrap">
+                    {getCategoryLabel(cat.category, isAr ? 'ar' : 'fr')}
+                  </span>
                 </button>
               );
             })}
-
-            {/* Custom pack card */}
             <button
               onClick={goCustom}
-              className="group relative flex flex-col items-center gap-5 rounded-2xl border-2 border-slate-200 bg-gradient-to-br from-slate-50 to-gray-50 p-6 sm:p-8 text-center transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-card-hover hover:border-slate-400 overflow-hidden"
+              className="snap-start shrink-0 flex items-center gap-2 rounded-full border-2 border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600"
             >
-              <div className="absolute -right-6 -bottom-6 opacity-[0.06] transition-transform duration-500 ease-out-expo group-hover:scale-110 group-hover:rotate-6">
-                <Palette className="h-40 w-40" />
-              </div>
-              <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-xl bg-slate-100 text-slate-600 transition-transform duration-300 ease-out-expo group-hover:scale-110">
-                <Palette className="h-8 w-8" />
-              </div>
-              <div className="relative z-10">
-                <h3 className="text-2xl font-extrabold text-foreground tracking-tight">
-                  {t('مخصص', 'Personnalisé')}
-                </h3>
-                <p className="mt-2 text-sm font-medium text-muted-foreground">
-                  {t('ابنِ الحقيبة يدوياً', 'Construire manuellement')}
-                </p>
-              </div>
-              <div className="relative z-10 mt-2 flex items-center gap-2 text-sm font-semibold text-slate-600 opacity-0 translate-x-2 transition-all duration-300 ease-out-expo group-hover:opacity-100 group-hover:translate-x-0">
-                <span>{t('ابدأ البناء', 'Commencer')}</span>
-                <ChevronLeft className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:-translate-x-0.5" />
-              </div>
+              <Palette className="h-4 w-4" />
+              <span className="whitespace-nowrap">{t('مخصص', 'Personnalisé')}</span>
             </button>
           </div>
-        )}
 
-        {/* Step 2: Specific years */}
-        {selectedCategory && selectedCategory !== 'custom' && (
-          <div className="max-w-4xl mx-auto">
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-            >
-              <ChevronRight className="h-4 w-4" />
-              {t('العودة للمستويات', 'Retour aux niveaux')}
-            </button>
-
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold">
-                {getCategoryLabel(selectedCategory, isAr ? 'ar' : 'fr')}
-              </h3>
-              <p className="mt-2 text-muted-foreground">
-                {t('اختر السنة الدراسية المحددة', 'Choisissez l\'année scolaire spécifique')}
-              </p>
-            </div>
-
-            <div className={`grid grid-cols-1 gap-4 ${
-              selectedCategory === 'primaire' ? 'sm:grid-cols-3 lg:grid-cols-5' :
-              selectedCategory === 'cem' ? 'sm:grid-cols-2 lg:grid-cols-4' :
-              'sm:grid-cols-3'
-            }`}>
+          {/* Mobile: show years for selected category */}
+          {selectedCategory && selectedCategory !== 'custom' && (
+            <div className="flex overflow-x-auto gap-2.5 pb-3 scrollbar-hide snap-x snap-mandatory mt-2">
               {yearsByCategory[selectedCategory].map((level) => {
                 const config = yearConfig[level];
                 return (
                   <button
                     key={level}
                     onClick={() => selectYear(level)}
-                    className={`group relative flex flex-col items-center gap-4 rounded-2xl border-2 ${config.borderColor} bg-gradient-to-br ${config.color} p-6 text-center transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-card-hover ${config.hoverBorder}`}
+                    className={cn(
+                      'snap-start shrink-0 flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 min-w-[100px] transition-all active:scale-95',
+                      config.borderColor,
+                      'bg-gradient-to-br',
+                      config.color
+                    )}
                   >
-                    <div className={`flex h-14 w-14 items-center justify-center rounded-xl ${config.iconBg} ${config.iconColor} transition-transform duration-300 ease-out-expo group-hover:scale-110`}>
-                      <Layers className="h-7 w-7" />
+                    <div className={cn('flex h-9 w-9 items-center justify-center rounded-lg', config.iconBg, config.iconColor)}>
+                      <Layers className="h-4 w-4" />
                     </div>
-                    <div>
-                      <h4 className="text-xl font-extrabold text-foreground">
-                        {getGradeLabel(level, isAr ? 'ar' : 'fr')}
-                      </h4>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        {t('حقيبة جاهزة', 'Kit prêt')}
-                      </p>
-                    </div>
-                    <div className={`flex items-center gap-1.5 text-sm font-semibold ${config.iconColor} opacity-0 translate-x-2 transition-all duration-300 ease-out-expo group-hover:opacity-100 group-hover:translate-x-0`}>
-                      <span>{t('تصفح', 'Voir')}</span>
-                      <ChevronLeft className="h-3.5 w-3.5" />
-                    </div>
+                    <span className="text-sm font-bold">{getGradeLabel(level, isAr ? 'ar' : 'fr')}</span>
                   </button>
                 );
               })}
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
+        {/* Desktop: two-step category cards */}
+        <div className="hidden sm:block">
+          {!selectedCategory && (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+              {categories.map((cat) => {
+                const Icon = cat.icon;
+                return (
+                  <button
+                    key={cat.category}
+                    onClick={() => setSelectedCategory(cat.category)}
+                    className={`group relative flex flex-col items-center gap-5 rounded-2xl border-2 ${cat.borderColor} bg-gradient-to-br ${cat.color} p-8 text-center transition-all hover:-translate-y-1 hover:shadow-card-hover ${cat.hoverBorder} overflow-hidden`}
+                  >
+                    <div className="absolute -right-6 -bottom-6 opacity-[0.06]">
+                      <Icon className="h-40 w-40" />
+                    </div>
+                    <div className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-xl ${cat.iconBg} ${cat.iconColor}`}>
+                      <Icon className="h-8 w-8" />
+                    </div>
+                    <div className="relative z-10">
+                      <h3 className="text-2xl font-extrabold text-foreground tracking-tight">
+                        {getCategoryLabel(cat.category, isAr ? 'ar' : 'fr')}
+                      </h3>
+                      <p className="mt-2 text-sm font-medium text-muted-foreground">
+                        {t(`${cat.count} مستويات`, `${cat.count} niveaux`)}
+                      </p>
+                    </div>
+                    <div className={`relative z-10 mt-2 flex items-center gap-2 text-sm font-semibold ${cat.iconColor}`}>
+                      <span>{t('اختر المستوى', 'Choisir le niveau')}</span>
+                      <ChevronLeft className="h-4 w-4" />
+                    </div>
+                  </button>
+                );
+              })}
+
+              <button
+                onClick={goCustom}
+                className="group relative flex flex-col items-center gap-5 rounded-2xl border-2 border-slate-200 bg-gradient-to-br from-slate-50 to-gray-50 p-8 text-center transition-all hover:-translate-y-1 hover:shadow-card-hover hover:border-slate-400 overflow-hidden"
+              >
+                <div className="absolute -right-6 -bottom-6 opacity-[0.06]">
+                  <Palette className="h-40 w-40" />
+                </div>
+                <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
+                  <Palette className="h-8 w-8" />
+                </div>
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-extrabold text-foreground tracking-tight">
+                    {t('مخصص', 'Personnalisé')}
+                  </h3>
+                  <p className="mt-2 text-sm font-medium text-muted-foreground">
+                    {t('ابنِ الحقيبة يدوياً', 'Construire manuellement')}
+                  </p>
+                </div>
+                <div className="relative z-10 mt-2 flex items-center gap-2 text-sm font-semibold text-slate-600">
+                  <span>{t('ابدأ البناء', 'Commencer')}</span>
+                  <ChevronLeft className="h-4 w-4" />
+                </div>
+              </button>
+            </div>
+          )}
+
+          {selectedCategory && selectedCategory !== 'custom' && (
+            <div className="max-w-4xl mx-auto">
+              <button
+                onClick={() => setSelectedCategory(null)}
+                className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+              >
+                <ChevronRight className="h-4 w-4" />
+                {t('العودة للمستويات', 'Retour aux niveaux')}
+              </button>
+
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold">
+                  {getCategoryLabel(selectedCategory, isAr ? 'ar' : 'fr')}
+                </h3>
+                <p className="mt-2 text-muted-foreground">
+                  {t('اختر السنة الدراسية المحددة', 'Choisissez l\'année scolaire spécifique')}
+                </p>
+              </div>
+
+              <div className={`grid gap-4 ${
+                selectedCategory === 'primaire' ? 'grid-cols-3 lg:grid-cols-5' :
+                selectedCategory === 'cem' ? 'grid-cols-2 lg:grid-cols-4' :
+                'grid-cols-3'
+              }`}>
+                {yearsByCategory[selectedCategory].map((level) => {
+                  const config = yearConfig[level];
+                  return (
+                    <button
+                      key={level}
+                      onClick={() => selectYear(level)}
+                      className={`group relative flex flex-col items-center gap-4 rounded-2xl border-2 ${config.borderColor} bg-gradient-to-br ${config.color} p-6 text-center transition-all hover:-translate-y-1 hover:shadow-card-hover ${config.hoverBorder}`}
+                    >
+                      <div className={`flex h-14 w-14 items-center justify-center rounded-xl ${config.iconBg} ${config.iconColor}`}>
+                        <Layers className="h-7 w-7" />
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-extrabold text-foreground">
+                          {getGradeLabel(level, isAr ? 'ar' : 'fr')}
+                        </h4>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {t('حقيبة جاهزة', 'Kit prêt')}
+                        </p>
+                      </div>
+                      <div className={`flex items-center gap-1.5 text-sm font-semibold ${config.iconColor}`}>
+                        <span>{t('تصفح', 'Voir')}</span>
+                        <ChevronLeft className="h-3.5 w-3.5" />
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
