@@ -112,7 +112,7 @@ export function GradeSelector() {
                   <button
                     key={cat.category}
                     onClick={() => setSelectedCategory(cat.category)}
-                    className={`flex flex-col items-center gap-2 rounded-2xl border-2 ${cat.borderColor} bg-gradient-to-br ${cat.color} p-4 text-center transition-all active:scale-95`}
+                    className={`flex flex-col items-center gap-2 rounded-2xl border-2 ${cat.borderColor} bg-gradient-to-br ${cat.color} p-4 text-center transition-all hover:shadow-md hover:-translate-y-0.5 active:scale-95 cursor-pointer`}
                   >
                     <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${cat.iconBg} ${cat.iconColor}`}>
                       <Icon className="h-6 w-6" />
@@ -124,7 +124,7 @@ export function GradeSelector() {
               })}
               <button
                 onClick={goCustom}
-                className="flex flex-col items-center gap-2 rounded-2xl border-2 border-slate-200 bg-gradient-to-br from-slate-50 to-gray-50 p-4 text-center transition-all active:scale-95"
+                className="flex flex-col items-center gap-2 rounded-2xl border-2 border-slate-200 bg-gradient-to-br from-slate-50 to-gray-50 p-4 text-center transition-all hover:shadow-md hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
                   <Palette className="h-6 w-6" />
@@ -155,7 +155,7 @@ export function GradeSelector() {
                       key={level}
                       onClick={() => selectYear(level)}
                       className={cn(
-                        'flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-all active:scale-95',
+                        'flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-all hover:shadow-md hover:-translate-y-0.5 active:scale-95 cursor-pointer',
                         config.borderColor,
                         'bg-gradient-to-br',
                         config.color

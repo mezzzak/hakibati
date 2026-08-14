@@ -40,6 +40,7 @@ export function Testimonials() {
   const { t } = useLanguage();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     getApprovedReviews(9).then((result) => {
@@ -72,8 +73,13 @@ export function Testimonials() {
     let paused = false;
     const handlePointer = () => { paused = true; };
     const handleLeave = () => { paused = false; };
+    const handleScroll = () => {
+      const idx = Math.round(el.scrollLeft / 316);
+      setActiveIndex(Math.min(idx, displayItems.length - 1));
+    };
     el.addEventListener('pointerdown', handlePointer);
     el.addEventListener('pointerup', handleLeave);
+    el.addEventListener('scroll', handleScroll);
     const interval = setInterval(() => {
       if (paused) return;
       const maxScroll = el.scrollWidth - el.clientWidth;
@@ -87,6 +93,7 @@ export function Testimonials() {
       clearInterval(interval);
       el.removeEventListener('pointerdown', handlePointer);
       el.removeEventListener('pointerup', handleLeave);
+      el.removeEventListener('scroll', handleScroll);
     };
   }, [displayItems.length]);
 
@@ -131,6 +138,18 @@ export function Testimonials() {
                     {t(item.nameAr, item.nameFr)}
                   </p>
                 </div>
+              ))}
+            </div>
+
+            {/* Carousel dots */}
+            <div className="flex justify-center gap-2 mt-2 mb-6 sm:hidden">
+              {displayItems.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => scrollRef.current?.scrollTo({ left: i * 316, behavior: 'smooth' })}
+                  className={`h-2 rounded-full transition-all ${i === activeIndex ? 'bg-primary w-5' : 'bg-primary/25 w-2'}`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
               ))}
             </div>
 
