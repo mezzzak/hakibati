@@ -53,10 +53,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <span className="text-2xl font-extrabold text-primary tracking-tight">
-              حقيبتي
-            </span>
-            <span className="hidden sm:inline text-lg font-semibold text-primary/80">
-              Hakibati
+              {language === 'fr' ? 'Hakibati' : 'حقيبتي'}
             </span>
           </Link>
 
@@ -84,11 +81,11 @@ export function Header() {
               variant="ghost"
               size="sm"
               onClick={() => setLanguage(language === 'ar' ? 'fr' : 'ar')}
-              className="gap-1.5 text-sm"
+              className="gap-1.5 text-sm px-2"
             >
               <Globe className="h-4 w-4" />
-              <span className="hidden sm:inline">
-                {language === 'ar' ? 'Français' : 'العربية'}
+              <span className="text-xs font-semibold">
+                {language === 'ar' ? 'Fr' : 'Ar'}
               </span>
             </Button>
 
