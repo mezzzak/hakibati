@@ -23,7 +23,7 @@ export function HeroSection() {
       if (el.scrollLeft >= maxScroll - 2) {
         el.scrollTo({ left: 0, behavior: 'smooth' });
       } else {
-        el.scrollBy({ left: el.clientWidth * 0.6, behavior: 'smooth' });
+        el.scrollBy({ left: 172, behavior: 'smooth' });
       }
     }, 3000);
     return () => {
@@ -92,7 +92,7 @@ export function HeroSection() {
           </div>
 
           {/* Trust indicators — horizontal scroll on mobile */}
-          <div ref={scrollRef} className="mt-8 sm:mt-16 flex overflow-x-auto gap-3 pb-2 scrollbar-hide sm:grid sm:grid-cols-3 sm:gap-5 sm:pb-0">
+          <div ref={scrollRef} className="mt-8 sm:mt-16 flex overflow-x-auto gap-3 pb-2 scrollbar-hide scroll-smooth sm:grid sm:grid-cols-3 sm:gap-5 sm:pb-0">
             {[
               { icon: Package, title: t('حقائب جاهزة', 'Kits prêts'), desc: t('مختارة بعناية لكل مستوى دراسي', 'Sélectionnés pour chaque niveau') },
               { icon: Truck, title: t('توصيل سريع', 'Livraison rapide'), desc: t('إلى جميع ولايات الجزائر', 'Vers toutes les wilayas d\'Algérie') },

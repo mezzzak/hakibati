@@ -55,7 +55,7 @@ export function FeaturedPacks({ packs }: { packs: FeaturedPack[] }) {
       if (el.scrollLeft >= maxScroll - 2) {
         el.scrollTo({ left: 0, behavior: 'smooth' });
       } else {
-        el.scrollBy({ left: el.clientWidth * 0.75, behavior: 'smooth' });
+        el.scrollBy({ left: 292, behavior: 'smooth' });
       }
     }, 3500);
     return () => {
@@ -88,7 +88,7 @@ export function FeaturedPacks({ packs }: { packs: FeaturedPack[] }) {
         </div>
 
         {/* Mobile: horizontal scroll carousel */}
-        <div ref={scrollRef} className="sm:hidden flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x snap-mandatory -mx-4 px-4">
+        <div ref={scrollRef} className="sm:hidden flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x snap-mandatory scroll-smooth -mx-4 px-4">
           {packs.map((pack) => {
             const category = getGradeCategory(pack.gradeLevel as any);
             const catConfig = categoryConfig[category] || categoryConfig.primaire;
@@ -142,6 +142,15 @@ export function FeaturedPacks({ packs }: { packs: FeaturedPack[] }) {
         </div>
 
         {/* Desktop: grid */}
+        <div className="mt-4 flex justify-center sm:hidden">
+          <Button variant="outline" size="sm" asChild className="gap-2 rounded-xl">
+            <Link href="/packs">
+              {t('عرض الكل', 'Voir tout')}
+              <ChevronLeft className="h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+
         <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6">
           {packs.map((pack) => {
             const category = getGradeCategory(pack.gradeLevel as any);

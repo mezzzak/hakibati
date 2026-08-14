@@ -80,7 +80,7 @@ export function Testimonials() {
       if (el.scrollLeft >= maxScroll - 2) {
         el.scrollTo({ left: 0, behavior: 'smooth' });
       } else {
-        el.scrollBy({ left: el.clientWidth * 0.75, behavior: 'smooth' });
+        el.scrollBy({ left: 316, behavior: 'smooth' });
       }
     }, 4000);
     return () => {
@@ -109,7 +109,7 @@ export function Testimonials() {
         ) : (
           <>
             {/* Mobile: horizontal carousel */}
-            <div ref={scrollRef} className="sm:hidden flex overflow-x-auto gap-4 pb-4 scrollbar-hide snap-x snap-mandatory -mx-4 px-4">
+            <div ref={scrollRef} className="sm:hidden flex overflow-x-auto gap-4 pb-4 scrollbar-hide snap-x snap-mandatory scroll-smooth -mx-4 px-4">
               {displayItems.map((item, idx) => (
                 <div
                   key={idx}
