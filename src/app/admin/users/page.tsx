@@ -37,7 +37,7 @@ const ROLE_LABELS: Record<string, { ar: string; fr: string }> = {
 };
 
 export default function AdminUsersPage() {
-  const { t } = useLanguage();
+  const { t, isAr } = useLanguage();
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
