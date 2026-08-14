@@ -81,30 +81,59 @@ export function Testimonials() {
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
-            {displayItems.map((item, idx) => (
-              <div
-                key={idx}
-                className="relative flex flex-col rounded-2xl border bg-background p-6 shadow-card transition-all duration-300 ease-out-expo hover:shadow-card-hover"
-              >
-                <Quote className="h-8 w-8 text-primary/20 mb-3" />
-                <p className="flex-1 text-foreground leading-relaxed mb-4">
-                  {t(item.textAr, item.textFr)}
-                </p>
-                <div className="flex items-center gap-1 mb-3">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-4 w-4 ${i < item.rating ? 'fill-amber-400 text-amber-400' : 'text-muted-foreground/30'}`}
-                    />
-                  ))}
+          <>
+            {/* Mobile: horizontal carousel */}
+            <div className="sm:hidden flex overflow-x-auto gap-4 pb-4 scrollbar-hide snap-x snap-mandatory -mx-4 px-4">
+              {displayItems.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="snap-start shrink-0 w-[300px] flex flex-col rounded-2xl border bg-background p-5 shadow-card"
+                >
+                  <Quote className="h-6 w-6 text-primary/20 mb-2" />
+                  <p className="flex-1 text-sm text-foreground leading-relaxed mb-3">
+                    {t(item.textAr, item.textFr)}
+                  </p>
+                  <div className="flex items-center gap-1 mb-2">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-3.5 w-3.5 ${i < item.rating ? 'fill-amber-400 text-amber-400' : 'text-muted-foreground/30'}`}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-xs font-semibold text-muted-foreground">
+                    {t(item.nameAr, item.nameFr)}
+                  </p>
                 </div>
-                <p className="text-sm font-semibold text-muted-foreground">
-                  {t(item.nameAr, item.nameFr)}
-                </p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+
+            {/* Desktop: grid */}
+            <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {displayItems.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="relative flex flex-col rounded-2xl border bg-background p-6 shadow-card transition-all hover:shadow-card-hover"
+                >
+                  <Quote className="h-8 w-8 text-primary/20 mb-3" />
+                  <p className="flex-1 text-foreground leading-relaxed mb-4">
+                    {t(item.textAr, item.textFr)}
+                  </p>
+                  <div className="flex items-center gap-1 mb-3">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-4 w-4 ${i < item.rating ? 'fill-amber-400 text-amber-400' : 'text-muted-foreground/30'}`}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-sm font-semibold text-muted-foreground">
+                    {t(item.nameAr, item.nameFr)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </section>
