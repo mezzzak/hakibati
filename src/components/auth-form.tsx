@@ -14,7 +14,7 @@ type AuthMode = 'login' | 'register';
 
 export function AuthForm() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, isAr } = useLanguage();
   const [mode, setMode] = useState<AuthMode>('login');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -191,7 +191,7 @@ export function AuthForm() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+              className={`absolute ${isAr ? 'left-3' : 'right-3'} top-1/2 -translate-y-1/2 text-muted-foreground`}
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
