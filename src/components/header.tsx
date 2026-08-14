@@ -57,23 +57,6 @@ export function Header() {
             </span>
           </Link>
 
-          {/* Trust Badges - desktop only */}
-          <div className="hidden lg:flex items-center gap-3">
-            <div className="flex items-center gap-1.5">
-              <MapPin className="h-4 w-4 text-primary" />
-              <Badge variant="success" className="text-xs font-medium">
-                {t('التوصيل لـ 58 ولاية', 'Livraison vers 58 wilayas')}
-              </Badge>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Phone className="h-4 w-4 text-primary" />
-              <Badge variant="outline" className="text-xs font-medium border-primary/30 inline-flex items-center gap-1">
-                <span>{t('مركز الاتصال:', 'Centre d\'appel:')}</span>
-                <span dir="ltr">0663 14 17 88</span>
-              </Badge>
-            </div>
-          </div>
-
           {/* Actions */}
           <div className="flex items-center gap-2">
             {/* Language Toggle */}
