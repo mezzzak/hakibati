@@ -3,9 +3,35 @@
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/components/language-provider';
 import { ArrowDown, Package, Truck, ShieldCheck, Clock, BookOpen, Pencil, Ruler, Backpack } from 'lucide-react';
+import { useRef, useEffect } from 'react';
 
 export function HeroSection() {
   const { t } = useLanguage();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    let paused = false;
+    const handlePointer = () => { paused = true; };
+    const handleLeave = () => { paused = false; };
+    el.addEventListener('pointerdown', handlePointer);
+    el.addEventListener('pointerup', handleLeave);
+    const interval = setInterval(() => {
+      if (paused) return;
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (el.scrollLeft >= maxScroll - 2) {
+        el.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        el.scrollBy({ left: el.clientWidth * 0.6, behavior: 'smooth' });
+      }
+    }, 3000);
+    return () => {
+      clearInterval(interval);
+      el.removeEventListener('pointerdown', handlePointer);
+      el.removeEventListener('pointerup', handleLeave);
+    };
+  }, []);
 
   const scrollToGrades = () => {
     document.getElementById('grade-selector')?.scrollIntoView({ behavior: 'smooth' });
@@ -66,7 +92,7 @@ export function HeroSection() {
           </div>
 
           {/* Trust indicators — horizontal scroll on mobile */}
-          <div className="mt-8 sm:mt-16 flex overflow-x-auto gap-3 pb-2 scrollbar-hide sm:grid sm:grid-cols-3 sm:gap-5 sm:pb-0">
+          <div ref={scrollRef} className="mt-8 sm:mt-16 flex overflow-x-auto gap-3 pb-2 scrollbar-hide sm:grid sm:grid-cols-3 sm:gap-5 sm:pb-0">
             {[
               { icon: Package, title: t('حقائب جاهزة', 'Kits prêts'), desc: t('مختارة بعناية لكل مستوى دراسي', 'Sélectionnés pour chaque niveau') },
               { icon: Truck, title: t('توصيل سريع', 'Livraison rapide'), desc: t('إلى جميع ولايات الجزائر', 'Vers toutes les wilayas d\'Algérie') },

@@ -7,6 +7,7 @@ import { formatDZD } from '@/lib/utils';
 import { getGradeCategory, getGradeLabel, getCategoryLabel } from '@/types';
 import { BookOpen, School, GraduationCap, ChevronLeft, Package } from 'lucide-react';
 import Image from 'next/image';
+import { useRef, useEffect } from 'react';
 
 const categoryIcons: Record<string, typeof BookOpen> = {
   primaire: BookOpen,
@@ -38,6 +39,31 @@ interface FeaturedPack {
 
 export function FeaturedPacks({ packs }: { packs: FeaturedPack[] }) {
   const { t, isAr } = useLanguage();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || packs.length <= 1) return;
+    let paused = false;
+    const handlePointer = () => { paused = true; };
+    const handleLeave = () => { paused = false; };
+    el.addEventListener('pointerdown', handlePointer);
+    el.addEventListener('pointerup', handleLeave);
+    const interval = setInterval(() => {
+      if (paused) return;
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (el.scrollLeft >= maxScroll - 2) {
+        el.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        el.scrollBy({ left: el.clientWidth * 0.75, behavior: 'smooth' });
+      }
+    }, 3500);
+    return () => {
+      clearInterval(interval);
+      el.removeEventListener('pointerdown', handlePointer);
+      el.removeEventListener('pointerup', handleLeave);
+    };
+  }, [packs.length]);
 
   if (packs.length === 0) return null;
 
@@ -62,7 +88,7 @@ export function FeaturedPacks({ packs }: { packs: FeaturedPack[] }) {
         </div>
 
         {/* Mobile: horizontal scroll carousel */}
-        <div className="sm:hidden flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x snap-mandatory -mx-4 px-4">
+        <div ref={scrollRef} className="sm:hidden flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x snap-mandatory -mx-4 px-4">
           {packs.map((pack) => {
             const category = getGradeCategory(pack.gradeLevel as any);
             const catConfig = categoryConfig[category] || categoryConfig.primaire;

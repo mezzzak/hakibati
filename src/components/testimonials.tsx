@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '@/components/language-provider';
 import { Star, Quote, Loader2 } from 'lucide-react';
 import { getApprovedReviews } from '@/lib/review-actions';
@@ -64,6 +64,32 @@ export function Testimonials() {
       }))
     : fallbackTestimonials.map((t) => ({ ...t, rating: 5 }));
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || displayItems.length <= 1) return;
+    let paused = false;
+    const handlePointer = () => { paused = true; };
+    const handleLeave = () => { paused = false; };
+    el.addEventListener('pointerdown', handlePointer);
+    el.addEventListener('pointerup', handleLeave);
+    const interval = setInterval(() => {
+      if (paused) return;
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (el.scrollLeft >= maxScroll - 2) {
+        el.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        el.scrollBy({ left: el.clientWidth * 0.75, behavior: 'smooth' });
+      }
+    }, 4000);
+    return () => {
+      clearInterval(interval);
+      el.removeEventListener('pointerdown', handlePointer);
+      el.removeEventListener('pointerup', handleLeave);
+    };
+  }, [displayItems.length]);
+
   return (
     <section className="py-16 sm:py-24 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -83,7 +109,7 @@ export function Testimonials() {
         ) : (
           <>
             {/* Mobile: horizontal carousel */}
-            <div className="sm:hidden flex overflow-x-auto gap-4 pb-4 scrollbar-hide snap-x snap-mandatory -mx-4 px-4">
+            <div ref={scrollRef} className="sm:hidden flex overflow-x-auto gap-4 pb-4 scrollbar-hide snap-x snap-mandatory -mx-4 px-4">
               {displayItems.map((item, idx) => (
                 <div
                   key={idx}
