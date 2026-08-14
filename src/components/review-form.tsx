@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { createReview } from '@/lib/review-actions';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/components/language-provider';
 import { Star, Send, Loader2 } from 'lucide-react';
 
 interface ReviewFormProps {
@@ -12,6 +13,7 @@ interface ReviewFormProps {
 }
 
 export function ReviewForm({ orderId, userId, onSuccess }: ReviewFormProps) {
+  const { t } = useLanguage();
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -23,11 +25,11 @@ export function ReviewForm({ orderId, userId, onSuccess }: ReviewFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (rating === 0) {
-      setResult({ success: false, message: 'الرجاء اختيار تقييم بالنجوم' });
+      setResult({ success: false, message: t('الرجاء اختيار تقييم بالنجوم', 'Veuillez choisir une note') });
       return;
     }
     if (!comment.trim()) {
-      setResult({ success: false, message: 'الرجاء كتابة تعليق' });
+      setResult({ success: false, message: t('الرجاء كتابة تعليق', 'Veuillez écrire un commentaire') });
       return;
     }
 
@@ -44,22 +46,22 @@ export function ReviewForm({ orderId, userId, onSuccess }: ReviewFormProps) {
     setLoading(false);
 
     if (res.success) {
-      setResult({ success: true, message: 'شكراً! تم إرسال تقييمك وسيتم مراجعته.' });
+      setResult({ success: true, message: t('شكراً! تم إرسال تقييمك وسيتم مراجعته.', 'Merci ! Votre avis a été envoyé et sera examiné.') });
       setRating(0);
       setComment('');
       setAuthorName('');
       setIsAnonymous(false);
       onSuccess?.();
     } else {
-      setResult({ success: false, message: res.error || 'فشل إرسال التقييم' });
+      setResult({ success: false, message: res.error || t('فشل إرسال التقييم', 'Échec de l\'envoi') });
     }
   };
 
   return (
     <div className="rounded-2xl border bg-card p-6 mb-6">
-      <h3 className="text-lg font-bold mb-1">قيّم تجربتك</h3>
+      <h3 className="text-lg font-bold mb-1">{t('قيّم تجربتك', 'Évaluez votre expérience')}</h3>
       <p className="text-sm text-muted-foreground mb-4">
-        شاركنا رأيك لنساعد الآخرين في اختيار حقيبتهم
+        {t('شاركنا رأيك لنساعد الآخرين في اختيار حقيبتهم', 'Partagez votre avis pour aider les autres')}
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -90,24 +92,24 @@ export function ReviewForm({ orderId, userId, onSuccess }: ReviewFormProps) {
 
         {/* Comment */}
         <div>
-          <label className="text-sm font-medium mb-1 block">تعليقك *</label>
+          <label className="text-sm font-medium mb-1 block">{t('تعليقك', 'Votre commentaire')} *</label>
           <textarea
             rows={3}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            placeholder="كيف كانت تجربتك مع حقيبتي؟"
+            placeholder={t('كيف كانت تجربتك مع حقيبتي؟', 'Comment était votre expérience avec Hakibati ?')}
             className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
           />
         </div>
 
         {/* Author Name */}
         <div>
-          <label className="text-sm font-medium mb-1 block">الاسم (اختياري)</label>
+          <label className="text-sm font-medium mb-1 block">{t('الاسم (اختياري)', 'Nom (optionnel)')}</label>
           <input
             type="text"
             value={authorName}
             onChange={(e) => setAuthorName(e.target.value)}
-            placeholder="اسمك كما سيظهر في التقييم"
+            placeholder={t('اسمك كما سيظهر في التقييم', 'Votre nom tel qu\'il apparaîtra')}
             disabled={isAnonymous}
             className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:bg-muted disabled:text-muted-foreground"
           />
@@ -121,7 +123,7 @@ export function ReviewForm({ orderId, userId, onSuccess }: ReviewFormProps) {
             onChange={(e) => setIsAnonymous(e.target.checked)}
             className="h-4 w-4 rounded border-muted"
           />
-          <span>النشر كمجهول</span>
+          <span>{t('النشر كمجهول', 'Publier anonymement')}</span>
         </label>
 
         {/* Result message */}
@@ -133,7 +135,7 @@ export function ReviewForm({ orderId, userId, onSuccess }: ReviewFormProps) {
 
         <Button type="submit" disabled={loading} className="gap-2">
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-          إرسال التقييم
+          {t('إرسال التقييم', 'Envoyer')}
         </Button>
       </form>
     </div>

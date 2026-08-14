@@ -45,14 +45,18 @@ export class ErrorBoundary extends Component<Props, State> {
 }
 
 function ErrorFallback({ error, onReset }: { error?: Error; onReset: () => void }) {
+  // Simple language detection without hooks (ErrorFallback is used inside class component)
+  const isFr = typeof document !== 'undefined' && document.documentElement.lang === 'fr';
+  const t = (ar: string, fr: string) => (isFr ? fr : ar);
+
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10 mb-4">
         <AlertTriangle className="h-8 w-8 text-destructive" />
       </div>
-      <h2 className="text-xl font-bold text-foreground">عذراً، حدث خطأ غير متوقع</h2>
+      <h2 className="text-xl font-bold text-foreground">{t('عذراً، حدث خطأ غير متوقع', 'Oups, une erreur inattendue s\'est produite')}</h2>
       <p className="mt-2 text-sm text-muted-foreground max-w-sm">
-        نعتذر عن الإزعاج. يمكنك إعادة تحميل الصفحة أو العودة للرئيسية.
+        {t('نعتذر عن الإزعاج. يمكنك إعادة تحميل الصفحة أو العودة للرئيسية.', 'Nous nous excusons pour le désagrément. Vous pouvez réessayer ou retourner à l\'accueil.')}
       </p>
       {error?.message && (
         <code className="mt-4 block rounded-lg bg-muted px-3 py-2 text-xs text-muted-foreground max-w-sm break-all">
@@ -62,10 +66,10 @@ function ErrorFallback({ error, onReset }: { error?: Error; onReset: () => void 
       <div className="mt-6 flex gap-3">
         <Button onClick={onReset} variant="outline" className="gap-2">
           <RefreshCcw className="h-4 w-4" />
-          إعادة المحاولة
+          {t('إعادة المحاولة', 'Réessayer')}
         </Button>
         <Button asChild>
-          <a href="/">العودة للرئيسية</a>
+          <a href="/">{t('العودة للرئيسية', 'Retour à l\'accueil')}</a>
         </Button>
       </div>
     </div>
