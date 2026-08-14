@@ -13,7 +13,7 @@ const METHODS = [
 ];
 
 export default function AdminShippingPage() {
-  const { t } = useLanguage();
+  const { t, isAr } = useLanguage();
   const [rates, setRates] = useState<Map<string, any>>(new Map());
   const [edits, setEdits] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
@@ -280,7 +280,7 @@ export default function AdminShippingPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-muted/50">
-                  <th className="px-4 py-3 text-right font-medium sticky right-0 bg-muted/50">{t('الولاية', 'Wilaya')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium sticky right-0 bg-muted/50`}>{t('الولاية', 'Wilaya')}</th>
                   {METHODS.map((m) => (
                     <th key={m.key} className="px-4 py-3 text-center font-medium">
                       <div className="flex items-center justify-center gap-1.5">

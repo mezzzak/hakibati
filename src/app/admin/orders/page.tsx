@@ -138,14 +138,14 @@ export default function AdminOrdersPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-muted/50">
-                  <th className="px-4 py-3 text-right font-medium">{t('الرقم', 'N°')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('العميل', 'Client')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('الهاتف', 'Téléphone')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('الولاية', 'Wilaya')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('الحالة', 'Statut')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('المبلغ', 'Montant')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('التاريخ', 'Date')}</th>
-                  <th className="px-4 py-3 text-right font-medium"></th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الرقم', 'N°')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('العميل', 'Client')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الهاتف', 'Téléphone')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الولاية', 'Wilaya')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الحالة', 'Statut')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('المبلغ', 'Montant')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('التاريخ', 'Date')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}></th>
                 </tr>
               </thead>
               <tbody>

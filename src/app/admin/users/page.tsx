@@ -162,12 +162,12 @@ export default function AdminUsersPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-muted/50">
-                  <th className="px-4 py-3 text-right font-medium">{t('الاسم', 'Nom')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('الهاتف', 'Téléphone')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('الدور', 'Rôle')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('الولاية', 'Wilaya')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('تاريخ التسجيل', 'Date d\'inscription')}</th>
-                  <th className="px-4 py-3 text-right font-medium"></th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الاسم', 'Nom')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الهاتف', 'Téléphone')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الدور', 'Rôle')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الولاية', 'Wilaya')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('تاريخ التسجيل', 'Date d\'inscription')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}></th>
                 </tr>
               </thead>
               <tbody>

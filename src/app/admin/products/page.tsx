@@ -210,12 +210,12 @@ export default function AdminProductsPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-muted/50">
-                  <th className="px-4 py-3 text-right font-medium">{t('المنتج', 'Produit')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('الفئة', 'Catégorie')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('السعر', 'Prix')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('المخزون', 'Stock')}</th>
-                  <th className="px-4 py-3 text-right font-medium">{t('الحالة', 'Statut')}</th>
-                  <th className="px-4 py-3 text-right font-medium"></th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('المنتج', 'Produit')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الفئة', 'Catégorie')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('السعر', 'Prix')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('المخزون', 'Stock')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الحالة', 'Statut')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}></th>
                 </tr>
               </thead>
               <tbody>
