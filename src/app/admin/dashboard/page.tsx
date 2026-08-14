@@ -214,7 +214,7 @@ export default function AdminDashboardPage() {
       {/* Admin Analytics */}
       {isAdmin && analytics && (
         <>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <MetricCard
               title={t('إجمالي الإيرادات', 'Revenus totaux')}
               value={formatDZD(analytics.totalRevenue, isAr ? 'ar-DZ' : 'fr-DZ')}
