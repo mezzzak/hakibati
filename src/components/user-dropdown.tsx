@@ -88,7 +88,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
 
           {isStaff(user.role) ? (
             <Link
-              href="/admin/orders"
+              href={user.role === 'ADMIN' || user.role === 'MASTER_ADMIN' ? '/admin/dashboard' : '/admin/orders'}
               onClick={() => setOpen(false)}
               className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
