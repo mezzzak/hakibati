@@ -181,13 +181,14 @@ export default function AdminUsersPage() {
                     </td>
                     <td className="px-4 py-3 font-mono">{user.phone}</td>
                     <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         {getRoleBadge(user.role)}
                         {user.role !== 'MASTER_ADMIN' && (
                           <select
                             value={user.role}
                             onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                            className="rounded border border-input bg-background px-2 py-1 text-xs outline-none"
+                            className="h-7 w-auto rounded border border-input bg-background px-1.5 text-[11px] outline-none"
+                            title={t('تغيير الدور', 'Changer le rôle')}
                           >
                             {ROLE_OPTIONS.filter((r) => r.value !== 'MASTER_ADMIN').map((r) => (
                               <option key={r.value} value={r.value}>{t(r.labelAr, r.labelFr)}</option>
@@ -197,8 +198,8 @@ export default function AdminUsersPage() {
                       </div>
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">{user.wilaya}</td>
-                    <td className="px-4 py-3 text-muted-foreground">
-                      {new Date(user.createdAt).toLocaleDateString('ar-DZ')}
+                    <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
+                      {new Date(user.createdAt).toLocaleDateString(isAr ? 'ar-DZ' : 'fr-FR')}
                     </td>
                     <td className="px-4 py-3">
                       {user.role !== 'MASTER_ADMIN' && (
