@@ -59,7 +59,7 @@ const gradeLevels = [
 ];
 
 export default function AdminPacksPage() {
-  const { t } = useLanguage();
+  const { t, isAr } = useLanguage();
   const [packs, setPacks] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -277,7 +277,7 @@ export default function AdminPacksPage() {
               </Badge>
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">{pack.items.length} {t('عنصر', 'élément')}{pack.items.length !== 1 ? 's' : ''}</span>
-                <span className="font-bold text-primary">{formatDZD(pack.basePriceDZD)}</span>
+                <span className="font-bold text-primary">{formatDZD(pack.basePriceDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</span>
               </div>
               {pack.discountPercent > 0 && (
                 <span className="inline-block rounded-full bg-destructive/10 px-2.5 py-0.5 text-xs font-bold text-destructive">
@@ -431,7 +431,7 @@ export default function AdminPacksPage() {
             >
               <option value="">+ {t('إضافة منتج من الكتالوج', 'Ajouter un produit du catalogue')}</option>
               {products.map((p) => (
-                <option key={p.id} value={p.id}>{p.nameAr} — {formatDZD(p.unitPriceDZD)}</option>
+                <option key={p.id} value={p.id}>{p.nameAr} — {formatDZD(p.unitPriceDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</option>
               ))}
             </select>
           </div>

@@ -102,7 +102,7 @@ const ROLE_ACTIONS: Record<string, { canConfirm: boolean; canDispatch: boolean; 
 };
 
 export function AdminOrderDrawer({ order, open, onOpenChange, onStatusUpdate, userRole = 'ADMIN' }: AdminOrderDrawerProps) {
-  const { t } = useLanguage();
+  const { t, isAr } = useLanguage();
   const [loading, setLoading] = useState(false);
   const [internalNote, setInternalNote] = useState('');
   const [callOutcome, setCallOutcome] = useState('REACHED');
@@ -309,7 +309,7 @@ ${order.items.map((item, idx) => `<tr><td>${idx + 1}</td><td>${item.itemName || 
                       ) : null}
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-sm font-bold">{formatDZD(item.unitPriceDZD)}</p>
+                      <p className="text-sm font-bold">{formatDZD(item.unitPriceDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</p>
                       <p className="text-xs text-muted-foreground">×{item.quantity}</p>
                     </div>
                   </div>
@@ -334,15 +334,15 @@ ${order.items.map((item, idx) => `<tr><td>${idx + 1}</td><td>${item.itemName || 
           <div className="border-t bg-muted/20 px-5 py-4 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">{t('المجموع الفرعي', 'Sous-total')}</span>
-              <span className="font-semibold">{formatDZD(order.subtotalDZD)}</span>
+              <span className="font-semibold">{formatDZD(order.subtotalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">{t('التوصيل', 'Livraison')} ({order.shippingMethod === 'HOME_DELIVERY' ? t('للمنزل', 'À domicile') : order.shippingMethod === 'STOP_DESK' ? t('نقطة استلام', 'Point de retrait') : order.shippingMethod})</span>
-              <span className="font-semibold">{formatDZD(order.shippingCostDZD)}</span>
+              <span className="font-semibold">{formatDZD(order.shippingCostDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</span>
             </div>
             <div className="flex justify-between pt-2 border-t">
               <span className="font-bold">{t('المبلغ المستحق عند الاستلام', 'Montant à payer à la livraison')}</span>
-              <span className="text-lg font-extrabold text-primary">{formatDZD(order.totalDZD)}</span>
+              <span className="text-lg font-extrabold text-primary">{formatDZD(order.totalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</span>
             </div>
           </div>
         </div>

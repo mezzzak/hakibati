@@ -168,7 +168,7 @@ export default function AdminOrdersPage() {
                           {tabs.find((t) => t.key === order.status)?.label || order.status}
                         </Badge>
                       </td>
-                      <td className="px-4 py-3 font-bold text-primary">{formatDZD(order.totalDZD)}</td>
+                      <td className="px-4 py-3 font-bold text-primary">{formatDZD(order.totalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</td>
                       <td className="px-4 py-3 text-muted-foreground">{formatDate(order.createdAt)}</td>
                       <td className="px-4 py-3">
                         <button className="rounded-lg p-1.5 hover:bg-muted transition-colors">

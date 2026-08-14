@@ -27,7 +27,7 @@ const STAFF_ROLES = ['ADMIN', 'MASTER_ADMIN', 'ORDER_CONFIRMATION_AGENT', 'PREP_
 export default function AdminDashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, isAr } = useLanguage();
 
   const [analytics, setAnalytics] = useState<any>(null);
   const [notifs, setNotifs] = useState<any>(null);
@@ -217,7 +217,7 @@ export default function AdminDashboardPage() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <MetricCard
               title={t('إجمالي الإيرادات', 'Revenus totaux')}
-              value={formatDZD(analytics.totalRevenue)}
+              value={formatDZD(analytics.totalRevenue, isAr ? 'ar-DZ' : 'fr-DZ')}
               icon={<TrendingUp className="h-5 w-5" />}
               color="bg-primary"
             />

@@ -41,7 +41,7 @@ const emptyForm: ProductFormData = {
 const categories = ['cahiers', 'stylos', 'geometrie', 'arts', 'cartables', 'accessoires', 'electronique'];
 
 export default function AdminProductsPage() {
-  const { t } = useLanguage();
+  const { t, isAr } = useLanguage();
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -235,7 +235,7 @@ export default function AdminProductsPage() {
                     <td className="px-4 py-3">
                       <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs">{product.category}</span>
                     </td>
-                    <td className="px-4 py-3 font-bold text-primary">{formatDZD(product.unitPriceDZD)}</td>
+                    <td className="px-4 py-3 font-bold text-primary">{formatDZD(product.unitPriceDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</td>
                     <td className="px-4 py-3">{product.stockQuantity}</td>
                     <td className="px-4 py-3">
                       <span className={`rounded-full px-2.5 py-0.5 text-xs ${product.isActive ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}`}>
