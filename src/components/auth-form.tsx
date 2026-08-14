@@ -49,7 +49,10 @@ export function AuthForm() {
       await new Promise((resolve) => setTimeout(resolve, 300));
       const session = await getSession();
       const staffRoles = ['ADMIN', 'MASTER_ADMIN', 'ORDER_CONFIRMATION_AGENT', 'PREP_AGENT', 'SHIPPING_AGENT'];
-      if (staffRoles.includes(session?.user?.role as string)) {
+      const adminRoles = ['ADMIN', 'MASTER_ADMIN'];
+      if (adminRoles.includes(session?.user?.role as string)) {
+        window.location.href = '/admin/dashboard';
+      } else if (staffRoles.includes(session?.user?.role as string)) {
         window.location.href = '/admin/orders';
       } else {
         window.location.href = '/account/orders';
