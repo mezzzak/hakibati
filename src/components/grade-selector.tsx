@@ -102,62 +102,73 @@ export function GradeSelector() {
           </p>
         </div>
 
-        {/* Mobile: horizontal scroll all grades */}
+        {/* Mobile: all categories visible in 2-col grid */}
         <div className="sm:hidden">
-          <div className="flex overflow-x-auto gap-2.5 pb-3 scrollbar-hide snap-x snap-mandatory">
-            {/* Category pills */}
-            {categories.map((cat) => {
-              const Icon = cat.icon;
-              return (
-                <button
-                  key={cat.category}
-                  onClick={() => setSelectedCategory(selectedCategory === cat.category ? null : cat.category)}
-                  className={cn(
-                    'snap-start shrink-0 flex items-center gap-2 rounded-full border-2 px-4 py-2.5 transition-all',
-                    selectedCategory === cat.category
-                      ? `${cat.borderColor} ${cat.iconBg} ${cat.iconColor} font-semibold`
-                      : 'border-border bg-background text-foreground'
-                  )}
-                >
-                  <Icon className="h-4 w-4" />
-                  <span className="text-sm font-medium whitespace-nowrap">
-                    {getCategoryLabel(cat.category, isAr ? 'ar' : 'fr')}
-                  </span>
-                </button>
-              );
-            })}
-            <button
-              onClick={goCustom}
-              className="snap-start shrink-0 flex items-center gap-2 rounded-full border-2 border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600"
-            >
-              <Palette className="h-4 w-4" />
-              <span className="whitespace-nowrap">{t('مخصص', 'Personnalisé')}</span>
-            </button>
-          </div>
-
-          {/* Mobile: show years for selected category */}
-          {selectedCategory && selectedCategory !== 'custom' && (
-            <div className="flex overflow-x-auto gap-2.5 pb-3 scrollbar-hide snap-x snap-mandatory mt-2">
-              {yearsByCategory[selectedCategory].map((level) => {
-                const config = yearConfig[level];
+          {!selectedCategory ? (
+            <div className="grid grid-cols-2 gap-3">
+              {categories.map((cat) => {
+                const Icon = cat.icon;
                 return (
                   <button
-                    key={level}
-                    onClick={() => selectYear(level)}
-                    className={cn(
-                      'snap-start shrink-0 flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 min-w-[100px] transition-all active:scale-95',
-                      config.borderColor,
-                      'bg-gradient-to-br',
-                      config.color
-                    )}
+                    key={cat.category}
+                    onClick={() => setSelectedCategory(cat.category)}
+                    className={`flex flex-col items-center gap-2 rounded-2xl border-2 ${cat.borderColor} bg-gradient-to-br ${cat.color} p-4 text-center transition-all active:scale-95`}
                   >
-                    <div className={cn('flex h-9 w-9 items-center justify-center rounded-lg', config.iconBg, config.iconColor)}>
-                      <Layers className="h-4 w-4" />
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${cat.iconBg} ${cat.iconColor}`}>
+                      <Icon className="h-6 w-6" />
                     </div>
-                    <span className="text-sm font-bold">{getGradeLabel(level, isAr ? 'ar' : 'fr')}</span>
+                    <span className="text-sm font-bold">{getCategoryLabel(cat.category, isAr ? 'ar' : 'fr')}</span>
+                    <span className="text-[10px] text-muted-foreground">{cat.count} {t('مستويات', 'niveaux')}</span>
                   </button>
                 );
               })}
+              <button
+                onClick={goCustom}
+                className="flex flex-col items-center gap-2 rounded-2xl border-2 border-slate-200 bg-gradient-to-br from-slate-50 to-gray-50 p-4 text-center transition-all active:scale-95"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
+                  <Palette className="h-6 w-6" />
+                </div>
+                <span className="text-sm font-bold">{t('مخصص', 'Personnalisé')}</span>
+                <span className="text-[10px] text-muted-foreground">{t('بناء يدوي', 'Manuel')}</span>
+              </button>
+            </div>
+          ) : selectedCategory === 'custom' ? (
+            <div />
+          ) : (
+            <div>
+              <button
+                onClick={() => setSelectedCategory(null)}
+                className="mb-3 flex items-center gap-1 text-sm font-medium text-primary"
+              >
+                <ChevronRight className="h-4 w-4" />
+                {t('رجوع', 'Retour')}
+              </button>
+              <div className="text-center mb-3">
+                <h3 className="text-lg font-bold">{getCategoryLabel(selectedCategory, isAr ? 'ar' : 'fr')}</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                {yearsByCategory[selectedCategory].map((level) => {
+                  const config = yearConfig[level];
+                  return (
+                    <button
+                      key={level}
+                      onClick={() => selectYear(level)}
+                      className={cn(
+                        'flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-all active:scale-95',
+                        config.borderColor,
+                        'bg-gradient-to-br',
+                        config.color
+                      )}
+                    >
+                      <div className={cn('flex h-10 w-10 items-center justify-center rounded-lg', config.iconBg, config.iconColor)}>
+                        <Layers className="h-5 w-5" />
+                      </div>
+                      <span className="text-sm font-bold">{getGradeLabel(level, isAr ? 'ar' : 'fr')}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>
