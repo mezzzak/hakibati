@@ -135,104 +135,101 @@ export default function AdminOrdersPage() {
         ) : orders.length === 0 ? (
           <div className="text-center py-16 text-muted-foreground">{t('لا توجد طلبات', 'Aucune commande')}</div>
         ) : (
-          {/* Desktop table */}
-          <div className="hidden sm:block overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b bg-muted/50">
-                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الرقم', 'N°')}</th>
-                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('العميل', 'Client')}</th>
-                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الهاتف', 'Téléphone')}</th>
-                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الولاية', 'Wilaya')}</th>
-                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الحالة', 'Statut')}</th>
-                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('المبلغ', 'Montant')}</th>
-                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('التاريخ', 'Date')}</th>
-                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}></th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order) => {
-                  const cfg = statusConfig[order.status] || statusConfig.PENDING_CONFIRMATION;
-                  const StatusIcon = cfg.icon;
-                  return (
-                    <tr
-                      key={order.id}
-                      className="border-b last:border-0 hover:bg-muted/30 transition-colors cursor-pointer"
-                      onClick={() => openOrder(order)}
-                    >
-                      <td className="px-4 py-3 font-mono font-bold">{order.orderNumber}</td>
-                      <td className="px-4 py-3">{order.customerName}</td>
-                      <td className="px-4 py-3">{displayPhone(order.customerPhone)}</td>
-                      <td className="px-4 py-3">{order.wilaya}</td>
-                      <td className="px-4 py-3">
-                        <Badge className={cfg.color}>
-                          <StatusIcon className="h-3 w-3 mr-1" />
+          <>
+            <div className="hidden sm:block overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b bg-muted/50">
+                    <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الرقم', 'N°')}</th>
+                    <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('العميل', 'Client')}</th>
+                    <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الهاتف', 'Téléphone')}</th>
+                    <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الولاية', 'Wilaya')}</th>
+                    <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الحالة', 'Statut')}</th>
+                    <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('المبلغ', 'Montant')}</th>
+                    <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('التاريخ', 'Date')}</th>
+                    <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order) => {
+                    const cfg = statusConfig[order.status] || statusConfig.PENDING_CONFIRMATION;
+                    const StatusIcon = cfg.icon;
+                    return (
+                      <tr
+                        key={order.id}
+                        className="border-b last:border-0 hover:bg-muted/30 transition-colors cursor-pointer"
+                        onClick={() => openOrder(order)}
+                      >
+                        <td className="px-4 py-3 font-mono font-bold">{order.orderNumber}</td>
+                        <td className="px-4 py-3">{order.customerName}</td>
+                        <td className="px-4 py-3">{displayPhone(order.customerPhone)}</td>
+                        <td className="px-4 py-3">{order.wilaya}</td>
+                        <td className="px-4 py-3">
+                          <Badge className={cfg.color}>
+                            <StatusIcon className="h-3 w-3 mr-1" />
+                            {tabs.find((t) => t.key === order.status)?.label || order.status}
+                          </Badge>
+                        </td>
+                        <td className="px-4 py-3 font-bold text-primary">{formatDZD(order.totalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</td>
+                        <td className="px-4 py-3 text-muted-foreground">{formatDate(order.createdAt)}</td>
+                        <td className="px-4 py-3">
+                          <button className="rounded-lg p-1.5 hover:bg-muted transition-colors">
+                            <Eye className="h-4 w-4 text-muted-foreground" />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="sm:hidden space-y-3 p-3">
+              {orders.map((order) => {
+                const cfg = statusConfig[order.status] || statusConfig.PENDING_CONFIRMATION;
+                const StatusIcon = cfg.icon;
+                return (
+                  <div
+                    key={order.id}
+                    className="rounded-xl border bg-card p-4 shadow-sm active:bg-muted/40 transition-colors"
+                    onClick={() => openOrder(order)}
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="font-mono font-bold text-sm shrink-0">{order.orderNumber}</span>
+                        <Badge className={`${cfg.color} text-[10px] px-1.5 py-0.5 shrink-0`}>
+                          <StatusIcon className="h-2.5 w-2.5 mr-0.5" />
                           {tabs.find((t) => t.key === order.status)?.label || order.status}
                         </Badge>
-                      </td>
-                      <td className="px-4 py-3 font-bold text-primary">{formatDZD(order.totalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{formatDate(order.createdAt)}</td>
-                      <td className="px-4 py-3">
-                        <button className="rounded-lg p-1.5 hover:bg-muted transition-colors">
-                          <Eye className="h-4 w-4 text-muted-foreground" />
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Mobile cards */}
-          <div className="sm:hidden space-y-3 p-3">
-            {orders.map((order) => {
-              const cfg = statusConfig[order.status] || statusConfig.PENDING_CONFIRMATION;
-              const StatusIcon = cfg.icon;
-              return (
-                <div
-                  key={order.id}
-                  className="rounded-xl border bg-card p-4 shadow-sm active:bg-muted/40 transition-colors"
-                  onClick={() => openOrder(order)}
-                >
-                  {/* Top row: order number + status + amount */}
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className="font-mono font-bold text-sm shrink-0">{order.orderNumber}</span>
-                      <Badge className={`${cfg.color} text-[10px] px-1.5 py-0.5 shrink-0`}>
-                        <StatusIcon className="h-2.5 w-2.5 mr-0.5" />
-                        {tabs.find((t) => t.key === order.status)?.label || order.status}
-                      </Badge>
+                      </div>
+                      <span className="font-bold text-primary text-sm shrink-0">
+                        {formatDZD(order.totalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}
+                      </span>
                     </div>
-                    <span className="font-bold text-primary text-sm shrink-0">
-                      {formatDZD(order.totalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}
-                    </span>
-                  </div>
 
-                  {/* Customer info */}
-                  <p className="font-semibold text-sm text-foreground truncate">{order.customerName}</p>
-                  <div className="flex items-center gap-3 mt-1.5 text-xs text-muted-foreground">
-                    <span>{displayPhone(order.customerPhone)}</span>
-                    <span>·</span>
-                    <span>{order.wilaya}</span>
-                  </div>
+                    <p className="font-semibold text-sm text-foreground truncate">{order.customerName}</p>
+                    <div className="flex items-center gap-3 mt-1.5 text-xs text-muted-foreground">
+                      <span>{displayPhone(order.customerPhone)}</span>
+                      <span>·</span>
+                      <span>{order.wilaya}</span>
+                    </div>
 
-                  {/* Bottom actions */}
-                  <div className="flex items-center justify-between mt-3 pt-3 border-t">
-                    <span className="text-xs text-muted-foreground">{formatDate(order.createdAt)}</span>
-                    <a
-                      href={`tel:${order.customerPhone}`}
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground active:opacity-80 transition-opacity"
-                    >
-                      <Phone className="h-3 w-3" />
-                      {t('اتصال', 'Appeler')}
-                    </a>
+                    <div className="flex items-center justify-between mt-3 pt-3 border-t">
+                      <span className="text-xs text-muted-foreground">{formatDate(order.createdAt)}</span>
+                      <a
+                        href={`tel:${order.customerPhone}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground active:opacity-80 transition-opacity"
+                      >
+                        <Phone className="h-3 w-3" />
+                        {t('اتصال', 'Appeler')}
+                      </a>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
 
