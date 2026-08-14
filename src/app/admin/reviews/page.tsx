@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useLanguage } from '@/components/language-provider';
 import { getAllReviews, approveReview, declineReview } from '@/lib/review-actions';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +10,7 @@ import { Star, CheckCircle2, XCircle, MessageSquare, Loader2, RefreshCw } from '
 type ReviewStatus = 'all' | 'pending' | 'approved';
 
 export default function AdminReviewsPage() {
+  const { t } = useLanguage();
   const [reviews, setReviews] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState<ReviewStatus>('all');
@@ -54,7 +56,7 @@ export default function AdminReviewsPage() {
   };
 
   const handleDecline = async (id: string) => {
-    if (!confirm('هل أنت متأكد من رفض/حذف هذا التقييم؟')) return;
+    if (!confirm(t('هل أنت متأكد من رفض/حذف هذا التقييم؟', 'Êtes-vous sûr de vouloir refuser/supprimer cet avis ?'))) return;
     setProcessing((prev) => ({ ...prev, [id]: true }));
     await declineReview(id);
     setProcessing((prev) => ({ ...prev, [id]: false }));
@@ -68,16 +70,16 @@ export default function AdminReviewsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">التقييمات</h1>
-          <p className="text-muted-foreground text-sm">مراجعة وإدارة تقييمات العملاء</p>
+          <h1 className="text-2xl font-bold">{t('التقييمات', 'Avis')}</h1>
+          <p className="text-muted-foreground text-sm">{t('مراجعة وإدارة تقييمات العملاء', 'Examiner et gérer les avis clients')}</p>
         </div>
         <button
           onClick={() => fetchReviews(false)}
           className="flex items-center gap-2 rounded-lg border px-3 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors"
-          title="تحديث القائمة"
+          title={t('تحديث القائمة', 'Mettre à jour la liste')}
         >
           <RefreshCw className="h-4 w-4" />
-          تحديث
+          {t('تحديث', 'Actualiser')}
         </button>
       </div>
 
@@ -87,19 +89,19 @@ export default function AdminReviewsPage() {
           onClick={() => setStatus('all')}
           className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${status === 'all' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:bg-muted/80'}`}
         >
-          الكل ({reviews.length})
+          {t('الكل', 'Tout')} ({reviews.length})
         </button>
         <button
           onClick={() => setStatus('pending')}
           className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${status === 'pending' ? 'bg-amber-500 text-white' : 'bg-muted text-muted-foreground hover:bg-muted/80'}`}
         >
-          بانتظار المراجعة ({pendingCount})
+          {t('بانتظار المراجعة', 'En attente')} ({pendingCount})
         </button>
         <button
           onClick={() => setStatus('approved')}
           className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${status === 'approved' ? 'bg-emerald-500 text-white' : 'bg-muted text-muted-foreground hover:bg-muted/80'}`}
         >
-          معتمد ({approvedCount})
+          {t('معتمد', 'Approuvé')} ({approvedCount})
         </button>
       </div>
 
@@ -110,7 +112,7 @@ export default function AdminReviewsPage() {
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
         ) : reviews.length === 0 ? (
-          <div className="text-center py-16 text-muted-foreground">لا توجد تقييمات</div>
+          <div className="text-center py-16 text-muted-foreground">{t('لا توجد تقييمات', 'Aucun avis')}</div>
         ) : (
           <div className="divide-y">
             {reviews.map((review) => (
@@ -127,7 +129,7 @@ export default function AdminReviewsPage() {
                         ))}
                       </div>
                       <Badge variant={review.isApproved ? 'default' : 'secondary'}>
-                        {review.isApproved ? 'معتمد' : 'بانتظار المراجعة'}
+                        {review.isApproved ? t('معتمد', 'Approuvé') : t('بانتظار المراجعة', 'En attente')}
                       </Badge>
                     </div>
 
@@ -136,13 +138,13 @@ export default function AdminReviewsPage() {
                     <div className="flex items-center gap-4 text-xs text-muted-foreground">
                       <span className="font-medium">
                         {review.isAnonymous
-                          ? 'مجهول'
-                          : review.authorName || review.user?.fullName || 'عميل'}
+                          ? t('مجهول', 'Anonyme')
+                          : review.authorName || review.user?.fullName || t('عميل', 'Client')}
                       </span>
                       {review.order && (
                         <>
                           <span>•</span>
-                          <span>طلب {review.order.orderNumber}</span>
+                          <span>{t('طلب', 'Commande')} {review.order.orderNumber}</span>
                           <span>•</span>
                           <span>{review.order.wilaya}</span>
                         </>
@@ -166,7 +168,7 @@ export default function AdminReviewsPage() {
                         ) : (
                           <CheckCircle2 className="h-3.5 w-3.5" />
                         )}
-                        اعتماد
+                        {t('اعتماد', 'Approuver')}
                       </Button>
                     )}
                     <Button
@@ -181,7 +183,7 @@ export default function AdminReviewsPage() {
                       ) : (
                         <XCircle className="h-3.5 w-3.5" />
                       )}
-                      رفض
+                        {t('رفض', 'Refuser')}
                     </Button>
                   </div>
                 </div>

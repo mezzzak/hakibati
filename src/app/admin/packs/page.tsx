@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useLanguage } from '@/components/language-provider';
 import { getAllPacksAdmin, createPack, updatePack, deletePack, uploadPacksCSV, downloadPacksCSV } from '@/lib/admin-actions';
 import { getAllProducts } from '@/lib/admin-actions';
 import { Button } from '@/components/ui/button';
@@ -54,10 +55,11 @@ const gradeLevels = [
   { value: 'AS1', label: '1AS' },
   { value: 'AS2', label: '2AS' },
   { value: 'AS3', label: '3AS' },
-  { value: 'CUSTOM', label: 'مخصص' },
+  { value: 'CUSTOM', labelAr: 'مخصص', labelFr: 'Personnalisé' },
 ];
 
 export default function AdminPacksPage() {
+  const { t } = useLanguage();
   const [packs, setPacks] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -149,7 +151,7 @@ export default function AdminPacksPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (form.items.length === 0) {
-      alert('يجب إضافة عنصر واحد على الأقل');
+      alert(t('يجب إضافة عنصر واحد على الأقل', 'Vous devez ajouter au moins un élément'));
       return;
     }
     setSaving(true);
@@ -178,7 +180,7 @@ export default function AdminPacksPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('هل أنت متأكد من حذف هذه الحقيبة؟')) return;
+    if (!confirm(t('هل أنت متأكد من حذف هذه الحقيبة؟', 'Êtes-vous sûr de vouloir supprimer ce pack ?'))) return;
     await deletePack(id);
     fetchData();
   };
@@ -224,21 +226,21 @@ export default function AdminPacksPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">الحقائب المدرسية</h1>
-          <p className="text-muted-foreground text-sm">إدارة الحقائب الجاهزة</p>
+          <h1 className="text-2xl font-bold">{t('الحقائب المدرسية', 'Packs scolaires')}</h1>
+          <p className="text-muted-foreground text-sm">{t('إدارة الحقائب الجاهزة', 'Gérer les packs prêts à l\'emploi')}</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={() => { setUploadOpen(true); setCsvText(''); setUploadResult(null); }} className="gap-2">
             <Upload className="h-4 w-4" />
-            رفع CSV
+            {t('رفع CSV', 'Importer CSV')}
           </Button>
           <Button variant="outline" onClick={handleDownload} className="gap-2">
             <Download className="h-4 w-4" />
-            تحميل CSV
+            {t('تحميل CSV', 'Exporter CSV')}
           </Button>
           <Button onClick={openCreate} className="gap-2">
             <Plus className="h-4 w-4" />
-            حقيبة جديدة
+            {t('حقيبة جديدة', 'Nouveau pack')}
           </Button>
         </div>
       </div>
@@ -249,7 +251,7 @@ export default function AdminPacksPage() {
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
           </div>
         ) : packs.length === 0 ? (
-          <div className="col-span-full text-center py-16 text-muted-foreground">لا توجد حقائب</div>
+          <div className="col-span-full text-center py-16 text-muted-foreground">{t('لا توجد حقائب', 'Aucun pack')}</div>
         ) : (
           packs.map((pack) => (
             <div key={pack.id} className="rounded-2xl border bg-card p-5 space-y-3">
@@ -274,12 +276,12 @@ export default function AdminPacksPage() {
                 {gradeLevels.find((g) => g.value === pack.gradeLevel)?.label}
               </Badge>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">{pack.items.length} عنصر</span>
+                <span className="text-muted-foreground">{pack.items.length} {t('عنصر', 'élément')}{pack.items.length !== 1 ? 's' : ''}</span>
                 <span className="font-bold text-primary">{formatDZD(pack.basePriceDZD)}</span>
               </div>
               {pack.discountPercent > 0 && (
                 <span className="inline-block rounded-full bg-destructive/10 px-2.5 py-0.5 text-xs font-bold text-destructive">
-                  خصم {pack.discountPercent}%
+                  {t('خصم', 'Remise')} {pack.discountPercent}%
                 </span>
               )}
             </div>
@@ -294,7 +296,7 @@ export default function AdminPacksPage() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold flex items-center gap-2">
                 <FileText className="h-5 w-5 text-primary" />
-                رفع حقائب من CSV
+                {t('رفع حقائب من CSV', 'Importer des packs depuis CSV')}
               </h2>
               <button onClick={() => setUploadOpen(false)} className="rounded-lg p-1 hover:bg-muted">
                 <X className="h-4 w-4" />
@@ -303,11 +305,11 @@ export default function AdminPacksPage() {
 
             <div className="space-y-4">
               <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
-                <p className="font-bold">تنسيق الملف المطلوب:</p>
-                <p>الأعمدة: id, nameAr, nameFr, descriptionAr, descriptionFr, gradeLevel, basePriceDZD, discountPercent, imageUrl, isActive, items</p>
-                <p>الأعمدة المطلوبة: nameAr, gradeLevel, basePriceDZD, items</p>
-                <p>إذا وُجد id، سيتم تحديث الحقيبة الموجودة. إذا تركته فارغاً، سيتم إنشاء حقيبة جديدة.</p>
-                <p>items: اسم_المنتج1:الكمية|اسم_المنتج2:الكمية (يجب أن تكون المنتجات موجودة مسبقاً)</p>
+                <p className="font-bold">{t('تنسيق الملف المطلوب:', 'Format de fichier requis :')}</p>
+                <p>{t('الأعمدة:', 'Colonnes :')} id, nameAr, nameFr, descriptionAr, descriptionFr, gradeLevel, basePriceDZD, discountPercent, imageUrl, isActive, items</p>
+                <p>{t('الأعمدة المطلوبة:', 'Colonnes obligatoires :')} nameAr, gradeLevel, basePriceDZD, items</p>
+                <p>{t('إذا وُجد id، سيتم تحديث الحقيبة الموجودة. إذا تركته فارغاً، سيتم إنشاء حقيبة جديدة.', 'Si l\'id existe, le pack sera mis à jour. Sinon, un nouveau pack sera créé.')}</p>
+                <p>{t('items: اسم_المنتج1:الكمية|اسم_المنتج2:الكمية (يجب أن تكون المنتجات موجودة مسبقاً)', 'items : nom_produit1:quantité|nom_produit2:quantité (les produits doivent exister au préalable)')}</p>
                 <p>gradeLevel: AP1, AP2, AP3, AP4, AP5, AM1, AM2, AM3, AM4, AS1, AS2, AS3, CUSTOM</p>
               </div>
 
@@ -323,7 +325,7 @@ export default function AdminPacksPage() {
                 dir="ltr"
                 value={csvText}
                 onChange={(e) => setCsvText(e.target.value)}
-                placeholder="أو الصق محتوى CSV هنا..."
+                placeholder={t('أو الصق محتوى CSV هنا...', 'Ou collez le contenu CSV ici...')}
                 className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-xs font-mono outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
               />
 
@@ -331,10 +333,10 @@ export default function AdminPacksPage() {
                 <div className={`rounded-lg p-3 text-sm space-y-1 ${uploadResult.success ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-800'}`}>
                   {uploadResult.success ? (
                     <>
-                      <p className="flex items-center gap-1.5 font-bold"><CheckCircle2 className="h-4 w-4" />تم الرفع بنجاح!</p>
-                      <p>تم إنشاء: {uploadResult.results?.created || 0} حقيبة</p>
-                      <p>تم تحديث: {uploadResult.results?.updated || 0} حقيبة</p>
-                      <p>تم تخطيه: {uploadResult.results?.skipped || 0}</p>
+                      <p className="flex items-center gap-1.5 font-bold"><CheckCircle2 className="h-4 w-4" />{t('تم الرفع بنجاح!', 'Import réussi !')}</p>
+                      <p>{t('تم إنشاء:', 'Créés :')} {uploadResult.results?.created || 0} {t('حقيبة', 'pack')}{(uploadResult.results?.created || 0) !== 1 ? 's' : ''}</p>
+                      <p>{t('تم تحديث:', 'Mis à jour :')} {uploadResult.results?.updated || 0}</p>
+                      <p>{t('تم تخطيه:', 'Ignorés :')} {uploadResult.results?.skipped || 0}</p>
                       {uploadResult.results?.errors?.length > 0 && (
                         <div className="mt-2 max-h-32 overflow-y-auto space-y-0.5 text-xs">
                           {uploadResult.results.errors.map((err: string, i: number) => (
@@ -350,9 +352,9 @@ export default function AdminPacksPage() {
               )}
 
               <div className="flex justify-end gap-2">
-                <Button variant="outline" size="sm" onClick={() => setUploadOpen(false)}>إلغاء</Button>
+                <Button variant="outline" size="sm" onClick={() => setUploadOpen(false)}>{t('إلغاء', 'Annuler')}</Button>
                 <Button size="sm" onClick={handleUpload} disabled={uploading || !csvText.trim()}>
-                  {uploading ? 'جارٍ الرفع...' : 'رفع الملف'}
+                  {uploading ? t('جارٍ الرفع...', 'Import en cours...') : t('رفع الملف', 'Importer')}
                 </Button>
               </div>
             </div>
@@ -361,36 +363,36 @@ export default function AdminPacksPage() {
       )}
 
       {/* Drawer */}
-      <Sheet open={drawerOpen} onOpenChange={setDrawerOpen} title={editing ? 'تعديل حقيبة' : 'حقيبة جديدة'} side="right">
+      <Sheet open={drawerOpen} onOpenChange={setDrawerOpen} title={editing ? t('تعديل حقيبة', 'Modifier le pack') : t('حقيبة جديدة', 'Nouveau pack')} side="right">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">الاسم (عربي) *</label>
+            <label className="text-sm font-medium">{t('الاسم (عربي)', 'Nom (arabe)')} *</label>
             <input required value={form.nameAr} onChange={(e) => setForm({ ...form, nameAr: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">الاسم (فرنسي)</label>
+            <label className="text-sm font-medium">{t('الاسم (فرنسي)', 'Nom (français)')}</label>
             <input value={form.nameFr} onChange={(e) => setForm({ ...form, nameFr: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">المستوى الدراسي *</label>
+            <label className="text-sm font-medium">{t('المستوى الدراسي', 'Niveau scolaire')} *</label>
             <select required value={form.gradeLevel} onChange={(e) => setForm({ ...form, gradeLevel: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              {gradeLevels.map((g) => (<option key={g.value} value={g.value}>{g.label}</option>))}
+              {gradeLevels.map((g) => (<option key={g.value} value={g.value}>{'labelAr' in g ? t(g.labelAr, g.labelFr) : g.label}</option>))}
             </select>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium">السعر الأساسي (د.ج) *</label>
+              <label className="text-sm font-medium">{t('السعر الأساسي (د.ج)', 'Prix de base (DZD)')} *</label>
               <input type="number" required min={0} value={form.basePriceDZD} onChange={(e) => setForm({ ...form, basePriceDZD: Number(e.target.value) })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium">نسبة الخصم (%)</label>
+              <label className="text-sm font-medium">{t('نسبة الخصم (%)', 'Remise (%)')}</label>
               <input type="number" min={0} max={100} value={form.discountPercent} onChange={(e) => setForm({ ...form, discountPercent: Number(e.target.value) })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
             </div>
           </div>
 
           {/* Items */}
           <div className="space-y-2">
-            <label className="text-sm font-medium">محتويات الحقيبة</label>
+            <label className="text-sm font-medium">{t('محتويات الحقيبة', 'Contenu du pack')}</label>
             {form.items.length > 0 && (
               <div className="space-y-2">
                 {form.items.map((item) => (
@@ -404,7 +406,7 @@ export default function AdminPacksPage() {
                           onChange={() => toggleItemOptional(item.supplyItemId)}
                           className="h-3.5 w-3.5 rounded border-input"
                         />
-                        <span className="text-xs text-muted-foreground">{item.isOptional ? 'اختياري' : 'إجباري'}</span>
+                        <span className="text-xs text-muted-foreground">{item.isOptional ? t('اختياري', 'Optionnel') : t('إجباري', 'Obligatoire')}</span>
                       </label>
                     </div>
                     <div className="flex items-center gap-1">
@@ -427,7 +429,7 @@ export default function AdminPacksPage() {
               onChange={(e) => { if (e.target.value) { addItem(e.target.value); e.target.value = ''; } }}
               className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <option value="">+ إضافة منتج من الكتالوج</option>
+              <option value="">+ {t('إضافة منتج من الكتالوج', 'Ajouter un produit du catalogue')}</option>
               {products.map((p) => (
                 <option key={p.id} value={p.id}>{p.nameAr} — {formatDZD(p.unitPriceDZD)}</option>
               ))}
@@ -435,15 +437,15 @@ export default function AdminPacksPage() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">الوصف (عربي)</label>
+            <label className="text-sm font-medium">{t('الوصف (عربي)', 'Description (arabe)')}</label>
             <textarea rows={2} value={form.descriptionAr} onChange={(e) => setForm({ ...form, descriptionAr: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none" />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">رابط الصورة</label>
+            <label className="text-sm font-medium">{t('رابط الصورة', 'Lien de l\'image')}</label>
             <input value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           </div>
           <Button type="submit" className="w-full" disabled={saving}>
-            {saving ? 'جار الحفظ...' : editing ? 'حفظ التعديلات' : 'إنشاء الحقيبة'}
+            {saving ? t('جار الحفظ...', 'Enregistrement...') : editing ? t('حفظ التعديلات', 'Enregistrer les modifications') : t('إنشاء الحقيبة', 'Créer le pack')}
           </Button>
         </form>
       </Sheet>

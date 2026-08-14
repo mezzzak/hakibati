@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useLanguage } from '@/components/language-provider';
 import { getAllProducts, createProduct, updateProduct, deleteProduct, uploadProductsCSV, downloadProductsCSV } from '@/lib/admin-actions';
 import { Button } from '@/components/ui/button';
 import { Sheet } from '@/components/ui/sheet';
@@ -40,6 +41,7 @@ const emptyForm: ProductFormData = {
 const categories = ['cahiers', 'stylos', 'geometrie', 'arts', 'cartables', 'accessoires', 'electronique'];
 
 export default function AdminProductsPage() {
+  const { t } = useLanguage();
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -131,7 +133,7 @@ export default function AdminProductsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return;
+    if (!confirm(t('هل أنت متأكد من حذف هذا المنتج؟', 'Êtes-vous sûr de vouloir supprimer ce produit ?'))) return;
     await deleteProduct(id);
     fetchProducts();
   };
@@ -177,21 +179,21 @@ export default function AdminProductsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">المنتجات</h1>
-          <p className="text-muted-foreground text-sm">إدارة قطع القرطاسية</p>
+          <h1 className="text-2xl font-bold">{t('المنتجات', 'Produits')}</h1>
+          <p className="text-muted-foreground text-sm">{t('إدارة قطع القرطاسية', 'Gérer les articles de papeterie')}</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={() => { setUploadOpen(true); setCsvText(''); setUploadResult(null); }} className="gap-2">
             <Upload className="h-4 w-4" />
-            رفع CSV
+            {t('رفع CSV', 'Importer CSV')}
           </Button>
           <Button variant="outline" onClick={handleDownload} className="gap-2">
             <Download className="h-4 w-4" />
-            تحميل CSV
+            {t('تحميل CSV', 'Exporter CSV')}
           </Button>
           <Button onClick={openCreate} className="gap-2">
             <Plus className="h-4 w-4" />
-            منتج جديد
+            {t('منتج جديد', 'Nouveau produit')}
           </Button>
         </div>
       </div>
@@ -202,17 +204,17 @@ export default function AdminProductsPage() {
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
           </div>
         ) : products.length === 0 ? (
-          <div className="text-center py-16 text-muted-foreground">لا توجد منتجات</div>
+          <div className="text-center py-16 text-muted-foreground">{t('لا توجد منتجات', 'Aucun produit')}</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-muted/50">
-                  <th className="px-4 py-3 text-right font-medium">المنتج</th>
-                  <th className="px-4 py-3 text-right font-medium">الفئة</th>
-                  <th className="px-4 py-3 text-right font-medium">السعر</th>
-                  <th className="px-4 py-3 text-right font-medium">المخزون</th>
-                  <th className="px-4 py-3 text-right font-medium">الحالة</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('المنتج', 'Produit')}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('الفئة', 'Catégorie')}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('السعر', 'Prix')}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('المخزون', 'Stock')}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('الحالة', 'Statut')}</th>
                   <th className="px-4 py-3 text-right font-medium"></th>
                 </tr>
               </thead>
@@ -237,7 +239,7 @@ export default function AdminProductsPage() {
                     <td className="px-4 py-3">{product.stockQuantity}</td>
                     <td className="px-4 py-3">
                       <span className={`rounded-full px-2.5 py-0.5 text-xs ${product.isActive ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}`}>
-                        {product.isActive ? 'نشط' : 'غير نشط'}
+                        {product.isActive ? t('نشط', 'Actif') : t('غير نشط', 'Inactif')}
                       </span>
                     </td>
                     <td className="px-4 py-3">
@@ -265,7 +267,7 @@ export default function AdminProductsPage() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold flex items-center gap-2">
                 <FileText className="h-5 w-5 text-primary" />
-                رفع منتجات من CSV
+                {t('رفع منتجات من CSV', 'Importer des produits depuis CSV')}
               </h2>
               <button onClick={() => setUploadOpen(false)} className="rounded-lg p-1 hover:bg-muted">
                 <X className="h-4 w-4" />
@@ -274,10 +276,10 @@ export default function AdminProductsPage() {
 
             <div className="space-y-4">
               <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
-                <p className="font-bold">تنسيق الملف المطلوب:</p>
-                <p>الأعمدة: id, nameAr, nameFr, descriptionAr, descriptionFr, brand, category, unitPriceDZD, costPriceDZD, retailPriceDZD, stockQuantity, imageUrl, isActive</p>
-                <p>الأعمدة المطلوبة: nameAr, category, unitPriceDZD</p>
-                <p>إذا وُجد id، سيتم تحديث المنتج الموجود. إذا تركته فارغاً، سيتم إنشاء منتج جديد.</p>
+                <p className="font-bold">{t('تنسيق الملف المطلوب:', 'Format de fichier requis :')}</p>
+                <p>{t('الأعمدة:', 'Colonnes :')} id, nameAr, nameFr, descriptionAr, descriptionFr, brand, category, unitPriceDZD, costPriceDZD, retailPriceDZD, stockQuantity, imageUrl, isActive</p>
+                <p>{t('الأعمدة المطلوبة:', 'Colonnes obligatoires :')} nameAr, category, unitPriceDZD</p>
+                <p>{t('إذا وُجد id، سيتم تحديث المنتج الموجود. إذا تركته فارغاً، سيتم إنشاء منتج جديد.', 'Si l\'id existe, le produit sera mis à jour. Sinon, un nouveau produit sera créé.')}</p>
               </div>
 
               <input
@@ -292,7 +294,7 @@ export default function AdminProductsPage() {
                 dir="ltr"
                 value={csvText}
                 onChange={(e) => setCsvText(e.target.value)}
-                placeholder="أو الصق محتوى CSV هنا..."
+                placeholder={t('أو الصق محتوى CSV هنا...', 'Ou collez le contenu CSV ici...')}
                 className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-xs font-mono outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
               />
 
@@ -300,10 +302,10 @@ export default function AdminProductsPage() {
                 <div className={`rounded-lg p-3 text-sm space-y-1 ${uploadResult.success ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-800'}`}>
                   {uploadResult.success ? (
                     <>
-                      <p className="flex items-center gap-1.5 font-bold"><CheckCircle2 className="h-4 w-4" />تم الرفع بنجاح!</p>
-                      <p>تم إنشاء: {uploadResult.results?.created || 0} منتج</p>
-                      <p>تم تحديث: {uploadResult.results?.updated || 0} منتج</p>
-                      <p>تم تخطيه: {uploadResult.results?.skipped || 0}</p>
+                      <p className="flex items-center gap-1.5 font-bold"><CheckCircle2 className="h-4 w-4" />{t('تم الرفع بنجاح!', 'Import réussi !')}</p>
+                      <p>{t('تم إنشاء:', 'Créés :')} {uploadResult.results?.created || 0} {t('منتج', 'produit')}{(uploadResult.results?.created || 0) !== 1 ? 's' : ''}</p>
+                      <p>{t('تم تحديث:', 'Mis à jour :')} {uploadResult.results?.updated || 0}</p>
+                      <p>{t('تم تخطيه:', 'Ignorés :')} {uploadResult.results?.skipped || 0}</p>
                       {uploadResult.results?.errors?.length > 0 && (
                         <div className="mt-2 max-h-32 overflow-y-auto space-y-0.5 text-xs">
                           {uploadResult.results.errors.map((err: string, i: number) => (
@@ -319,9 +321,9 @@ export default function AdminProductsPage() {
               )}
 
               <div className="flex justify-end gap-2">
-                <Button variant="outline" size="sm" onClick={() => setUploadOpen(false)}>إلغاء</Button>
+                <Button variant="outline" size="sm" onClick={() => setUploadOpen(false)}>{t('إلغاء', 'Annuler')}</Button>
                 <Button size="sm" onClick={handleUpload} disabled={uploading || !csvText.trim()}>
-                  {uploading ? 'جارٍ الرفع...' : 'رفع الملف'}
+                  {uploading ? t('جارٍ الرفع...', 'Import en cours...') : t('رفع الملف', 'Importer')}
                 </Button>
               </div>
             </div>
@@ -333,63 +335,63 @@ export default function AdminProductsPage() {
       <Sheet
         open={drawerOpen}
         onOpenChange={setDrawerOpen}
-        title={editing ? 'تعديل منتج' : 'منتج جديد'}
+        title={editing ? t('تعديل منتج', 'Modifier le produit') : t('منتج جديد', 'Nouveau produit')}
         side="right"
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">الاسم (عربي) *</label>
+            <label className="text-sm font-medium">{t('الاسم (عربي)', 'Nom (arabe)')} *</label>
             <input required value={form.nameAr} onChange={(e) => setForm({ ...form, nameAr: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">الاسم (فرنسي)</label>
+            <label className="text-sm font-medium">{t('الاسم (فرنسي)', 'Nom (français)')}</label>
             <input value={form.nameFr} onChange={(e) => setForm({ ...form, nameFr: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">الفئة *</label>
+            <label className="text-sm font-medium">{t('الفئة', 'Catégorie')} *</label>
             <select required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              <option value="">اختر الفئة</option>
+              <option value="">{t('اختر الفئة', 'Choisir une catégorie')}</option>
               {categories.map((c) => (<option key={c} value={c}>{c}</option>))}
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">العلامة التجارية</label>
+            <label className="text-sm font-medium">{t('العلامة التجارية', 'Marque')}</label>
             <input value={form.brand} onChange={(e) => setForm({ ...form, brand: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium">السعر (د.ج) *</label>
+              <label className="text-sm font-medium">{t('السعر (د.ج)', 'Prix (DZD)')} *</label>
               <input type="number" required min={0} value={form.unitPriceDZD} onChange={(e) => setForm({ ...form, unitPriceDZD: Number(e.target.value) })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium">المخزون *</label>
+              <label className="text-sm font-medium">{t('المخزون', 'Stock')} *</label>
               <input type="number" required min={0} value={form.stockQuantity} onChange={(e) => setForm({ ...form, stockQuantity: Number(e.target.value) })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium">سعر التكلفة (د.ج)</label>
+              <label className="text-sm font-medium">{t('سعر التكلفة (د.ج)', 'Coût (DZD)')}</label>
               <input type="number" min={0} value={form.costPriceDZD} onChange={(e) => setForm({ ...form, costPriceDZD: Number(e.target.value) })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium">سعر المفرق (د.ج)</label>
+              <label className="text-sm font-medium">{t('سعر المفرق (د.ج)', 'Prix de détail (DZD)')}</label>
               <input type="number" min={0} value={form.retailPriceDZD} onChange={(e) => setForm({ ...form, retailPriceDZD: Number(e.target.value) })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
             </div>
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">الوصف (عربي)</label>
+            <label className="text-sm font-medium">{t('الوصف (عربي)', 'Description (arabe)')}</label>
             <textarea rows={2} value={form.descriptionAr} onChange={(e) => setForm({ ...form, descriptionAr: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none" />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">الوصف (فرنسي)</label>
+            <label className="text-sm font-medium">{t('الوصف (فرنسي)', 'Description (français)')}</label>
             <textarea rows={2} value={form.descriptionFr} onChange={(e) => setForm({ ...form, descriptionFr: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none" />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">رابط الصورة</label>
+            <label className="text-sm font-medium">{t('رابط الصورة', 'Lien de l\'image')}</label>
             <input value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           </div>
           <Button type="submit" className="w-full" disabled={saving}>
-            {saving ? 'جار الحفظ...' : editing ? 'حفظ التعديلات' : 'إضافة المنتج'}
+            {saving ? t('جار الحفظ...', 'Enregistrement...') : editing ? t('حفظ التعديلات', 'Enregistrer les modifications') : t('إضافة المنتج', 'Ajouter le produit')}
           </Button>
         </form>
       </Sheet>

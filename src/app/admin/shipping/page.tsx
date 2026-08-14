@@ -1,17 +1,19 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useLanguage } from '@/components/language-provider';
 import { getAllShippingRates, upsertShippingRate, toggleShippingRate, uploadShippingRatesCSV, downloadShippingRatesCSV, seedDefaultShippingRates } from '@/lib/admin-actions';
 import { Button } from '@/components/ui/button';
 import { WILAYAS } from '@/lib/wilayas';
 import { Truck, Home, Building2, Save, CheckCircle2, AlertCircle, Upload, Download, FileText, X } from 'lucide-react';
 
 const METHODS = [
-  { key: 'HOME_DELIVERY', label: 'توصيل للمنزل', icon: Home },
-  { key: 'STOP_DESK', label: 'نقطة استلام', icon: Building2 },
+  { key: 'HOME_DELIVERY', labelAr: 'توصيل للمنزل', labelFr: 'Livraison à domicile', icon: Home },
+  { key: 'STOP_DESK', labelAr: 'نقطة استلام', labelFr: 'Point de retrait', icon: Building2 },
 ];
 
 export default function AdminShippingPage() {
+  const { t } = useLanguage();
   const [rates, setRates] = useState<Map<string, any>>(new Map());
   const [edits, setEdits] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
@@ -66,9 +68,9 @@ export default function AdminShippingPage() {
         delete next[key];
         return next;
       });
-      setToast({ message: 'تم الحفظ', type: 'success' });
+      setToast({ message: t('تم الحفظ', 'Enregistré'), type: 'success' });
     } else {
-      setToast({ message: result.error || 'فشل الحفظ', type: 'error' });
+      setToast({ message: result.error || t('فشل الحفظ', 'Échec de l\'enregistrement'), type: 'error' });
     }
 
     setTimeout(() => setToast(null), 3000);
@@ -91,7 +93,7 @@ export default function AdminShippingPage() {
         next.set(key, result.rate);
         return next;
       });
-      setToast({ message: rate.isActive ? 'تم التعطيل' : 'تم التفعيل', type: 'success' });
+      setToast({ message: rate.isActive ? t('تم التعطيل', 'Désactivé') : t('تم التفعيل', 'Activé'), type: 'success' });
     }
     setTimeout(() => setToast(null), 3000);
   };
@@ -147,15 +149,15 @@ export default function AdminShippingPage() {
   };
 
   const handleSeed = async () => {
-    if (!confirm('سيتم تعبئة جميع الولايات بـ 0 د.ج لنقطة الاستلام و 400 د.ج للتوصيل للمنزل. هل أنت متأكد؟')) return;
+    if (!confirm(t('سيتم تعبئة جميع الولايات بـ 0 د.ج لنقطة الاستلام و 400 د.ج للتوصيل للمنزل. هل أنت متأكد؟', 'Toutes les wilayas seront remplies avec 0 DZD pour le point de retrait et 400 DZD pour la livraison à domicile. Êtes-vous sûr ?'))) return;
     setLoading(true);
     const result = await seedDefaultShippingRates();
     setLoading(false);
     if (result.success) {
-      setToast({ message: `تم التعبئة: ${result.results?.created || 0} جديد، ${result.results?.updated || 0} محدث`, type: 'success' });
+      setToast({ message: `${t('تم التعبئة', 'Remplissage effectué')}: ${result.results?.created || 0} ${t('جديد', 'nouveau')}, ${result.results?.updated || 0} ${t('محدث', 'mis à jour')}`, type: 'success' });
       fetchRates();
     } else {
-      setToast({ message: result.error || 'فشل التعبئة', type: 'error' });
+      setToast({ message: result.error || t('فشل التعبئة', 'Échec du remplissage'), type: 'error' });
     }
     setTimeout(() => setToast(null), 4000);
   };
@@ -164,26 +166,26 @@ export default function AdminShippingPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">أسعار التوصيل</h1>
-          <p className="text-muted-foreground text-sm">إدارة أسعار التوصيل حسب الولاية وطريقة التوصيل</p>
+          <h1 className="text-2xl font-bold">{t('أسعار التوصيل', 'Tarifs de livraison')}</h1>
+          <p className="text-muted-foreground text-sm">{t('إدارة أسعار التوصيل حسب الولاية وطريقة التوصيل', 'Gérer les tarifs de livraison par wilaya et méthode')}</p>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="outline" onClick={() => { setUploadOpen(true); setCsvText(''); setUploadResult(null); }} className="gap-2">
             <Upload className="h-4 w-4" />
-            رفع CSV
+            {t('رفع CSV', 'Importer CSV')}
           </Button>
           <Button variant="outline" onClick={handleDownload} className="gap-2">
             <Download className="h-4 w-4" />
-            تحميل CSV
+            {t('تحميل CSV', 'Exporter CSV')}
           </Button>
           <Button variant="outline" onClick={handleSeed} className="gap-2">
             <Truck className="h-4 w-4" />
-            تعبئة افتراضية
+            {t('تعبئة افتراضية', 'Remplissage par défaut')}
           </Button>
           {METHODS.map((m) => (
             <div key={m.key} className="flex items-center gap-1.5 text-sm text-muted-foreground">
               <m.icon className="h-4 w-4" />
-              <span>{m.label}</span>
+              <span>{t(m.labelAr, m.labelFr)}</span>
             </div>
           ))}
         </div>
@@ -203,7 +205,7 @@ export default function AdminShippingPage() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold flex items-center gap-2">
                 <FileText className="h-5 w-5 text-primary" />
-                رفع أسعار التوصيل من CSV
+                {t('رفع أسعار التوصيل من CSV', 'Importer les tarifs depuis CSV')}
               </h2>
               <button onClick={() => setUploadOpen(false)} className="rounded-lg p-1 hover:bg-muted">
                 <X className="h-4 w-4" />
@@ -212,11 +214,11 @@ export default function AdminShippingPage() {
 
             <div className="space-y-4">
               <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
-                <p className="font-bold">تنسيق الملف المطلوب:</p>
-                <p>الأعمدة: wilaya, method, costDZD, isActive</p>
-                <p>method: HOME_DELIVERY أو STOP_DESK</p>
-                <p>wilaya: اسم الولاية بالعربي (مثال: الجزائر، وهران، قسنطينة)</p>
-                <p>costDZD: السعر بالدينار (أرقام فقط)</p>
+                <p className="font-bold">{t('تنسيق الملف المطلوب:', 'Format de fichier requis :')}</p>
+                <p>{t('الأعمدة:', 'Colonnes :')} wilaya, method, costDZD, isActive</p>
+                <p>method: HOME_DELIVERY {t('أو', 'ou')} STOP_DESK</p>
+                <p>{t('wilaya: اسم الولاية بالعربي (مثال: الجزائر، وهران، قسنطينة)', 'wilaya : nom de la wilaya en arabe (ex : الجزائر, وهران, قسنطينة)')}</p>
+                <p>{t('costDZD: السعر بالدينار (أرقام فقط)', 'costDZD : prix en dinars (chiffres uniquement)')}</p>
               </div>
 
               <input
@@ -231,7 +233,7 @@ export default function AdminShippingPage() {
                 dir="ltr"
                 value={csvText}
                 onChange={(e) => setCsvText(e.target.value)}
-                placeholder="أو الصق محتوى CSV هنا..."
+                placeholder={t('أو الصق محتوى CSV هنا...', 'Ou collez le contenu CSV ici...')}
                 className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-xs font-mono outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
               />
 
@@ -239,10 +241,10 @@ export default function AdminShippingPage() {
                 <div className={`rounded-lg p-3 text-sm space-y-1 ${uploadResult.success ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-800'}`}>
                   {uploadResult.success ? (
                     <>
-                      <p className="flex items-center gap-1.5 font-bold"><CheckCircle2 className="h-4 w-4" />تم الرفع بنجاح!</p>
-                      <p>تم إنشاء: {uploadResult.results?.created || 0}</p>
-                      <p>تم تحديث: {uploadResult.results?.updated || 0}</p>
-                      <p>تم تخطيه: {uploadResult.results?.skipped || 0}</p>
+                      <p className="flex items-center gap-1.5 font-bold"><CheckCircle2 className="h-4 w-4" />{t('تم الرفع بنجاح!', 'Import réussi !')}</p>
+                      <p>{t('تم إنشاء:', 'Créés :')} {uploadResult.results?.created || 0}</p>
+                      <p>{t('تم تحديث:', 'Mis à jour :')} {uploadResult.results?.updated || 0}</p>
+                      <p>{t('تم تخطيه:', 'Ignorés :')} {uploadResult.results?.skipped || 0}</p>
                       {uploadResult.results?.errors?.length > 0 && (
                         <div className="mt-2 max-h-32 overflow-y-auto space-y-0.5 text-xs">
                           {uploadResult.results.errors.map((err: string, i: number) => (
@@ -258,9 +260,9 @@ export default function AdminShippingPage() {
               )}
 
               <div className="flex justify-end gap-2">
-                <Button variant="outline" size="sm" onClick={() => setUploadOpen(false)}>إلغاء</Button>
+                <Button variant="outline" size="sm" onClick={() => setUploadOpen(false)}>{t('إلغاء', 'Annuler')}</Button>
                 <Button size="sm" onClick={handleUpload} disabled={uploading || !csvText.trim()}>
-                  {uploading ? 'جارٍ الرفع...' : 'رفع الملف'}
+                  {uploading ? t('جارٍ الرفع...', 'Import en cours...') : t('رفع الملف', 'Importer')}
                 </Button>
               </div>
             </div>
@@ -278,12 +280,12 @@ export default function AdminShippingPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-muted/50">
-                  <th className="px-4 py-3 text-right font-medium sticky right-0 bg-muted/50">الولاية</th>
+                  <th className="px-4 py-3 text-right font-medium sticky right-0 bg-muted/50">{t('الولاية', 'Wilaya')}</th>
                   {METHODS.map((m) => (
                     <th key={m.key} className="px-4 py-3 text-center font-medium">
                       <div className="flex items-center justify-center gap-1.5">
                         <m.icon className="h-4 w-4 text-muted-foreground" />
-                        {m.label}
+                        {t(m.labelAr, m.labelFr)}
                       </div>
                     </th>
                   ))}
@@ -315,7 +317,7 @@ export default function AdminShippingPage() {
                             <button
                               type="button"
                               onClick={() => handleToggle(w.nameAr, m.key)}
-                              title={active ? 'تعطيل' : 'تفعيل'}
+                              title={active ? t('تعطيل', 'Désactiver') : t('تفعيل', 'Activer')}
                               className={`rounded-full p-1 transition-colors ${active ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200' : 'bg-red-100 text-red-700 hover:bg-red-200'}`}
                             >
                               {active ? <CheckCircle2 className="h-3.5 w-3.5" /> : <AlertCircle className="h-3.5 w-3.5" />}

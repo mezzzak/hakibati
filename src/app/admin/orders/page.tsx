@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
+import { useLanguage } from '@/components/language-provider';
 import { getAllOrders } from '@/lib/admin-actions';
 import { AdminOrderDrawer } from '@/components/admin-order-drawer';
 import { Badge } from '@/components/ui/badge';
@@ -16,26 +17,35 @@ import {
   RefreshCw,
 } from 'lucide-react';
 
-const tabs = [
-  { key: 'ALL', label: 'الكل' },
-  { key: 'PENDING_CONFIRMATION', label: 'بانتظار التأكيد' },
-  { key: 'CONFIRMED', label: 'مؤكد' },
-  { key: 'DISPATCHED', label: 'قيد الإرسال' },
-  { key: 'DELIVERED', label: 'تم التسليم' },
-  { key: 'CANCELLED', label: 'ملغى' },
-];
-
-const statusConfig: Record<string, { color: string; icon: any }> = {
-  PENDING_CONFIRMATION: { color: 'bg-amber-100 text-amber-700', icon: Clock },
-  CONFIRMED: { color: 'bg-blue-100 text-blue-700', icon: CheckCircle2 },
-  DISPATCHED: { color: 'bg-indigo-100 text-indigo-700', icon: Truck },
-  DELIVERED: { color: 'bg-emerald-100 text-emerald-700', icon: PackageCheck },
-  CANCELLED: { color: 'bg-red-100 text-red-700', icon: XCircle },
+const statusLabels: Record<string, { ar: string; fr: string }> = {
+  PENDING_CONFIRMATION: { ar: 'بانتظار التأكيد', fr: 'En attente' },
+  CONFIRMED: { ar: 'مؤكد', fr: 'Confirmé' },
+  DISPATCHED: { ar: 'قيد الإرسال', fr: 'En cours d\'envoi' },
+  DELIVERED: { ar: 'تم التسليم', fr: 'Livré' },
+  CANCELLED: { ar: 'ملغى', fr: 'Annulé' },
 };
 
 export default function AdminOrdersPage() {
   const { data: session } = useSession();
+  const { t, isAr } = useLanguage();
   const userRole = (session?.user?.role as string) || 'ADMIN';
+
+  const tabs = [
+    { key: 'ALL', label: t('الكل', 'Tout') },
+    { key: 'PENDING_CONFIRMATION', label: t('بانتظار التأكيد', 'En attente') },
+    { key: 'CONFIRMED', label: t('مؤكد', 'Confirmé') },
+    { key: 'DISPATCHED', label: t('قيد الإرسال', 'En cours') },
+    { key: 'DELIVERED', label: t('تم التسليم', 'Livré') },
+    { key: 'CANCELLED', label: t('ملغى', 'Annulé') },
+  ];
+
+  const statusConfig: Record<string, { color: string; icon: any }> = {
+    PENDING_CONFIRMATION: { color: 'bg-amber-100 text-amber-700', icon: Clock },
+    CONFIRMED: { color: 'bg-blue-100 text-blue-700', icon: CheckCircle2 },
+    DISPATCHED: { color: 'bg-indigo-100 text-indigo-700', icon: Truck },
+    DELIVERED: { color: 'bg-emerald-100 text-emerald-700', icon: PackageCheck },
+    CANCELLED: { color: 'bg-red-100 text-red-700', icon: XCircle },
+  };
 
   const [activeTab, setActiveTab] = useState('ALL');
   const [orders, setOrders] = useState<any[]>([]);
@@ -85,16 +95,16 @@ export default function AdminOrdersPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">الطلبات</h1>
-          <p className="text-muted-foreground text-sm">إدارة ومعالجة جميع الطلبات</p>
+          <h1 className="text-2xl font-bold">{t('الطلبات', 'Commandes')}</h1>
+          <p className="text-muted-foreground text-sm">{t('إدارة ومعالجة جميع الطلبات', 'Gérer et traiter toutes les commandes')}</p>
         </div>
         <button
           onClick={() => fetchOrders(false)}
           className="flex items-center gap-2 rounded-lg border px-3 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors"
-          title="تحديث القائمة"
+          title={t('تحديث القائمة', 'Mettre à jour la liste')}
         >
           <RefreshCw className="h-4 w-4" />
-          تحديث
+          {t('تحديث', 'Actualiser')}
         </button>
       </div>
 
@@ -122,19 +132,19 @@ export default function AdminOrdersPage() {
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
           </div>
         ) : orders.length === 0 ? (
-          <div className="text-center py-16 text-muted-foreground">لا توجد طلبات</div>
+          <div className="text-center py-16 text-muted-foreground">{t('لا توجد طلبات', 'Aucune commande')}</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-muted/50">
-                  <th className="px-4 py-3 text-right font-medium">الرقم</th>
-                  <th className="px-4 py-3 text-right font-medium">العميل</th>
-                  <th className="px-4 py-3 text-right font-medium">الهاتف</th>
-                  <th className="px-4 py-3 text-right font-medium">الولاية</th>
-                  <th className="px-4 py-3 text-right font-medium">الحالة</th>
-                  <th className="px-4 py-3 text-right font-medium">المبلغ</th>
-                  <th className="px-4 py-3 text-right font-medium">التاريخ</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('الرقم', 'N°')}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('العميل', 'Client')}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('الهاتف', 'Téléphone')}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('الولاية', 'Wilaya')}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('الحالة', 'Statut')}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('المبلغ', 'Montant')}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t('التاريخ', 'Date')}</th>
                   <th className="px-4 py-3 text-right font-medium"></th>
                 </tr>
               </thead>
