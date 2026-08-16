@@ -20,6 +20,9 @@ import {
   Clock,
   Truck,
   Package,
+  Eye,
+  Users,
+  Globe,
 } from 'lucide-react';
 
 const STAFF_ROLES = ['ADMIN', 'MASTER_ADMIN', 'ORDER_CONFIRMATION_AGENT', 'PREP_AGENT', 'SHIPPING_AGENT'];
@@ -243,6 +246,65 @@ export default function AdminDashboardPage() {
               color="bg-amber-500"
             />
           </div>
+
+          {/* Visitor Analytics */}
+          {analytics?.visitors && (
+            <>
+              <div className="flex items-center gap-2 mb-2">
+                <Globe className="h-5 w-5 text-primary" />
+                <h2 className="text-lg font-bold">{t('إحصائيات الزوار', 'Statistiques des visiteurs')}</h2>
+              </div>
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <MetricCard
+                  title={t('إجمالي المشاهدات', 'Total vues')}
+                  value={String(analytics.visitors.totalPageViews ?? 0)}
+                  icon={<Eye className="h-5 w-5" />}
+                  color="bg-violet-500"
+                />
+                <MetricCard
+                  title={t('زوار فريدون', 'Visiteurs uniques')}
+                  value={String(analytics.visitors.uniqueVisitors ?? 0)}
+                  icon={<Users className="h-5 w-5" />}
+                  color="bg-pink-500"
+                />
+                <MetricCard
+                  title={t('مشاهدات 7 أيام', 'Vues 7 jours')}
+                  value={String(analytics.visitors.pageViewsLast7Days ?? 0)}
+                  icon={<BarChart3 className="h-5 w-5" />}
+                  color="bg-cyan-500"
+                />
+                <MetricCard
+                  title={t('مشاهدات 30 يوم', 'Vues 30 jours')}
+                  value={String(analytics.visitors.pageViewsLast30Days ?? 0)}
+                  icon={<TrendingUp className="h-5 w-5" />}
+                  color="bg-orange-500"
+                />
+              </div>
+
+              {/* Top Pages */}
+              {analytics.visitors.topPages && analytics.visitors.topPages.length > 0 && (
+                <div className="rounded-2xl border bg-card p-6">
+                  <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+                    <Globe className="h-5 w-5 text-primary" />
+                    {t('أكثر الصفحات زيارة', 'Pages les plus visitées')}
+                  </h2>
+                  <div className="space-y-3">
+                    {analytics.visitors.topPages.map((p: any, idx: number) => (
+                      <div key={p.path} className="flex items-center gap-3">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs font-bold">
+                          {idx + 1}
+                        </span>
+                        <div className="flex-1 flex justify-between items-center">
+                          <span className="text-sm font-mono">{p.path}</span>
+                          <span className="text-sm font-bold">{p._count?.path ?? 0} {t('مشاهدة', 'vue')}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {/* Orders by Status */}

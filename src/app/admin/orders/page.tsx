@@ -6,6 +6,7 @@ import { useLanguage } from '@/components/language-provider';
 import { getAllOrders } from '@/lib/admin-actions';
 import { AdminOrderDrawer } from '@/components/admin-order-drawer';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { formatDZD, formatDate, displayPhone } from '@/lib/utils';
 import {
   Clock,
@@ -16,6 +17,8 @@ import {
   Eye,
   RefreshCw,
   Phone,
+  Printer,
+  FileDown,
 } from 'lucide-react';
 
 const statusLabels: Record<string, { ar: string; fr: string }> = {
@@ -27,11 +30,12 @@ const statusLabels: Record<string, { ar: string; fr: string }> = {
 };
 
 export default function AdminOrdersPage() {
-  const { data: session } = useSession();
+  const { data: session, status: sessionStatus } = useSession();
   const { t, isAr } = useLanguage();
   const userRole = (session?.user?.role as string) || 'ADMIN';
+  const isLoadingSession = sessionStatus === 'loading';
 
-  const tabs = [
+  const allTabs = [
     { key: 'ALL', label: t('الكل', 'Tout') },
     { key: 'PENDING_CONFIRMATION', label: t('بانتظار التأكيد', 'En attente') },
     { key: 'CONFIRMED', label: t('مؤكد', 'Confirmé') },
@@ -39,6 +43,21 @@ export default function AdminOrdersPage() {
     { key: 'DELIVERED', label: t('تم التسليم', 'Livré') },
     { key: 'CANCELLED', label: t('ملغى', 'Annulé') },
   ];
+
+  const allowedStatuses = (() => {
+    switch (userRole) {
+      case 'SHIPPING_AGENT':
+        return ['ALL', 'DISPATCHED', 'DELIVERED'];
+      case 'PREP_AGENT':
+        return ['ALL', 'CONFIRMED', 'DISPATCHED', 'DELIVERED'];
+      case 'ORDER_CONFIRMATION_AGENT':
+        return ['ALL', 'PENDING_CONFIRMATION', 'CONFIRMED', 'DISPATCHED', 'DELIVERED', 'CANCELLED'];
+      default:
+        return ['ALL', 'PENDING_CONFIRMATION', 'CONFIRMED', 'DISPATCHED', 'DELIVERED', 'CANCELLED'];
+    }
+  })();
+
+  const tabs = allTabs.filter((tab) => allowedStatuses.includes(tab.key));
 
   const statusConfig: Record<string, { color: string; icon: any }> = {
     PENDING_CONFIRMATION: { color: 'bg-amber-100 text-amber-700', icon: Clock },
@@ -48,49 +67,179 @@ export default function AdminOrdersPage() {
     CANCELLED: { color: 'bg-red-100 text-red-700', icon: XCircle },
   };
 
-  const [activeTab, setActiveTab] = useState('ALL');
+  const getDefaultTab = (role: string) => {
+    if (role === 'SHIPPING_AGENT') return 'ALL';
+    if (role === 'PREP_AGENT') return 'ALL';
+    return 'ALL';
+  };
+
+  const [activeTab, setActiveTab] = useState(() => getDefaultTab(userRole));
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const fetchOrders = useCallback(async (showLoading = true) => {
+    if (isLoadingSession) return;
     if (showLoading) setLoading(true);
     const status = activeTab === 'ALL' ? undefined : activeTab;
     const result = await getAllOrders({ status });
     if (result.success) {
-      setOrders(result.orders || []);
+      let fetched = result.orders || [];
+      // Extra safety: filter orders by role so agents only see what they can act on
+      if (userRole === 'SHIPPING_AGENT') {
+        fetched = fetched.filter((o) => ['DISPATCHED', 'DELIVERED'].includes(o.status));
+      } else if (userRole === 'PREP_AGENT') {
+        fetched = fetched.filter((o) => ['CONFIRMED', 'DISPATCHED', 'DELIVERED'].includes(o.status));
+      }
+      setOrders(fetched);
     }
     if (showLoading) setLoading(false);
-  }, [activeTab]);
+  }, [activeTab, userRole, isLoadingSession]);
+
+  // Sync selectedOrder with orders list when drawer is open
+  useEffect(() => {
+    if (selectedOrder && orders.length > 0) {
+      const updated = orders.find((o) => o.id === selectedOrder.id);
+      if (updated) setSelectedOrder(updated);
+    }
+  }, [orders]);
+
+  // Update active tab when session role becomes known
+  useEffect(() => {
+    if (!isLoadingSession) {
+      const defaultTab = getDefaultTab(userRole);
+      setActiveTab(defaultTab);
+    }
+  }, [userRole, isLoadingSession]);
 
   useEffect(() => {
-    fetchOrders();
-  }, [fetchOrders]);
+    if (!isLoadingSession) {
+      fetchOrders();
+    }
+  }, [fetchOrders, isLoadingSession]);
 
-  // Auto-poll every 10 seconds to keep all agents synchronized
+  // Auto-poll only when drawer is closed
   useEffect(() => {
+    if (drawerOpen) return;
     const interval = setInterval(() => {
       fetchOrders(false);
-    }, 10000);
+    }, 15000);
     return () => clearInterval(interval);
-  }, [fetchOrders]);
+  }, [fetchOrders, drawerOpen]);
 
-  // Refresh when user returns to the tab
+  // Refresh when user returns to the tab (only if drawer closed)
   useEffect(() => {
     const handleVisibility = () => {
-      if (document.visibilityState === 'visible') {
+      if (document.visibilityState === 'visible' && !drawerOpen) {
         fetchOrders(false);
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
     return () => document.removeEventListener('visibilitychange', handleVisibility);
-  }, [fetchOrders]);
+  }, [fetchOrders, drawerOpen]);
 
   const openOrder = (order: any) => {
     setSelectedOrder(order);
     setDrawerOpen(true);
   };
+
+  const openPrintReceipt = (order: any, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+
+    const itemsHtml = order.items.map((item: any, idx: number) => {
+      const name = item.itemName || item.supplyItem?.nameAr || item.hakibatiPack?.nameAr || '—';
+      return `<tr>
+        <td style="border:1px solid #ddd;padding:8px;text-align:center">${idx + 1}</td>
+        <td style="border:1px solid #ddd;padding:8px">${name}</td>
+        <td style="border:1px solid #ddd;padding:8px;text-align:center">${item.quantity}</td>
+        <td style="border:1px solid #ddd;padding:8px;text-align:center">${item.unitPriceDZD} د.ج</td>
+        <td style="border:1px solid #ddd;padding:8px;text-align:center">${item.totalPriceDZD} د.ج</td>
+      </tr>`;
+    }).join('');
+
+    const receiptHtml = `<!DOCTYPE html>
+<html dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>فاتورة ${order.orderNumber}</title>
+<style>
+body { font-family: 'Segoe UI', Arial, sans-serif; padding: 32px; max-width: 720px; margin: 0 auto; color: #333; }
+.header { text-align: center; border-bottom: 3px solid #2563eb; padding-bottom: 16px; margin-bottom: 24px; }
+.header h1 { margin: 0; font-size: 28px; color: #2563eb; }
+.header p { margin: 8px 0 0; font-size: 14px; color: #666; }
+.meta { display: flex; justify-content: space-between; margin-bottom: 24px; font-size: 14px; }
+.meta-box { background: #f8fafc; border-radius: 8px; padding: 12px 16px; flex: 1; margin: 0 6px; }
+.meta-box strong { display: block; margin-bottom: 4px; color: #2563eb; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 24px; }
+th { background: #2563eb; color: #fff; padding: 10px; border: 1px solid #ddd; }
+td { border: 1px solid #ddd; }
+.totals { width: 300px; margin-right: auto; margin-left: 0; }
+.total-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+.total-row:last-child { border-bottom: none; font-size: 18px; font-weight: bold; color: #2563eb; border-top: 2px solid #2563eb; margin-top: 8px; padding-top: 12px; }
+.footer { text-align: center; margin-top: 40px; font-size: 12px; color: #999; border-top: 1px solid #eee; padding-top: 16px; }
+@media print { body { padding: 0; } .no-print { display: none; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>حقيبتي Hakibati</h1>
+  <p>فاتورة طلب — ${order.orderNumber}</p>
+</div>
+<div class="meta">
+  <div class="meta-box">
+    <strong>العميل</strong>
+    ${order.customerName}<br>
+    ${displayPhone(order.customerPhone)}
+  </div>
+  <div class="meta-box">
+    <strong>العنوان</strong>
+    ${order.wilaya} — ${order.commune}<br>
+    ${order.address}
+  </div>
+  <div class="meta-box">
+    <strong>الطلب</strong>
+    التاريخ: ${new Date(order.createdAt).toLocaleDateString('ar-DZ')}
+  </div>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:40px">#</th>
+      <th>المنتج</th>
+      <th style="width:60px">الكمية</th>
+      <th style="width:100px">السعر</th>
+      <th style="width:100px">المجموع</th>
+    </tr>
+  </thead>
+  <tbody>${itemsHtml}</tbody>
+</table>
+<div class="totals">
+  <div class="total-row"><span>المجموع الفرعي</span><span>${order.subtotalDZD} د.ج</span></div>
+  <div class="total-row"><span>رسوم التوصيل</span><span>${order.shippingCostDZD} د.ج</span></div>
+  <div class="total-row"><span>المجموع الإجمالي</span><span>${order.totalDZD} د.ج</span></div>
+</div>
+<div class="footer">
+  شكراً لثقتكم بنا — Hakibati © ${new Date().getFullYear()}
+</div>
+</body>
+</html>`;
+
+    printWindow.document.write(receiptHtml);
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => printWindow.print(), 400);
+  };
+
+  if (isLoadingSession) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -173,9 +322,20 @@ export default function AdminOrdersPage() {
                         <td className="px-4 py-3 font-bold text-primary">{formatDZD(order.totalDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</td>
                         <td className="px-4 py-3 text-muted-foreground">{formatDate(order.createdAt)}</td>
                         <td className="px-4 py-3">
-                          <button className="rounded-lg p-1.5 hover:bg-muted transition-colors">
-                            <Eye className="h-4 w-4 text-muted-foreground" />
-                          </button>
+                          <div className="flex items-center gap-1.5">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={(e) => openPrintReceipt(order, e)}
+                              className="gap-1.5 h-8 text-xs"
+                            >
+                              <FileDown className="h-3.5 w-3.5" />
+                              {t('فاتورة', 'Facture')}
+                            </Button>
+                            <button className="rounded-lg p-1.5 hover:bg-muted transition-colors">
+                              <Eye className="h-4 w-4 text-muted-foreground" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -216,14 +376,25 @@ export default function AdminOrdersPage() {
 
                     <div className="flex items-center justify-between mt-3 pt-3 border-t">
                       <span className="text-xs text-muted-foreground">{formatDate(order.createdAt)}</span>
-                      <a
-                        href={`tel:${order.customerPhone}`}
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground active:opacity-80 transition-opacity"
-                      >
-                        <Phone className="h-3 w-3" />
-                        {t('اتصال', 'Appeler')}
-                      </a>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={(e) => openPrintReceipt(order, e)}
+                          className="gap-1.5 h-8 text-xs"
+                        >
+                          <FileDown className="h-3.5 w-3.5" />
+                          {t('فاتورة', 'Facture')}
+                        </Button>
+                        <a
+                          href={`tel:${order.customerPhone}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground active:opacity-80 transition-opacity"
+                        >
+                          <Phone className="h-3 w-3" />
+                          {t('اتصال', 'Appeler')}
+                        </a>
+                      </div>
                     </div>
                   </div>
                 );
@@ -241,6 +412,8 @@ export default function AdminOrdersPage() {
         onStatusUpdate={fetchOrders}
         userRole={userRole}
       />
+
+
     </div>
   );
 }

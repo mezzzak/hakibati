@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useLanguage } from '@/components/language-provider';
 import { getOrderById } from '@/lib/order-actions';
 import { getReviewByOrderId } from '@/lib/review-actions';
-import { formatDZD, formatDate, displayPhone } from '@/lib/utils';
+import { formatDZD, formatDate, displayPhone, parsePackItemName } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -97,9 +97,7 @@ export default function OrderSuccessPage() {
           <p className="text-muted-foreground mt-2">
             {t('سنقوم بالاتصال بك قريباً لتأكيد التفاصيل', 'Nous vous contacterons bientôt pour confirmer les détails')}
           </p>
-          <div className="mt-4 flex justify-center print:hidden">
-            <PrintButton />
-          </div>
+
         </div>
 
         {/* Printable Receipt */}
@@ -174,28 +172,41 @@ export default function OrderSuccessPage() {
                     {item.quantity}x
                   </div>
                   <div>
-                    <p className="font-medium text-sm">
-                      {t(
-                        item.supplyItem?.nameAr || item.hakibatiPack?.nameAr || '',
-                        item.supplyItem?.nameFr || item.hakibatiPack?.nameFr || item.supplyItem?.nameAr || item.hakibatiPack?.nameAr || ''
-                      )}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {formatDZD(item.unitPriceDZD)} / {t('الوحدة', 'unité')}
-                    </p>
-                    {item.hakibatiPack?.items && item.hakibatiPack.items.length > 0 && (
-                      <div className="mt-2 space-y-1">
-                        <p className="text-xs font-medium text-muted-foreground">{t('المحتويات:', 'Contenu :')}</p>
-                        <ul className="text-xs text-muted-foreground space-y-0.5">
-                          {item.hakibatiPack.items.map((pi: any, idx: number) => (
-                            <li key={idx} className="flex items-center gap-1">
-                              <span className="text-primary">•</span>
-                              {t(pi.supplyItem?.nameAr, pi.supplyItem?.nameFr || pi.supplyItem?.nameAr)} ×{pi.quantity}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                    {(() => {
+                      const pack = parsePackItemName(item.itemName);
+                      const name = pack.isPack
+                        ? t(pack.nameAr, pack.nameFr || pack.nameAr)
+                        : t(
+                            item.supplyItem?.nameAr || item.hakibatiPack?.nameAr || item.itemName || '',
+                            item.supplyItem?.nameFr || item.hakibatiPack?.nameFr || item.supplyItem?.nameAr || item.hakibatiPack?.nameAr || ''
+                          );
+                      const contents = pack.isPack
+                        ? [...pack.contents.map((c) => c.display), ...pack.legacyContents]
+                        : item.hakibatiPack?.items?.map((pi: any) =>
+                            `${t(pi.supplyItem?.nameAr, pi.supplyItem?.nameFr || pi.supplyItem?.nameAr)} ×${pi.quantity}`
+                          ) || [];
+                      return (
+                        <>
+                          <p className="font-medium text-sm">{name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {formatDZD(item.unitPriceDZD)} / {t('الوحدة', 'unité')}
+                          </p>
+                          {contents.length > 0 && (
+                            <div className="mt-2 space-y-1">
+                              <p className="text-xs font-medium text-muted-foreground">{t('المحتويات:', 'Contenu :')}</p>
+                              <ul className="text-xs text-muted-foreground space-y-0.5">
+                                {contents.map((line: string, idx: number) => (
+                                  <li key={idx} className="flex items-center gap-1">
+                                    <span className="text-primary">•</span>
+                                    {line}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </>
+                      );
+                    })()}
                   </div>
                 </div>
                 <p className="font-bold text-sm shrink-0">{formatDZD(item.totalPriceDZD)}</p>
@@ -222,10 +233,12 @@ export default function OrderSuccessPage() {
 
         {/* Review Form */}
         {!hasReview && (
-          <ReviewForm
-            orderId={order.id}
-            userId={session?.user?.id || undefined}
-          />
+          <div className="print:hidden">
+            <ReviewForm
+              orderId={order.id}
+              userId={session?.user?.id || undefined}
+            />
+          </div>
         )}
 
         {/* Actions */}
@@ -242,6 +255,7 @@ export default function OrderSuccessPage() {
               {t('طلباتي', 'Mes commandes')}
             </Link>
           </Button>
+          <PrintButton variant="secondary" size="default" className="flex-1" />
         </div>
       </div>
     </div>

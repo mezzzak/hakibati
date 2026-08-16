@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { useLanguage } from '@/components/language-provider';
-import { formatDZD, formatDate, displayPhone } from '@/lib/utils';
+import { formatDZD, formatDate, displayPhone, parsePackItemName } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { OrderStatusTimeline } from '@/components/order-card';
 import {
@@ -197,29 +197,41 @@ export function OrderReceipt({ order }: OrderReceiptProps) {
                 {order.items.map((item) => (
                   <tr key={item.id} className="border-b last:border-0">
                     <td className="px-4 py-3">
-                      <span className="font-medium">
-                        {item.supplyItem?.nameAr || item.hakibatiPack?.nameAr || item.itemName || '-'}
-                      </span>
-                      {(item.supplyItem?.nameFr || item.hakibatiPack?.nameFr) && (
-                        <p className="text-xs text-muted-foreground mt-0.5">
-                          {item.supplyItem?.nameFr || item.hakibatiPack?.nameFr}
-                        </p>
-                      )}
-                      {item.hakibatiPack?.items && item.hakibatiPack.items.length > 0 && (
-                        <div className="mt-2 space-y-1">
-                          <p className="text-xs font-medium text-muted-foreground">
-                            {t('المحتويات:', 'Contenu:')}
-                          </p>
-                          <ul className="text-xs text-muted-foreground space-y-0.5">
-                            {item.hakibatiPack.items.map((pi, idx) => (
-                              <li key={idx} className="flex items-center gap-1">
-                                <span className="text-primary">•</span>
-                                {pi.supplyItem?.nameAr} ×{pi.quantity}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
+                      {(() => {
+                        const pack = parsePackItemName(item.itemName);
+                        const name = pack.isPack
+                          ? t(pack.nameAr, pack.nameFr || pack.nameAr)
+                          : (item.supplyItem?.nameAr || item.hakibatiPack?.nameAr || item.itemName || '-');
+                        const nameFr = pack.isPack
+                          ? pack.nameFr
+                          : (item.supplyItem?.nameFr || item.hakibatiPack?.nameFr);
+                        const contents = pack.isPack
+                          ? [...pack.contents.map((c) => c.display), ...pack.legacyContents]
+                          : item.hakibatiPack?.items?.map((pi) => `${pi.supplyItem?.nameAr} ×${pi.quantity}`) || [];
+                        return (
+                          <>
+                            <span className="font-medium">{name}</span>
+                            {nameFr && (
+                              <p className="text-xs text-muted-foreground mt-0.5">{nameFr}</p>
+                            )}
+                            {contents.length > 0 && (
+                              <div className="mt-2 space-y-1">
+                                <p className="text-xs font-medium text-muted-foreground">
+                                  {t('المحتويات:', 'Contenu:')}
+                                </p>
+                                <ul className="text-xs text-muted-foreground space-y-0.5">
+                                  {contents.map((line, idx) => (
+                                    <li key={idx} className="flex items-center gap-1">
+                                      <span className="text-primary">•</span>
+                                      {line}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </>
+                        );
+                      })()}
                     </td>
                     <td className="px-4 py-3 text-center font-semibold">{item.quantity}</td>
                     <td className="px-4 py-3 text-left text-muted-foreground">

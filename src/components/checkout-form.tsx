@@ -68,6 +68,17 @@ export function CheckoutForm({ userData }: CheckoutFormProps) {
     setMounted(true);
   }, []);
 
+  // Update form fields when userData arrives (after session loads)
+  useEffect(() => {
+    if (userData) {
+      if (userData.name) setCustomerName(userData.name);
+      if (userData.phone) setCustomerPhone(userData.phone);
+      if (userData.wilaya) setWilaya(userData.wilaya);
+      if (userData.commune) setCommune(userData.commune);
+      if (userData.address) setAddress(userData.address);
+    }
+  }, [userData]);
+
   useEffect(() => {
     async function fetchShipping() {
       if (!wilaya) return;
@@ -173,14 +184,14 @@ export function CheckoutForm({ userData }: CheckoutFormProps) {
 
     if (result.success && result.order) {
       clearCart();
-      toast.success('تم إنشاء طلبك بنجاح!', {
-        description: `رقم الطلب: ${result.order.orderNumber}`,
+      toast.success(t('تم إنشاء طلبك بنجاح!', 'Votre commande a été créée avec succès !'), {
+        description: `${t('رقم الطلب:', 'N° de commande :')} ${result.order.orderNumber}`,
       });
       router.push(`/order-success/${result.order.id}`);
     } else {
       const msg = result.error || t('فشل في إنشاء الطلب', 'Échec de la création de la commande');
       setError(msg);
-      toast.error('لم نتمكن من إتمام الطلب', { description: msg });
+      toast.error(t('لم نتمكن من إتمام الطلب', 'Nous n\'avons pas pu finaliser la commande'), { description: msg });
     }
 
     setLoading(false);

@@ -9,6 +9,7 @@ import { InstallBanner } from '@/components/install-banner';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ScrollToTop } from '@/components/scroll-to-top';
 import { ToasterWrapper } from '@/components/toaster-wrapper';
+import { AnalyticsTracker } from '@/components/analytics-tracker';
 
 export const metadata: Metadata = {
   title: 'حقيبتي | Hakibati - الأدوات المدرسية بنقرة واحدة',
@@ -92,7 +93,9 @@ export default function RootLayout({
         <SessionProvider>
           <LanguageProvider>
             <ScrollToTop />
-            <Header />
+            <div className="print:hidden">
+              <Header />
+            </div>
             <ErrorBoundary>
               <main>{children}</main>
             </ErrorBoundary>
@@ -100,6 +103,7 @@ export default function RootLayout({
             <Footer />
             <InstallBanner />
             <ToasterWrapper />
+            <AnalyticsTracker />
           </LanguageProvider>
         </SessionProvider>
       </body>

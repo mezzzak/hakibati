@@ -9,8 +9,22 @@ import { OrderStatus, GradeLevel } from '@prisma/client';
 // ─────────────────────────────────────────────
 export async function getAdminAnalytics() {
   try {
-    const [totalRevenueAgg, totalOrders, ordersByStatus, topWilayas, topPacks] =
-      await Promise.all([
+    const now = new Date();
+    const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+    const [
+      totalRevenueAgg,
+      totalOrders,
+      ordersByStatus,
+      topWilayas,
+      topPacks,
+      totalPageViews,
+      uniqueVisitors,
+      pageViewsLast7Days,
+      pageViewsLast30Days,
+      topPages,
+    ] = await Promise.all([
         prisma.order.aggregate({
           _sum: { totalDZD: true },
           where: { status: { not: OrderStatus.CANCELLED } },
@@ -31,6 +45,19 @@ export async function getAdminAnalytics() {
           where: { hakibatiPackId: { not: null } },
           _sum: { quantity: true },
           orderBy: { _sum: { quantity: 'desc' } },
+          take: 5,
+        }),
+        prisma.pageView.count(),
+        prisma.pageView.groupBy({
+          by: ['sessionId'],
+          _count: { sessionId: true },
+        }).then((res) => res.length),
+        prisma.pageView.count({ where: { createdAt: { gte: sevenDaysAgo } } }),
+        prisma.pageView.count({ where: { createdAt: { gte: thirtyDaysAgo } } }),
+        prisma.pageView.groupBy({
+          by: ['path'],
+          _count: { path: true },
+          orderBy: { _count: { path: 'desc' } },
           take: 5,
         }),
       ]);
@@ -63,6 +90,13 @@ export async function getAdminAnalytics() {
         ordersByStatus,
         topWilayas,
         topPacks: topPacksWithNames,
+        visitors: {
+          totalPageViews,
+          uniqueVisitors,
+          pageViewsLast7Days,
+          pageViewsLast30Days,
+          topPages,
+        },
       },
     };
   } catch (error) {
@@ -1027,5 +1061,115 @@ export async function updateUserRole(id: string, role: string) {
   } catch (error: any) {
     console.error('Update user role error:', error);
     return { success: false, error: error.message || 'فشل تحديث الدور' };
+  }
+}
+
+// ─────────────────────────────────────────────
+// Order Items Editing
+// ─────────────────────────────────────────────
+
+async function recalculateOrderTotals(orderId: string) {
+  const order = await prisma.order.findUnique({
+    where: { id: orderId },
+    include: { items: true },
+  });
+  if (!order) return;
+
+  const subtotal = order.items.reduce((sum, item) => sum + item.totalPriceDZD, 0);
+  const total = subtotal + order.shippingCostDZD;
+
+  await prisma.order.update({
+    where: { id: orderId },
+    data: { subtotalDZD: subtotal, totalDZD: total },
+  });
+}
+
+export async function removeOrderItem(orderId: string, itemId: string) {
+  try {
+    await prisma.orderItem.delete({ where: { id: itemId } });
+    await recalculateOrderTotals(orderId);
+    revalidatePath('/admin/orders');
+    return { success: true };
+  } catch (error: any) {
+    console.error('Remove order item error:', error);
+    return { success: false, error: error.message || 'فشل حذف العنصر' };
+  }
+}
+
+export async function addOrderItem(
+  orderId: string,
+  data: {
+    itemName: string;
+    quantity: number;
+    unitPriceDZD: number;
+    supplyItemId?: string;
+  }
+) {
+  try {
+    const total = data.unitPriceDZD * data.quantity;
+    await prisma.orderItem.create({
+      data: {
+        orderId,
+        itemName: data.itemName,
+        quantity: data.quantity,
+        unitPriceDZD: data.unitPriceDZD,
+        totalPriceDZD: total,
+        supplyItemId: data.supplyItemId || null,
+      },
+    });
+    await recalculateOrderTotals(orderId);
+    revalidatePath('/admin/orders');
+    return { success: true };
+  } catch (error: any) {
+    console.error('Add order item error:', error);
+    return { success: false, error: error.message || 'فشل إضافة العنصر' };
+  }
+}
+
+export async function updateOrderItemQuantity(orderId: string, itemId: string, quantity: number) {
+  try {
+    if (quantity < 1) {
+      return { success: false, error: 'الكمية يجب أن تكون 1 على الأقل' };
+    }
+    const item = await prisma.orderItem.findUnique({ where: { id: itemId } });
+    if (!item) {
+      return { success: false, error: 'العنصر غير موجود' };
+    }
+    const total = item.unitPriceDZD * quantity;
+    await prisma.orderItem.update({
+      where: { id: itemId },
+      data: { quantity, totalPriceDZD: total },
+    });
+    await recalculateOrderTotals(orderId);
+    revalidatePath('/admin/orders');
+    return { success: true };
+  } catch (error: any) {
+    console.error('Update order item quantity error:', error);
+    return { success: false, error: error.message || 'فشل تحديث الكمية' };
+  }
+}
+
+export async function updateOrderItemData(orderId: string, itemId: string, data: {
+  itemName: string;
+  unitPriceDZD: number;
+  quantity: number;
+}) {
+  try {
+    const total = data.unitPriceDZD * data.quantity;
+    await prisma.orderItem.update({
+      where: { id: itemId },
+      data: {
+        itemName: data.itemName,
+        unitPriceDZD: data.unitPriceDZD,
+        quantity: data.quantity,
+        totalPriceDZD: total,
+      },
+    });
+    await recalculateOrderTotals(orderId);
+    revalidatePath('/admin/orders');
+    return { success: true };
+  } catch (error: any) {
+    console.error('Update order item data error:', error);
+    return { success: false, error: error.message || 'فشل تحديث العنصر' };
   }
 }

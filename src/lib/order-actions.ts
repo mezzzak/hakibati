@@ -81,10 +81,15 @@ export async function createOrder(data: {
           : item.customPrice ?? item.hakibatiPack?.basePriceDZD ?? 0;
       const total = unitPrice * item.quantity;
       subtotal += total;
-      const itemName =
-        item.type === 'supply'
-          ? item.supplyItem?.nameAr ?? null
-          : item.hakibatiPack?.nameAr ?? null;
+      let itemName: string | null;
+      if (item.type === 'supply') {
+        itemName = item.supplyItem?.nameAr ?? null;
+      } else {
+        const nameAr = item.hakibatiPack?.nameAr || '';
+        const nameFr = item.hakibatiPack?.nameFr || '';
+        const contents = item.customDescription || '';
+        itemName = `__PACK__${nameAr}|||${nameFr}\n${contents}`;
+      }
       return {
         quantity: item.quantity,
         unitPriceDZD: unitPrice,

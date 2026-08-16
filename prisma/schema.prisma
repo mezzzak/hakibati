@@ -258,3 +258,17 @@ model Review {
   @@index([userId])
   @@index([createdAt])
 }
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  sessionId String
+  userAgent String?
+  referrer  String?
+  country   String?
+  createdAt DateTime @default(now())
+
+  @@index([path])
+  @@index([sessionId])
+  @@index([createdAt])
+}

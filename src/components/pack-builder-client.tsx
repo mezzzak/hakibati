@@ -264,7 +264,7 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
 
     const customDesc = items
       .filter((i) => i.included)
-      .map((i) => `${isAr ? i.supplyItem.nameAr : (i.supplyItem.nameFr || i.supplyItem.nameAr)} ×${i.quantity}`)
+      .map((i) => `${i.supplyItem.id}::${isAr ? i.supplyItem.nameAr : (i.supplyItem.nameFr || i.supplyItem.nameAr)}::${i.supplyItem.unitPriceDZD}::${i.quantity}`)
       .join(' · ');
 
     addItem({

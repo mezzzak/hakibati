@@ -5,6 +5,14 @@ import { persist } from 'zustand/middleware';
 import { toast } from 'sonner';
 import type { SupplyItem, HakibatiPack } from '@/types';
 
+const getLang = (): 'ar' | 'fr' => {
+  if (typeof window !== 'undefined') {
+    return (localStorage.getItem('hakibati-language') as 'ar' | 'fr') || 'ar';
+  }
+  return 'ar';
+};
+const tr = (ar: string, fr: string) => (getLang() === 'fr' ? fr : ar);
+
 export interface CartItem {
   id: string;
   type: 'supply' | 'pack';
@@ -55,12 +63,12 @@ export const useCartStore = create<CartStore>()(
                 : i
             ),
           });
-          toast.success('تم تحديث الكمية في السلة', {
+          toast.success(tr('تم تحديث الكمية في السلة', 'Quantité mise à jour dans le panier'), {
             description: `${itemName} × ${existing.quantity + item.quantity}`,
           });
         } else {
           set({ items: [...get().items, { ...item, id }] });
-          toast.success('تمت الإضافة إلى السلة', {
+          toast.success(tr('تمت الإضافة إلى السلة', 'Ajouté au panier'), {
             description: itemName,
           });
         }
@@ -70,7 +78,7 @@ export const useCartStore = create<CartStore>()(
         const removed = get().items.find((i) => i.id === id);
         set({ items: get().items.filter((i) => i.id !== id) });
         if (removed) {
-          toast.info('تمت الإزالة من السلة', {
+          toast.info(tr('تمت الإزالة من السلة', 'Retiré du panier'), {
             description:
               removed.type === 'supply'
                 ? removed.supplyItem?.nameAr
@@ -93,7 +101,7 @@ export const useCartStore = create<CartStore>()(
 
       clearCart: () => {
         set({ items: [] });
-        toast.info('تم إفراغ السلة');
+        toast.info(tr('تم إفراغ السلة', 'Panier vidé'));
       },
 
       toggleCart: () => set({ isOpen: !get().isOpen }),

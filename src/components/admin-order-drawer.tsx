@@ -5,8 +5,15 @@ import { useLanguage } from '@/components/language-provider';
 import { Sheet } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { updateOrderStatusAdmin, createCallLog } from '@/lib/admin-actions';
-import { formatDZD, formatDate, displayPhone } from '@/lib/utils';
+import {
+  updateOrderStatusAdmin,
+  createCallLog,
+  removeOrderItem,
+  addOrderItem,
+  updateOrderItemQuantity,
+  updateOrderItemData,
+} from '@/lib/admin-actions';
+import { formatDZD, formatDate, displayPhone, parsePackItemName, buildPackItemName, type PackContentItem } from '@/lib/utils';
 import {
   Phone,
   MapPin,
@@ -21,6 +28,10 @@ import {
   StickyNote,
   PhoneCall,
   ClipboardList,
+  X,
+  Plus,
+  Minus,
+  Search,
 } from 'lucide-react';
 
 interface CallLog {
@@ -93,12 +104,12 @@ interface AdminOrderDrawerProps {
   userRole?: string;
 }
 
-const ROLE_ACTIONS: Record<string, { canConfirm: boolean; canDispatch: boolean; canDeliver: boolean; canCancel: boolean; canCallLog: boolean }> = {
-  ADMIN: { canConfirm: true, canDispatch: true, canDeliver: true, canCancel: true, canCallLog: true },
-  MASTER_ADMIN: { canConfirm: true, canDispatch: true, canDeliver: true, canCancel: true, canCallLog: true },
-  ORDER_CONFIRMATION_AGENT: { canConfirm: true, canDispatch: false, canDeliver: false, canCancel: true, canCallLog: true },
-  PREP_AGENT: { canConfirm: false, canDispatch: true, canDeliver: false, canCancel: false, canCallLog: false },
-  SHIPPING_AGENT: { canConfirm: false, canDispatch: false, canDeliver: true, canCancel: false, canCallLog: false },
+const ROLE_ACTIONS: Record<string, { canConfirm: boolean; canDispatch: boolean; canDeliver: boolean; canCancel: boolean; canCallLog: boolean; canEditItems: boolean }> = {
+  ADMIN: { canConfirm: true, canDispatch: true, canDeliver: true, canCancel: true, canCallLog: true, canEditItems: true },
+  MASTER_ADMIN: { canConfirm: true, canDispatch: true, canDeliver: true, canCancel: true, canCallLog: true, canEditItems: true },
+  ORDER_CONFIRMATION_AGENT: { canConfirm: true, canDispatch: false, canDeliver: false, canCancel: true, canCallLog: true, canEditItems: true },
+  PREP_AGENT: { canConfirm: false, canDispatch: true, canDeliver: false, canCancel: false, canCallLog: false, canEditItems: false },
+  SHIPPING_AGENT: { canConfirm: false, canDispatch: false, canDeliver: true, canCancel: false, canCallLog: false, canEditItems: false },
 };
 
 export function AdminOrderDrawer({ order, open, onOpenChange, onStatusUpdate, userRole = 'ADMIN' }: AdminOrderDrawerProps) {
@@ -109,11 +120,31 @@ export function AdminOrderDrawer({ order, open, onOpenChange, onStatusUpdate, us
   const [callNote, setCallNote] = useState('');
   const [addingCall, setAddingCall] = useState(false);
 
+  // Item editing state
+  const [allSupplies, setAllSupplies] = useState<{ id: string; nameAr: string; nameFr: string | null; unitPriceDZD: number }[]>([]);
+  const [showAddProduct, setShowAddProduct] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState('');
+  const [addQuantity, setAddQuantity] = useState(1);
+  const [itemLoading, setItemLoading] = useState(false);
+
   useEffect(() => {
     if (order) {
       setInternalNote(order.adminNotes || '');
+      setShowAddProduct(false);
+      setSelectedProductId('');
+      setAddQuantity(1);
     }
   }, [order?.id]);
+
+  useEffect(() => {
+    if (open && perms.canEditItems) {
+      fetch('/api/supplies?activeOnly=true')
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) setAllSupplies(data.data);
+        });
+    }
+  }, [open]);
 
   if (!order) return null;
 
@@ -134,6 +165,63 @@ export function AdminOrderDrawer({ order, open, onOpenChange, onStatusUpdate, us
     });
     setAddingCall(false);
     setCallNote('');
+    onStatusUpdate();
+  };
+
+  const handleRemoveItem = async (itemId: string) => {
+    if (!confirm(t('هل أنت متأكد من حذف هذا العنصر؟', 'Confirmer la suppression ?'))) return;
+    setItemLoading(true);
+    await removeOrderItem(order.id, itemId);
+    setItemLoading(false);
+    onStatusUpdate();
+  };
+
+  const handleChangeQuantity = async (itemId: string, delta: number) => {
+    const item = order.items.find((i) => i.id === itemId);
+    if (!item) return;
+    const newQty = item.quantity + delta;
+    if (newQty < 1) return;
+    setItemLoading(true);
+    await updateOrderItemQuantity(order.id, itemId, newQty);
+    setItemLoading(false);
+    onStatusUpdate();
+  };
+
+  const handleAddProduct = async () => {
+    if (!selectedProductId) return;
+    const product = allSupplies.find((s) => s.id === selectedProductId);
+    if (!product) return;
+    setItemLoading(true);
+    await addOrderItem(order.id, {
+      itemName: isAr ? product.nameAr : (product.nameFr || product.nameAr),
+      quantity: addQuantity,
+      unitPriceDZD: product.unitPriceDZD,
+      supplyItemId: product.id,
+    });
+    setItemLoading(false);
+    setShowAddProduct(false);
+    setSelectedProductId('');
+    setAddQuantity(1);
+    onStatusUpdate();
+  };
+
+  const handleRemovePackSubItem = async (itemId: string, pack: ReturnType<typeof parsePackItemName>, subIndex: number) => {
+    if (!confirm(t('هل أنت متأكد من إزالة هذا العنصر من الحقيبة؟', 'Retirer cet article du kit ?'))) return;
+    const newContents = pack.contents.filter((_, i) => i !== subIndex);
+    if (newContents.length === 0) {
+      // Remove the whole pack if no items left
+      await handleRemoveItem(itemId);
+      return;
+    }
+    const newUnitPrice = newContents.reduce((sum, c) => sum + c.unitPrice * c.quantity, 0);
+    const newItemName = buildPackItemName(pack.nameAr, pack.nameFr, newContents);
+    setItemLoading(true);
+    await updateOrderItemData(order.id, itemId, {
+      itemName: newItemName,
+      unitPriceDZD: newUnitPrice,
+      quantity: 1,
+    });
+    setItemLoading(false);
     onStatusUpdate();
   };
 
@@ -295,25 +383,115 @@ ${order.items.map((item, idx) => `<tr><td>${idx + 1}</td><td>${item.itemName || 
             <span className="mr-auto text-xs text-muted-foreground">{order.items.length} {t('منتج', 'produit')}{order.items.length !== 1 ? 's' : ''}</span>
           </div>
           <div className="p-5 space-y-3">
-            {order.items.map((item, idx) => (
-              <div key={item.id} className={`flex items-start gap-3 py-3 ${idx !== order.items.length - 1 ? 'border-b' : ''}`}>
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-muted text-xs font-bold text-muted-foreground">
-                  {idx + 1}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <p className="text-sm font-bold">{item.itemName || item.supplyItem?.nameAr || item.hakibatiPack?.nameAr || '—'}</p>
-                      {item.supplyItem?.nameFr || item.hakibatiPack?.nameFr ? (
-                        <p className="text-xs text-muted-foreground">{item.supplyItem?.nameFr || item.hakibatiPack?.nameFr}</p>
-                      ) : null}
+            {order.items.map((item, idx) => {
+              const pack = parsePackItemName(item.itemName);
+              const isPack = pack.isPack;
+              return (
+                <div key={item.id} className={`py-3 ${idx !== order.items.length - 1 ? 'border-b' : ''}`}>
+                  {/* Main item row */}
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-muted text-xs font-bold text-muted-foreground">
+                      {idx + 1}
                     </div>
-                    <div className="text-right shrink-0">
-                      <p className="text-sm font-bold">{formatDZD(item.unitPriceDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</p>
-                      <p className="text-xs text-muted-foreground">×{item.quantity}</p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <p className="text-sm font-bold">
+                            {isPack ? t(pack.nameAr, pack.nameFr || pack.nameAr) : (item.itemName || item.supplyItem?.nameAr || item.hakibatiPack?.nameAr || '—')}
+                          </p>
+                          {!isPack && (item.supplyItem?.nameFr || item.hakibatiPack?.nameFr) ? (
+                            <p className="text-xs text-muted-foreground">{item.supplyItem?.nameFr || item.hakibatiPack?.nameFr}</p>
+                          ) : null}
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="text-sm font-bold">{formatDZD(item.totalPriceDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</p>
+                          {!isPack && (
+                            <p className="text-xs text-muted-foreground">{formatDZD(item.unitPriceDZD, isAr ? 'ar-DZ' : 'fr-DZ')} / {t('الوحدة', 'unité')}</p>
+                          )}
+                          <div className="flex items-center justify-end gap-1.5 mt-2">
+                            {perms.canEditItems && order.status !== 'DELIVERED' && order.status !== 'CANCELLED' && !isPack && (
+                              <>
+                                <button
+                                  onClick={() => handleChangeQuantity(item.id, -1)}
+                                  disabled={itemLoading || item.quantity <= 1}
+                                  className="flex h-7 w-7 items-center justify-center rounded-md bg-muted text-xs hover:bg-primary/10 disabled:opacity-40 border"
+                                >
+                                  <Minus className="h-3.5 w-3.5" />
+                                </button>
+                                <span className="text-sm font-semibold w-5 text-center">{item.quantity}</span>
+                                <button
+                                  onClick={() => handleChangeQuantity(item.id, 1)}
+                                  disabled={itemLoading}
+                                  className="flex h-7 w-7 items-center justify-center rounded-md bg-muted text-xs hover:bg-primary/10 disabled:opacity-40 border"
+                                >
+                                  <Plus className="h-3.5 w-3.5" />
+                                </button>
+                                <div className="w-px h-5 bg-border mx-1" />
+                                <button
+                                  onClick={() => handleRemoveItem(item.id)}
+                                  disabled={itemLoading}
+                                  className="flex h-7 w-7 items-center justify-center rounded-md border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-40"
+                                  title={t('حذف', 'Supprimer')}
+                                >
+                                  <X className="h-3.5 w-3.5" />
+                                </button>
+                              </>
+                            )}
+                            {perms.canEditItems && order.status !== 'DELIVERED' && order.status !== 'CANCELLED' && isPack && (
+                              <button
+                                onClick={() => handleRemoveItem(item.id)}
+                                disabled={itemLoading}
+                                className="flex h-7 w-7 items-center justify-center rounded-md border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-40"
+                                title={t('حذف الحقيبة', 'Supprimer le kit')}
+                              >
+                                <X className="h-3.5 w-3.5" />
+                              </button>
+                            )}
+                            {!(perms.canEditItems && order.status !== 'DELIVERED' && order.status !== 'CANCELLED') && (
+                              <p className="text-xs text-muted-foreground mt-1">×{item.quantity}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  {item.hakibatiPack?.items && item.hakibatiPack.items.length > 0 && (
+                  {/* Pack sub-items */}
+                  {isPack && pack.contents.length > 0 && (
+                    <div className="mt-2 rounded-xl bg-muted/30 px-3 py-2">
+                      <p className="text-[11px] font-medium text-muted-foreground mb-1.5">{t('محتويات الحقيبة', 'Contenu du kit')}</p>
+                      <ul className="space-y-1.5">
+                        {pack.contents.map((sub, sidx) => (
+                          <li key={sidx} className="flex items-center justify-between text-xs">
+                            <span className="text-muted-foreground">{sub.display}</span>
+                            {perms.canEditItems && order.status !== 'DELIVERED' && order.status !== 'CANCELLED' && (
+                              <button
+                                onClick={() => handleRemovePackSubItem(item.id, pack, sidx)}
+                                disabled={itemLoading || pack.contents.length <= 1}
+                                className="flex h-5 w-5 items-center justify-center rounded bg-red-50 text-red-500 hover:bg-red-100 disabled:opacity-30"
+                                title={t('إزالة', 'Retirer')}
+                              >
+                                <X className="h-3 w-3" />
+                              </button>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {isPack && pack.legacyContents.length > 0 && (
+                    <div className="mt-2 rounded-xl bg-muted/30 px-3 py-2">
+                      <p className="text-[11px] font-medium text-muted-foreground mb-1">{t('المحتويات', 'Contenu')}</p>
+                      <ul className="flex flex-wrap gap-x-3 gap-y-1">
+                        {pack.legacyContents.map((line, pidx) => (
+                          <li key={pidx} className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <span className="h-1.5 w-1.5 rounded-full bg-primary/60" />
+                            {line}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {!isPack && item.hakibatiPack?.items && item.hakibatiPack.items.length > 0 && (
                     <div className="mt-2 rounded-xl bg-muted/40 px-3 py-2">
                       <p className="text-[11px] font-medium text-muted-foreground mb-1">{t('المحتويات', 'Contenu')}</p>
                       <ul className="flex flex-wrap gap-x-3 gap-y-1">
@@ -327,8 +505,82 @@ ${order.items.map((item, idx) => `<tr><td>${idx + 1}</td><td>${item.itemName || 
                     </div>
                   )}
                 </div>
+              );
+            })}
+            {/* Add Product Section */}
+            {perms.canEditItems && order.status !== 'DELIVERED' && order.status !== 'CANCELLED' && (
+              <div className="pt-2">
+                {!showAddProduct ? (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowAddProduct(true)}
+                    className="w-full gap-1.5 text-xs"
+                  >
+                    <Plus className="h-3.5 w-3.5" />
+                    {t('إضافة منتج', 'Ajouter un produit')}
+                  </Button>
+                ) : (
+                  <div className="rounded-xl border bg-muted/20 p-3 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Search className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                      <select
+                        value={selectedProductId}
+                        onChange={(e) => setSelectedProductId(e.target.value)}
+                        className="flex-1 rounded-lg border border-input bg-background px-2 py-1.5 text-xs outline-none"
+                      >
+                        <option value="">{t('اختر منتجاً', 'Choisir un produit')}</option>
+                        {allSupplies.map((s) => (
+                          <option key={s.id} value={s.id}>
+                            {s.nameAr} — {formatDZD(s.unitPriceDZD, isAr ? 'ar-DZ' : 'fr-DZ')}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">{t('الكمية', 'Quantité')}:</span>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => setAddQuantity((q) => Math.max(1, q - 1))}
+                          className="flex h-6 w-6 items-center justify-center rounded bg-background border text-xs hover:bg-muted"
+                        >
+                          <Minus className="h-3 w-3" />
+                        </button>
+                        <span className="text-sm font-medium w-5 text-center">{addQuantity}</span>
+                        <button
+                          onClick={() => setAddQuantity((q) => q + 1)}
+                          className="flex h-6 w-6 items-center justify-center rounded bg-background border text-xs hover:bg-muted"
+                        >
+                          <Plus className="h-3 w-3" />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        size="sm"
+                        onClick={handleAddProduct}
+                        disabled={!selectedProductId || itemLoading}
+                        className="text-xs h-8"
+                      >
+                        {t('إضافة', 'Ajouter')}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => {
+                          setShowAddProduct(false);
+                          setSelectedProductId('');
+                          setAddQuantity(1);
+                        }}
+                        className="text-xs h-8"
+                      >
+                        {t('إلغاء', 'Annuler')}
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
-            ))}
+            )}
           </div>
           {/* Totals */}
           <div className="border-t bg-muted/20 px-5 py-4 space-y-2">

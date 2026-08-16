@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { deleteReview } from '@/lib/review-actions';
+import { useLanguage } from '@/components/language-provider';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Trash2, Loader2, MessageSquare } from 'lucide-react';
@@ -18,18 +19,19 @@ interface Review {
 }
 
 export function UserReviewsClient({ reviews, userId }: { reviews: Review[]; userId: string }) {
+  const { t } = useLanguage();
   const [items, setItems] = useState<Review[]>(reviews);
   const [deleting, setDeleting] = useState<Record<string, boolean>>({});
 
   const handleDelete = async (id: string) => {
-    if (!confirm('هل أنت متأكد من حذف هذا التقييم؟')) return;
+    if (!confirm(t('هل أنت متأكد من حذف هذا التقييم؟', 'Confirmer la suppression ?'))) return;
     setDeleting((prev) => ({ ...prev, [id]: true }));
     const result = await deleteReview(id, userId);
     setDeleting((prev) => ({ ...prev, [id]: false }));
     if (result.success) {
       setItems((prev) => prev.filter((r) => r.id !== id));
     } else {
-      alert(result.error || 'فشل الحذف');
+      alert(result.error || t('فشل الحذف', 'Échec de la suppression'));
     }
   };
 
@@ -39,9 +41,9 @@ export function UserReviewsClient({ reviews, userId }: { reviews: Review[]; user
         <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/5 mb-4">
           <MessageSquare className="h-10 w-10 text-primary/40" />
         </div>
-        <h2 className="text-lg font-bold">لا توجد تقييمات</h2>
+        <h2 className="text-lg font-bold">{t('لا توجد تقييمات', 'Aucun avis')}</h2>
         <p className="text-muted-foreground mt-1 max-w-sm">
-          ستظهر هنا التقييمات التي تكتبها بعد إتمام طلباتك
+          {t('ستظهر هنا التقييمات التي تكتبها بعد إتمام طلباتك', 'Les avis que vous écrivez apparaîtront ici après vos commandes')}
         </p>
       </div>
     );
@@ -63,17 +65,17 @@ export function UserReviewsClient({ reviews, userId }: { reviews: Review[]; user
                   ))}
                 </div>
                 <Badge variant={review.isApproved ? 'default' : 'secondary'}>
-                  {review.isApproved ? 'معتمد' : 'بانتظار المراجعة'}
+                  {review.isApproved ? t('معتمد', 'Approuvé') : t('بانتظار المراجعة', 'En attente de révision')}
                 </Badge>
               </div>
 
               <p className="text-foreground leading-relaxed mb-2">{review.comment}</p>
 
               <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                {review.isAnonymous && <span>مجهول</span>}
+                {review.isAnonymous && <span>{t('مجهول', 'Anonyme')}</span>}
                 {review.order && (
                   <>
-                    <span>طلب {review.order.orderNumber}</span>
+                    <span>{t('طلب', 'Commande')} {review.order.orderNumber}</span>
                     <span>•</span>
                     <span>{review.order.wilaya}</span>
                   </>
@@ -95,7 +97,7 @@ export function UserReviewsClient({ reviews, userId }: { reviews: Review[]; user
               ) : (
                 <Trash2 className="h-3.5 w-3.5" />
               )}
-              حذف
+              {t('حذف', 'Supprimer')}
             </Button>
           </div>
         </div>
