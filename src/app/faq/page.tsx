@@ -35,6 +35,12 @@ const faqs = [
     aFr: 'Oui, vous pouvez suivre l\'état de votre commande depuis la page "Mes commandes" de votre compte. Les statuts sont : en attente de confirmation, confirmée, en cours d\'expédition, livrée.',
   },
   {
+    q: 'هل يمكنني تتبع الطلب بدون إنشاء حساب؟',
+    qFr: 'Puis-je suivre ma commande sans créer de compte ?',
+    a: 'نعم، يمكنك تتبع طلبك مباشرة باستخدام رقم الطلب من صفحة "تتبع الطلب"، دون الحاجة إلى التسجيل أو تسجيل الدخول. يمكنك أيضاً تحميل فاتورة الطلب بصيغة PDF.',
+    aFr: 'Oui, vous pouvez suivre votre commande directement en utilisant le numéro de commande depuis la page "Suivi de commande", sans besoin d\'inscription ou de connexion. Vous pouvez également télécharger la facture au format PDF.',
+  },
+  {
     q: 'هل يمكنني تعديل الطلب بعد إرساله؟',
     qFr: 'Puis-je modifier ma commande après envoi ?',
     a: 'يمكنك تعديل الطلب فقط قبل تأكيده من قبل فريقنا. اتصل بنا فوراً إذا أردت التعديل.',
