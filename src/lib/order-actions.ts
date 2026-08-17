@@ -221,6 +221,35 @@ export async function getUserOrderById(orderId: string, userId: string) {
   }
 }
 
+export async function getOrderByOrderNumber(orderNumber: string) {
+  try {
+    const order = await prisma.order.findUnique({
+      where: { orderNumber: orderNumber.trim().toUpperCase() },
+      include: {
+        items: {
+          include: {
+            supplyItem: true,
+            hakibatiPack: {
+              include: {
+                items: {
+                  include: { supplyItem: true },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+    if (!order) {
+      return { success: false, error: 'Order not found' };
+    }
+    return { success: true, order };
+  } catch (error) {
+    console.error('Track order error:', error);
+    return { success: false, error: 'Failed to fetch order' };
+  }
+}
+
 export async function reorderOrder(orderId: string, userId: string) {
   try {
     const originalOrder = await prisma.order.findUnique({

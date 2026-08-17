@@ -49,16 +49,45 @@ export function Header() {
       </div>
 
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        <div className="container mx-auto grid grid-cols-[1fr_auto_1fr] h-16 items-center px-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
+          <Link href="/" className="flex items-center gap-2 shrink-0 justify-self-start">
             <span className="text-2xl font-extrabold text-primary tracking-tight">
               {language === 'fr' ? 'Hakibati' : 'حقيبتي'}
             </span>
           </Link>
 
+          {/* Desktop nav links */}
+          <nav className="hidden lg:flex items-center gap-1 justify-self-center">
+            <Button variant="ghost" size="sm" asChild className="text-sm font-medium">
+              <Link href="/about">
+                {t('من نحن', 'Qui sommes-nous')}
+              </Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild className="text-sm font-medium">
+              <Link href="/track-order">
+                {t('تتبع الطلب', 'Suivi')}
+              </Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild className="text-sm font-medium">
+              <Link href="/packs">
+                {t('الحقائب', 'Nos kits')}
+              </Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild className="text-sm font-medium">
+              <Link href="/#testimonials">
+                {t('آراء الأولياء', 'Avis des parents')}
+              </Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild className="text-sm font-medium">
+              <Link href="/faq">
+                {t('الأسئلة الشائعة', 'FAQ')}
+              </Link>
+            </Button>
+          </nav>
+
           {/* Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 justify-self-end">
             {/* Language Toggle */}
             <Button
               variant="ghost"
@@ -119,10 +148,48 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile user menu */}
+        {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t bg-background">
             <div className="px-4 py-3 space-y-1">
+              {/* Nav links */}
+              <Link
+                href="/about"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+              >
+                {t('من نحن', 'Qui sommes-nous')}
+              </Link>
+              <Link
+                href="/track-order"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+              >
+                {t('تتبع الطلب', 'Suivi')}
+              </Link>
+              <Link
+                href="/packs"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+              >
+                {t('الحقائب', 'Nos kits')}
+              </Link>
+              <Link
+                href="/#testimonials"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+              >
+                {t('آراء الأولياء', 'Avis des parents')}
+              </Link>
+              <Link
+                href="/faq"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+              >
+                {t('الأسئلة الشائعة', 'FAQ')}
+              </Link>
+              <div className="border-t my-1" />
+
               {mounted && session?.user ? (
                 <>
                   {/* User info */}

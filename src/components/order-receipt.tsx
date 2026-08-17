@@ -72,7 +72,33 @@ export function OrderReceipt({ order }: OrderReceiptProps) {
   const receiptRef = useRef<HTMLDivElement>(null);
 
   const handlePrint = () => {
-    window.print();
+    const printWindow = window.open('', '_blank');
+    if (!printWindow || !receiptRef.current) return;
+
+    const receiptHtml = receiptRef.current.outerHTML;
+    const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
+      .map((el) => el.outerHTML)
+      .join('');
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html lang="${document.documentElement.lang || 'fr'}">
+        <head>
+          <meta charset="utf-8" />
+          <title>${order.orderNumber}</title>
+          ${styles}
+          <style>
+            @media print { body { padding: 0; margin: 0; } .no-print { display: none !important; } }
+          </style>
+        </head>
+        <body class="bg-white p-6">
+          ${receiptHtml}
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => printWindow.print(), 400);
   };
 
   const shippingLabel = shippingLabels[order.shippingMethod] || {

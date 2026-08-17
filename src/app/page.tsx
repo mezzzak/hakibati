@@ -4,6 +4,7 @@ import { HowItWorks } from '@/components/how-it-works';
 import { FeaturedPacks } from '@/components/featured-packs';
 import { Testimonials } from '@/components/testimonials';
 import { CTABanner } from '@/components/cta-banner';
+import { TrustBar } from '@/components/trust-bar';
 import { getAllPacks } from '@/lib/db';
 
 export default async function Home() {
@@ -23,9 +24,10 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
+      <TrustBar />
       <HowItWorks />
-      <FeaturedPacks packs={featuredPacks} />
       <GradeSelector />
+      <FeaturedPacks packs={featuredPacks} />
       <Testimonials />
       <CTABanner />
     </>
