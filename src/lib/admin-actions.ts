@@ -420,6 +420,17 @@ export async function deletePack(id: string) {
   }
 }
 
+export async function deleteAllPacks() {
+  try {
+    const { count } = await prisma.hakibatiPack.deleteMany({});
+    revalidatePath('/admin/packs');
+    return { success: true, count };
+  } catch (error) {
+    console.error('Delete all packs error:', error);
+    return { success: false, error: 'Failed to delete all packs' };
+  }
+}
+
 // ─────────────────────────────────────────────
 // CSV Upload Helpers
 // ─────────────────────────────────────────────
