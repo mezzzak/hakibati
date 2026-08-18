@@ -268,9 +268,12 @@ model PageView {
   userAgent String?
   referrer  String?
   country   String?
+  wilaya    String?
   createdAt DateTime @default(now())
 
   @@index([path])
   @@index([sessionId])
   @@index([createdAt])
+  @@index([country])
+  @@index([wilaya])
 }

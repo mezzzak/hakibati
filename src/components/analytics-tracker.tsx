@@ -30,10 +30,12 @@ export function AnalyticsTracker() {
     if (lastTrack && now - parseInt(lastTrack, 10) < 5000) return;
     sessionStorage.setItem(`track-${pathname}`, now.toString());
 
+    const savedWilaya = localStorage.getItem('hakibati-wilaya') || '';
+
     fetch('/api/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path: pathname, sessionId, referrer }),
+      body: JSON.stringify({ path: pathname, sessionId, referrer, wilaya: savedWilaya || undefined }),
     }).catch(() => {});
   }, [pathname]);
 

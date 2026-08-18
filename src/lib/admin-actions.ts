@@ -12,6 +12,7 @@ export async function getAdminAnalytics() {
     const now = new Date();
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const fiveMinutesAgo = new Date(now.getTime() - 5 * 60 * 1000);
 
     const [
       totalRevenueAgg,
@@ -24,6 +25,9 @@ export async function getAdminAnalytics() {
       pageViewsLast7Days,
       pageViewsLast30Days,
       topPages,
+      liveVisitors,
+      countries,
+      visitorWilayas,
     ] = await Promise.all([
         prisma.order.aggregate({
           _sum: { totalDZD: true },
@@ -59,6 +63,24 @@ export async function getAdminAnalytics() {
           _count: { path: true },
           orderBy: { _count: { path: 'desc' } },
           take: 5,
+        }),
+        prisma.pageView.groupBy({
+          by: ['sessionId'],
+          where: { createdAt: { gte: fiveMinutesAgo } },
+          _count: { sessionId: true },
+        }).then((res) => res.length),
+        prisma.pageView.groupBy({
+          by: ['country'],
+          _count: { country: true },
+          orderBy: { _count: { country: 'desc' } },
+          take: 10,
+        }),
+        prisma.pageView.groupBy({
+          by: ['wilaya'],
+          where: { wilaya: { not: null } },
+          _count: { wilaya: true },
+          orderBy: { _count: { wilaya: 'desc' } },
+          take: 10,
         }),
       ]);
 
@@ -96,6 +118,9 @@ export async function getAdminAnalytics() {
           pageViewsLast7Days,
           pageViewsLast30Days,
           topPages,
+          liveVisitors,
+          countries,
+          visitorWilayas,
         },
       },
     };

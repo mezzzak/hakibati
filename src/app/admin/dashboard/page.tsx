@@ -23,6 +23,8 @@ import {
   Eye,
   Users,
   Globe,
+  Activity,
+  Flag,
 } from 'lucide-react';
 
 const STAFF_ROLES = ['ADMIN', 'MASTER_ADMIN', 'ORDER_CONFIRMATION_AGENT', 'PREP_AGENT', 'SHIPPING_AGENT'];
@@ -279,6 +281,12 @@ export default function AdminDashboardPage() {
                   icon={<TrendingUp className="h-5 w-5" />}
                   color="bg-orange-500"
                 />
+                <MetricCard
+                  title={t('زوار نشطون الآن', 'Visiteurs actifs')}
+                  value={String(analytics.visitors.liveVisitors ?? 0)}
+                  icon={<Activity className="h-5 w-5" />}
+                  color="bg-red-500"
+                />
               </div>
 
               {/* Top Pages */}
@@ -297,6 +305,52 @@ export default function AdminDashboardPage() {
                         <div className="flex-1 flex justify-between items-center">
                           <span className="text-sm font-mono">{p.path}</span>
                           <span className="text-sm font-bold">{p._count?.path ?? 0} {t('مشاهدة', 'vue')}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Countries */}
+              {analytics.visitors.countries && analytics.visitors.countries.length > 0 && (
+                <div className="rounded-2xl border bg-card p-6">
+                  <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+                    <Flag className="h-5 w-5 text-primary" />
+                    {t('الدول', 'Pays')}
+                  </h2>
+                  <div className="space-y-3">
+                    {analytics.visitors.countries.map((c: any, idx: number) => (
+                      <div key={c.country || 'Unknown'} className="flex items-center gap-3">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs font-bold">
+                          {idx + 1}
+                        </span>
+                        <div className="flex-1 flex justify-between items-center">
+                          <span className="text-sm">{c.country || t('غير معروف', 'Inconnu')}</span>
+                          <span className="text-sm font-bold">{c._count?.country ?? 0} {t('مشاهدة', 'vue')}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Visitor Wilayas */}
+              {analytics.visitors.visitorWilayas && analytics.visitors.visitorWilayas.length > 0 && (
+                <div className="rounded-2xl border bg-card p-6">
+                  <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+                    <MapPin className="h-5 w-5 text-primary" />
+                    {t('ولايات الزوار', 'Wilayas des visiteurs')}
+                  </h2>
+                  <div className="space-y-3">
+                    {analytics.visitors.visitorWilayas.map((w: any, idx: number) => (
+                      <div key={w.wilaya} className="flex items-center gap-3">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs font-bold">
+                          {idx + 1}
+                        </span>
+                        <div className="flex-1 flex justify-between items-center">
+                          <span className="text-sm">{w.wilaya}</span>
+                          <span className="text-sm font-bold">{w._count?.wilaya ?? 0} {t('مشاهدة', 'vue')}</span>
                         </div>
                       </div>
                     ))}
