@@ -13,10 +13,12 @@ async function main() {
       const text = `${i.nameAr} ${i.nameFr} ${i.category}`.toLowerCase();
       return keywords.some(k => text.includes(k.toLowerCase()));
     });
-    return matches[0] || null;
+    const item = matches[0];
+    if (!item) return null;
+    return { id: item.id, nameAr: item.nameAr, nameFr: item.nameFr, price: item.unitPriceDZD };
   };
 
-  const mappings: Record<string, { id: string; nameAr: string; nameFr: string; price: number } | null> = {};
+  const mappings: Record<string, { id: string; nameAr: string; nameFr: string | null; price: number } | null> = {};
 
   // Notebooks
   mappings['cahier192'] = findCheapest(['192 صفحة', '192 pages']);
