@@ -24,6 +24,7 @@ import {
   Layers,
   X,
   Search,
+  ArrowUpDown,
 } from 'lucide-react';
 
 interface PackItemState {
@@ -83,6 +84,7 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
   const [showSwapDrawer, setShowSwapDrawer] = useState(false);
   const [swapTargetIndex, setSwapTargetIndex] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [addItemsSort, setAddItemsSort] = useState<'default' | 'price-asc' | 'price-desc'>('default');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [addedToCart, setAddedToCart] = useState(false);
@@ -243,23 +245,31 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
   }, [allSupplies]);
 
   const filteredAddItems = useMemo(() => {
-    if (!searchQuery.trim()) return getAvailableItemsToAdd;
-    const terms = searchQuery.toLowerCase().split(/\s+/).filter(Boolean);
-    return getAvailableItemsToAdd.filter((item) => {
-      const haystack = [
-        item.nameAr,
-        item.nameFr,
-        item.brand,
-        item.category,
-        (item as any).categoryAr,
-        (item as any).categoryFr,
-      ]
-        .filter(Boolean)
-        .join(' ')
-        .toLowerCase();
-      return terms.every((t) => haystack.includes(t));
-    });
-  }, [getAvailableItemsToAdd, searchQuery]);
+    let items = getAvailableItemsToAdd;
+    if (searchQuery.trim()) {
+      const terms = searchQuery.toLowerCase().split(/\s+/).filter(Boolean);
+      items = getAvailableItemsToAdd.filter((item) => {
+        const haystack = [
+          item.nameAr,
+          item.nameFr,
+          item.brand,
+          item.category,
+          (item as any).categoryAr,
+          (item as any).categoryFr,
+        ]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase();
+        return terms.every((t) => haystack.includes(t));
+      });
+    }
+    if (addItemsSort === 'price-asc') {
+      items = [...items].sort((a, b) => a.unitPriceDZD - b.unitPriceDZD);
+    } else if (addItemsSort === 'price-desc') {
+      items = [...items].sort((a, b) => b.unitPriceDZD - a.unitPriceDZD);
+    }
+    return items;
+  }, [getAvailableItemsToAdd, searchQuery, addItemsSort]);
 
   const addToCart = useCallback(() => {
     if (!pack) return;
@@ -486,6 +496,11 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
                     <p className="font-semibold text-sm sm:text-base leading-tight">{itemName}</p>
                     {itemSubName && (
                       <p className="text-xs text-muted-foreground mt-0.5">{itemSubName}</p>
+                    )}
+                    {item.supplyItem.brand && (
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {t('العلامة:', 'Marque:')} {item.supplyItem.brand}
+                      </p>
                     )}
                     <p className="text-sm font-bold text-primary mt-1">
                       {formatDZD(item.supplyItem.unitPriceDZD)}
@@ -744,16 +759,27 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
             </p>
           </div>
 
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t('ابحث باسم المنتج أو الفئة...', 'Rechercher par nom ou catégorie...')}
-              className="w-full rounded-xl border bg-background pr-9 pl-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
+          {/* Search & Sort */}
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={t('ابحث باسم المنتج أو الفئة...', 'Rechercher par nom ou catégorie...')}
+                className="w-full rounded-xl border bg-background pr-9 pl-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              />
+            </div>
+            <select
+              value={addItemsSort}
+              onChange={(e) => setAddItemsSort(e.target.value as 'default' | 'price-asc' | 'price-desc')}
+              className="rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary shrink-0"
+            >
+              <option value="default">{t('الترتيب الافتراضي', 'Par défaut')}</option>
+              <option value="price-asc">{t('السعر: من الأقل', 'Prix: croissant')}</option>
+              <option value="price-desc">{t('السعر: من الأعلى', 'Prix: décroissant')}</option>
+            </select>
           </div>
 
           {/* Items Card */}

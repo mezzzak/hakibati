@@ -1,0 +1,3210 @@
+[
+  {
+    "id": "stylo-vert-eco",
+    "nameAr": "قلم أخضر اقتصادي",
+    "nameFr": "Stylo vert éco",
+    "category": "stylos",
+    "price": 15,
+    "brand": null
+  },
+  {
+    "id": "stylo-bleu-eco",
+    "nameAr": "قلم أزرق اقتصادي",
+    "nameFr": "Stylo bleu éco",
+    "category": "stylos",
+    "price": 15,
+    "brand": null
+  },
+  {
+    "id": "crayon-hb-eco",
+    "nameAr": "قلم رصاص HB اقتصادي",
+    "nameFr": "Crayon HB éco",
+    "category": "stylos",
+    "price": 15,
+    "brand": null
+  },
+  {
+    "id": "cmsxvxb0b004o5lwf9bialcn8",
+    "nameAr": "ممحاة",
+    "nameFr": "Gomme",
+    "category": "أدوات الكتابة",
+    "price": 20,
+    "brand": "Bic"
+  },
+  {
+    "id": "crayon-b2-eco",
+    "nameAr": "قلم رصاص B2 اقتصادي",
+    "nameFr": "Crayon B2 éco",
+    "category": "stylos",
+    "price": 20,
+    "brand": null
+  },
+  {
+    "id": "cmsxvxdkv004t5lwf56l2bm32",
+    "nameAr": "ممحاة",
+    "nameFr": "Gomme",
+    "category": "أدوات الكتابة",
+    "price": 25,
+    "brand": "Pentel"
+  },
+  {
+    "id": "colle-blanche-eco",
+    "nameAr": "غراء أبيض اقتصادي",
+    "nameFr": "Colle blanche éco",
+    "category": "accessoires",
+    "price": 25,
+    "brand": null
+  },
+  {
+    "id": "cmsxvxcgq004r5lwfa0dwwmjk",
+    "nameAr": "ممحاة",
+    "nameFr": "Gomme",
+    "category": "أدوات الكتابة",
+    "price": 25,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvxbzc004q5lwfptlbcs72",
+    "nameAr": "ممحاة",
+    "nameFr": "Gomme",
+    "category": "أدوات الكتابة",
+    "price": 25,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvxd3l004s5lwf8u2fyrny",
+    "nameAr": "ممحاة",
+    "nameFr": "Gomme",
+    "category": "أدوات الكتابة",
+    "price": 25,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvxe2d004u5lwf4dqzgi9n",
+    "nameAr": "ممحاة",
+    "nameFr": "Gomme",
+    "category": "أدوات الكتابة",
+    "price": 25,
+    "brand": "UNIBALL"
+  },
+  {
+    "id": "cmsxvwvss003t5lwfjft59c0g",
+    "nameAr": "قلم حبر أزرق",
+    "nameFr": "Stylo bille bleu",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvwphv003g5lwfh8swc6gv",
+    "nameAr": "قلم رصاص HB",
+    "nameFr": "Crayon HB",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvwo19003d5lwfk1r8ftq5",
+    "nameAr": "قلم رصاص HB",
+    "nameFr": "Crayon HB",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwuts003r5lwftnmtv1b5",
+    "nameAr": "قلم حبر أزرق",
+    "nameFr": "Stylo bille bleu",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwwa4003u5lwf365m45t5",
+    "nameAr": "قلم حبر أزرق",
+    "nameFr": "Stylo bille bleu",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvwx98003w5lwfcisdykpa",
+    "nameAr": "قلم حبر أزرق",
+    "nameFr": "Stylo bille bleu",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Pentel"
+  },
+  {
+    "id": "cmsxvwxqm003x5lwf99hqv77m",
+    "nameAr": "قلم حبر أزرق",
+    "nameFr": "Stylo bille bleu",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "UNIBALL"
+  },
+  {
+    "id": "cmsxvwy83003y5lwfpy1qoc9y",
+    "nameAr": "قلم حبر أسود",
+    "nameFr": "Stylo bille noir",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwz9c00405lwfj2nwz677",
+    "nameAr": "قلم حبر أسود",
+    "nameFr": "Stylo bille noir",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvwzqv00415lwfg4pe2vys",
+    "nameAr": "قلم حبر أسود",
+    "nameFr": "Stylo bille noir",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvx0ps00435lwfte56zdmm",
+    "nameAr": "قلم حبر أسود",
+    "nameFr": "Stylo bille noir",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Pentel"
+  },
+  {
+    "id": "cmsxvx17b00445lwfjuzq9t08",
+    "nameAr": "قلم حبر أسود",
+    "nameFr": "Stylo bille noir",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "UNIBALL"
+  },
+  {
+    "id": "cmsxvwqh1003i5lwfznu7n96i",
+    "nameAr": "قلم رصاص HB",
+    "nameFr": "Crayon HB",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Pentel"
+  },
+  {
+    "id": "cmsxvwqyf003j5lwfpoi6j32s",
+    "nameAr": "قلم رصاص HB",
+    "nameFr": "Crayon HB",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "UNIBALL"
+  },
+  {
+    "id": "cmsxvx1ou00455lwfi5zw6vlw",
+    "nameAr": "قلم حبر أحمر",
+    "nameFr": "Stylo bille rouge",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvx2nv00475lwf3u89hxjo",
+    "nameAr": "قلم حبر أحمر",
+    "nameFr": "Stylo bille rouge",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvx35h00485lwfpr6qc7eq",
+    "nameAr": "قلم حبر أحمر",
+    "nameFr": "Stylo bille rouge",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Maped"
+  },
+  {
+    "id": "etiquettes-eco",
+    "nameAr": "بطاقات لاصقة للكراريس",
+    "nameFr": "Étiquettes autocollantes",
+    "category": "accessoires",
+    "price": 30,
+    "brand": null
+  },
+  {
+    "id": "cmsxvx44d004a5lwfmhvou3tz",
+    "nameAr": "قلم حبر أحمر",
+    "nameFr": "Stylo bille rouge",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Pentel"
+  },
+  {
+    "id": "cmsxvx4lr004b5lwfjgeif0o9",
+    "nameAr": "قلم حبر أحمر",
+    "nameFr": "Stylo bille rouge",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "UNIBALL"
+  },
+  {
+    "id": "cmsxvxbhw004p5lwfah4cfke7",
+    "nameAr": "ممحاة",
+    "nameFr": "Gomme",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Pilot"
+  },
+  {
+    "id": "cahier-32-eco",
+    "nameAr": "دفتر 32 صفحة اقتصادي",
+    "nameFr": "Cahier 32 pages éco",
+    "category": "cahiers",
+    "price": 30,
+    "brand": null
+  },
+  {
+    "id": "cmsxvwp0d003f5lwfkv4m53bw",
+    "nameAr": "قلم رصاص HB",
+    "nameFr": "Crayon HB",
+    "category": "أدوات الكتابة",
+    "price": 30,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvwoiv003e5lwfw5dehz5b",
+    "nameAr": "قلم رصاص HB",
+    "nameFr": "Crayon HB",
+    "category": "أدوات الكتابة",
+    "price": 35,
+    "brand": "Pilot"
+  },
+  {
+    "id": "cmsxvx08d00425lwfx47fyvpl",
+    "nameAr": "قلم حبر أسود",
+    "nameFr": "Stylo bille noir",
+    "category": "أدوات الكتابة",
+    "price": 35,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "regle-30cm-plastique",
+    "nameAr": "مسطرة بلاستيكية 30 سم",
+    "nameFr": "Règle plastique 30 cm",
+    "category": "geometrie",
+    "price": 35,
+    "brand": null
+  },
+  {
+    "id": "rapporteur-180",
+    "nameAr": "منقلة 180 درجة",
+    "nameFr": "Rapporteur 180°",
+    "category": "geometrie",
+    "price": 35,
+    "brand": null
+  },
+  {
+    "id": "cmsxvwpzf003h5lwfanoeagn3",
+    "nameAr": "قلم رصاص HB",
+    "nameFr": "Crayon HB",
+    "category": "أدوات الكتابة",
+    "price": 35,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvwyrn003z5lwfs2u8k8q6",
+    "nameAr": "قلم حبر أسود",
+    "nameFr": "Stylo bille noir",
+    "category": "أدوات الكتابة",
+    "price": 35,
+    "brand": "Pilot"
+  },
+  {
+    "id": "papier-transparent-eco",
+    "nameAr": "ورق شفاف (كالك) اقتصادي",
+    "nameFr": "Papier transparent (calque) éco",
+    "category": "accessoires",
+    "price": 35,
+    "brand": null
+  },
+  {
+    "id": "cmsxvwrfu003k5lwf57rxib32",
+    "nameAr": "قلم رصاص B2",
+    "nameFr": "Crayon B2",
+    "category": "أدوات الكتابة",
+    "price": 35,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwwrw003v5lwfjx3lnr5e",
+    "nameAr": "قلم حبر أزرق",
+    "nameFr": "Stylo bille bleu",
+    "category": "أدوات الكتابة",
+    "price": 35,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvx26e00465lwf0809hwnz",
+    "nameAr": "قلم حبر أحمر",
+    "nameFr": "Stylo bille rouge",
+    "category": "أدوات الكتابة",
+    "price": 35,
+    "brand": "Pilot"
+  },
+  {
+    "id": "cahier-musique-32-eco",
+    "nameAr": "دفتر موسيقى 32 صفحة (الصولفيج) اقتصادي",
+    "nameFr": "Cahier musique 32 pages (solfège) éco",
+    "category": "cahiers",
+    "price": 35,
+    "brand": null
+  },
+  {
+    "id": "cmsxvwvb8003s5lwfc260byut",
+    "nameAr": "قلم حبر أزرق",
+    "nameFr": "Stylo bille bleu",
+    "category": "أدوات الكتابة",
+    "price": 35,
+    "brand": "Pilot"
+  },
+  {
+    "id": "cmsxvwsw2003n5lwf011ar4qy",
+    "nameAr": "قلم رصاص B2",
+    "nameFr": "Crayon B2",
+    "category": "أدوات الكتابة",
+    "price": 35,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvx3mv00495lwfwa51didr",
+    "nameAr": "قلم حبر أحمر",
+    "nameFr": "Stylo bille rouge",
+    "category": "أدوات الكتابة",
+    "price": 35,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "papier-millimetre-eco",
+    "nameAr": "ورق ميليمتري اقتصادي",
+    "nameFr": "Papier millimétré éco",
+    "category": "accessoires",
+    "price": 40,
+    "brand": null
+  },
+  {
+    "id": "cmsxvwrx9003l5lwfzpwpetmw",
+    "nameAr": "قلم رصاص B2",
+    "nameFr": "Crayon B2",
+    "category": "أدوات الكتابة",
+    "price": 40,
+    "brand": "Pilot"
+  },
+  {
+    "id": "cmsxvyrac007m5lwfbyesq4v1",
+    "nameAr": "غلاف بلاستيكي للكراسات",
+    "nameFr": "Protège-cahier plastique",
+    "category": "التغليف والحماية",
+    "price": 40,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvyqt3007l5lwf3uxi5mi9",
+    "nameAr": "غلاف بلاستيكي للكراسات",
+    "nameFr": "Protège-cahier plastique",
+    "category": "التغليف والحماية",
+    "price": 40,
+    "brand": "Éxacompta"
+  },
+  {
+    "id": "cmsxvyqat007k5lwfbzipnxjf",
+    "nameAr": "غلاف بلاستيكي للكراسات",
+    "nameFr": "Protège-cahier plastique",
+    "category": "التغليف والحماية",
+    "price": 40,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvypt7007j5lwfvml4q4bd",
+    "nameAr": "غلاف بلاستيكي للكراسات",
+    "nameFr": "Protège-cahier plastique",
+    "category": "التغليف والحماية",
+    "price": 40,
+    "brand": "Elba"
+  },
+  {
+    "id": "cahier-48-eco",
+    "nameAr": "دفتر 48 صفحة اقتصادي",
+    "nameFr": "Cahier 48 pages éco",
+    "category": "cahiers",
+    "price": 40,
+    "brand": null
+  },
+  {
+    "id": "equerre-45-degres",
+    "nameAr": "مثلث 45 درجة",
+    "nameFr": "Équerre 45°",
+    "category": "geometrie",
+    "price": 40,
+    "brand": null
+  },
+  {
+    "id": "equerre-60-degres",
+    "nameAr": "مثلث 60 درجة",
+    "nameFr": "Équerre 60°",
+    "category": "geometrie",
+    "price": 40,
+    "brand": null
+  },
+  {
+    "id": "cmsxvxg0j004y5lwformfchfb",
+    "nameAr": "مبراة",
+    "nameFr": "Taille-crayon",
+    "category": "أدوات الكتابة",
+    "price": 40,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvxejy004v5lwfqe797i8c",
+    "nameAr": "مبراة",
+    "nameFr": "Taille-crayon",
+    "category": "أدوات الكتابة",
+    "price": 40,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwuc7003q5lwftfzq95do",
+    "nameAr": "قلم رصاص B2",
+    "nameFr": "Crayon B2",
+    "category": "أدوات الكتابة",
+    "price": 40,
+    "brand": "UNIBALL"
+  },
+  {
+    "id": "cmsxvwtux003p5lwfbhdw6mlp",
+    "nameAr": "قلم رصاص B2",
+    "nameFr": "Crayon B2",
+    "category": "أدوات الكتابة",
+    "price": 40,
+    "brand": "Pentel"
+  },
+  {
+    "id": "cmsxvwtdg003o5lwfvgyh3fwm",
+    "nameAr": "قلم رصاص B2",
+    "nameFr": "Crayon B2",
+    "category": "أدوات الكتابة",
+    "price": 40,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvwsep003m5lwf0wti6a94",
+    "nameAr": "قلم رصاص B2",
+    "nameFr": "Crayon B2",
+    "category": "أدوات الكتابة",
+    "price": 40,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "gomme-maped",
+    "nameAr": "ممحاة مابيد أنيقة",
+    "nameFr": "Gomme Maped Essentials",
+    "category": "accessoires",
+    "price": 45,
+    "brand": null
+  },
+  {
+    "id": "cmsxvxfiw004x5lwf02bae3gu",
+    "nameAr": "مبراة",
+    "nameFr": "Taille-crayon",
+    "category": "أدوات الكتابة",
+    "price": 45,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvxgzp00505lwfk02umqgp",
+    "nameAr": "مبراة",
+    "nameFr": "Taille-crayon",
+    "category": "أدوات الكتابة",
+    "price": 45,
+    "brand": "Pentel"
+  },
+  {
+    "id": "cmsxvxgi3004z5lwfvt35n9zf",
+    "nameAr": "مبراة",
+    "nameFr": "Taille-crayon",
+    "category": "أدوات الكتابة",
+    "price": 45,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvxhhe00515lwfegyobqkg",
+    "nameAr": "مبراة",
+    "nameFr": "Taille-crayon",
+    "category": "أدوات الكتابة",
+    "price": 45,
+    "brand": "UNIBALL"
+  },
+  {
+    "id": "cmsxvv39q00075lwf0i359few",
+    "nameAr": "كراس 32 صفحة",
+    "nameFr": "Cahier 32 pages",
+    "category": "كراسات ودفاتر",
+    "price": 45,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvymfg007c5lwfsm05qxp8",
+    "nameAr": "حافظة أوراق شفافة",
+    "nameFr": "Pochette transparente",
+    "category": "تنظيم وتخزين",
+    "price": 45,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvv2as00055lwf8bdmdnls",
+    "nameAr": "كراس 32 صفحة",
+    "nameFr": "Cahier 32 pages",
+    "category": "كراسات ودفاتر",
+    "price": 50,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvxf1e004w5lwfx85fr8ie",
+    "nameAr": "مبراة",
+    "nameFr": "Taille-crayon",
+    "category": "أدوات الكتابة",
+    "price": 50,
+    "brand": "Pilot"
+  },
+  {
+    "id": "cmsxvv1ss00045lwfntzgtwr4",
+    "nameAr": "كراس 32 صفحة",
+    "nameFr": "Cahier 32 pages",
+    "category": "كراسات ودفاتر",
+    "price": 50,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvyxng007z5lwfv6ufy0j4",
+    "nameAr": "قلم سبورة",
+    "nameFr": "Marqueur pour tableau",
+    "category": "أدوات القسم",
+    "price": 50,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwhqy00315lwfocp3mh8v",
+    "nameAr": "كراس المحاولات",
+    "nameFr": "Cahier de brouillon",
+    "category": "كراسات ودفاتر",
+    "price": 50,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvylxs007b5lwfrbap0taz",
+    "nameAr": "حافظة أوراق شفافة",
+    "nameFr": "Pochette transparente",
+    "category": "تنظيم وتخزين",
+    "price": 50,
+    "brand": "Avery"
+  },
+  {
+    "id": "cmsxvyjya00775lwfpg2hm0cp",
+    "nameAr": "حافظة أوراق شفافة",
+    "nameFr": "Pochette transparente",
+    "category": "تنظيم وتخزين",
+    "price": 50,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvykfl00785lwft6l0bi0q",
+    "nameAr": "حافظة أوراق شفافة",
+    "nameFr": "Pochette transparente",
+    "category": "تنظيم وتخزين",
+    "price": 50,
+    "brand": "Éxacompta"
+  },
+  {
+    "id": "cmsxvykx000795lwfqmegqgec",
+    "nameAr": "حافظة أوراق شفافة",
+    "nameFr": "Pochette transparente",
+    "category": "تنظيم وتخزين",
+    "price": 50,
+    "brand": "Elba"
+  },
+  {
+    "id": "cmsxvylg3007a5lwf54m5feuq",
+    "nameAr": "حافظة أوراق شفافة",
+    "nameFr": "Pochette transparente",
+    "category": "تنظيم وتخزين",
+    "price": 50,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvyy4x00805lwf9ovvqfym",
+    "nameAr": "قلم سبورة",
+    "nameFr": "Marqueur pour tableau",
+    "category": "أدوات القسم",
+    "price": 50,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvxlur005a5lwfjewhs4b8",
+    "nameAr": "مسطرة 30 سم",
+    "nameFr": "Règle 30 cm",
+    "category": "الهندسة والقياس",
+    "price": 55,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvyx5u007y5lwfg79h3kod",
+    "nameAr": "قلم سبورة",
+    "nameFr": "Marqueur pour tableau",
+    "category": "أدوات القسم",
+    "price": 55,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvv2s800065lwfcoiusi87",
+    "nameAr": "كراس 32 صفحة",
+    "nameFr": "Cahier 32 pages",
+    "category": "كراسات ودفاتر",
+    "price": 55,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvxr2e005k5lwfthzbu8zi",
+    "nameAr": "منقلة",
+    "nameFr": "Rapporteur",
+    "category": "الهندسة والقياس",
+    "price": 55,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvxs1g005m5lwfy8divddb",
+    "nameAr": "منقلة",
+    "nameFr": "Rapporteur",
+    "category": "الهندسة والقياس",
+    "price": 55,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvv1b200035lwfwliqhkkl",
+    "nameAr": "كراس 32 صفحة",
+    "nameFr": "Cahier 32 pages",
+    "category": "كراسات ودفاتر",
+    "price": 55,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvyrrz007n5lwfstomonyr",
+    "nameAr": "غلاف بلاستيكي شفاف للكتب",
+    "nameFr": "Protège-livre transparent",
+    "category": "التغليف والحماية",
+    "price": 55,
+    "brand": "Elba"
+  },
+  {
+    "id": "cmsxvysqw007p5lwfzcuwg51j",
+    "nameAr": "غلاف بلاستيكي شفاف للكتب",
+    "nameFr": "Protège-livre transparent",
+    "category": "التغليف والحماية",
+    "price": 55,
+    "brand": "Éxacompta"
+  },
+  {
+    "id": "cmsxvyt8g007q5lwf8assz8iq",
+    "nameAr": "غلاف بلاستيكي شفاف للكتب",
+    "nameFr": "Protège-livre transparent",
+    "category": "التغليف والحماية",
+    "price": 55,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvytpp007r5lwfkzkw5w6b",
+    "nameAr": "بطاقات لاصقة",
+    "nameFr": "Étiquettes autocollantes",
+    "category": "تنظيم وتخزين",
+    "price": 55,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvyu70007s5lwfur5h7rde",
+    "nameAr": "بطاقات لاصقة",
+    "nameFr": "Étiquettes autocollantes",
+    "category": "تنظيم وتخزين",
+    "price": 55,
+    "brand": "Bic"
+  },
+  {
+    "id": "taille-crayon-maped",
+    "nameAr": "مبراة مابيد مزدوجة",
+    "nameFr": "Taille-crayon Maped double",
+    "category": "accessoires",
+    "price": 55,
+    "brand": null
+  },
+  {
+    "id": "cmsxvyz3y00825lwf4ugp0vcm",
+    "nameAr": "ممسحة سبورة",
+    "nameFr": "Effaceur de tableau",
+    "category": "أدوات القسم",
+    "price": 55,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwga7002y5lwf4u6gt7q6",
+    "nameAr": "كراس المحاولات",
+    "nameFr": "Cahier de brouillon",
+    "category": "كراسات ودفاتر",
+    "price": 55,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvwgrp002z5lwf1a0yfme7",
+    "nameAr": "كراس المحاولات",
+    "nameFr": "Cahier de brouillon",
+    "category": "كراسات ودفاتر",
+    "price": 55,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvyzlh00835lwf1fa844kd",
+    "nameAr": "ممسحة سبورة",
+    "nameFr": "Effaceur de tableau",
+    "category": "أدوات القسم",
+    "price": 55,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cahier-tp-eco",
+    "nameAr": "دفتر أعمال تطبيقية (ح.ك) اقتصادي",
+    "nameFr": "Cahier travaux pratiques éco",
+    "category": "cahiers",
+    "price": 55,
+    "brand": null
+  },
+  {
+    "id": "cmsxvxmva005c5lwfojxnmca0",
+    "nameAr": "مسطرة 30 سم",
+    "nameFr": "Règle 30 cm",
+    "category": "الهندسة والقياس",
+    "price": 55,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvyv5y007u5lwfnjx1iaj5",
+    "nameAr": "بطاقات لاصقة",
+    "nameFr": "Étiquettes autocollantes",
+    "category": "تنظيم وتخزين",
+    "price": 60,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvv75g000f5lwfstfa7i5w",
+    "nameAr": "كراس 48 صفحة",
+    "nameFr": "Cahier 48 pages",
+    "category": "كراسات ودفاتر",
+    "price": 60,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvv66l000d5lwfuv5ge5c4",
+    "nameAr": "كراس 48 صفحة",
+    "nameFr": "Cahier 48 pages",
+    "category": "كراسات ودفاتر",
+    "price": 60,
+    "brand": "Foroni"
+  },
+  {
+    "id": "pinceaux-eco",
+    "nameAr": "فرشاة رسم رقم 02 و 03 اقتصادية",
+    "nameFr": "Pinceaux n°02 et n°03 éco",
+    "category": "arts",
+    "price": 60,
+    "brand": null
+  },
+  {
+    "id": "cmsxvwfsl002x5lwffxhyp1sc",
+    "nameAr": "كراس المحاولات",
+    "nameFr": "Cahier de brouillon",
+    "category": "كراسات ودفاتر",
+    "price": 60,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvyyma00815lwfhmdn6g3b",
+    "nameAr": "ممسحة سبورة",
+    "nameFr": "Effaceur de tableau",
+    "category": "أدوات القسم",
+    "price": 60,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvwh9900305lwffc1afyt8",
+    "nameAr": "كراس المحاولات",
+    "nameFr": "Cahier de brouillon",
+    "category": "كراسات ودفاتر",
+    "price": 60,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvv0tp00025lwfp46utrt1",
+    "nameAr": "كراس 32 صفحة",
+    "nameFr": "Cahier 32 pages",
+    "category": "كراسات ودفاتر",
+    "price": 60,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvys9l007o5lwfa3gj8hem",
+    "nameAr": "غلاف بلاستيكي شفاف للكتب",
+    "nameFr": "Protège-livre transparent",
+    "category": "التغليف والحماية",
+    "price": 60,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvxkvs00585lwfu66mik5i",
+    "nameAr": "مسطرة 30 سم",
+    "nameFr": "Règle 30 cm",
+    "category": "الهندسة والقياس",
+    "price": 60,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvxq31005i5lwffyg0os8b",
+    "nameAr": "منقلة",
+    "nameFr": "Rapporteur",
+    "category": "الهندسة والقياس",
+    "price": 60,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvyuoj007t5lwf819vhwwb",
+    "nameAr": "بطاقات لاصقة",
+    "nameFr": "Étiquettes autocollantes",
+    "category": "تنظيم وتخزين",
+    "price": 60,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvwlub00395lwfli2f0shv",
+    "nameAr": "كراس القواعد",
+    "nameFr": "Cahier de règles",
+    "category": "كراسات ودفاتر",
+    "price": 65,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvzevn008y5lwf8kn8qaq2",
+    "nameAr": "مجلد بلاستيكي",
+    "nameFr": "Chemise plastique",
+    "category": "تنظيم وتخزين",
+    "price": 65,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvuzu800005lwfdquqetno",
+    "nameAr": "كراس 32 صفحة",
+    "nameFr": "Cahier 32 pages",
+    "category": "كراسات ودفاتر",
+    "price": 65,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvxldg00595lwfhrhq8s6o",
+    "nameAr": "مسطرة 30 سم",
+    "nameFr": "Règle 30 cm",
+    "category": "الهندسة والقياس",
+    "price": 65,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvv6nw000e5lwfyndyjgjr",
+    "nameAr": "كراس 48 صفحة",
+    "nameFr": "Cahier 48 pages",
+    "category": "كراسات ودفاتر",
+    "price": 65,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvypbw007i5lwfffy86vxv",
+    "nameAr": "حافظة أوراق مزدوجة",
+    "nameFr": "Pochette double",
+    "category": "تنظيم وتخزين",
+    "price": 65,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvv5p3000c5lwfnj89e8ch",
+    "nameAr": "كراس 48 صفحة",
+    "nameFr": "Cahier 48 pages",
+    "category": "كراسات ودفاتر",
+    "price": 65,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvxqkq005j5lwf4v2pqq8h",
+    "nameAr": "منقلة",
+    "nameFr": "Rapporteur",
+    "category": "الهندسة والقياس",
+    "price": 65,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvxobu005f5lwfrmzg9mt6",
+    "nameAr": "كوس / مثلث هندسي",
+    "nameFr": "Équerre",
+    "category": "الهندسة والقياس",
+    "price": 65,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwfb4002w5lwft1g3mytd",
+    "nameAr": "كراس المحاولات",
+    "nameFr": "Cahier de brouillon",
+    "category": "كراسات ودفاتر",
+    "price": 65,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvxkec00575lwfpmueke45",
+    "nameAr": "غراء",
+    "nameFr": "Colle",
+    "category": "الرسم والفنون",
+    "price": 65,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwkv600375lwf0m213bu5",
+    "nameAr": "كراس القواعد",
+    "nameFr": "Cahier de règles",
+    "category": "كراسات ودفاتر",
+    "price": 65,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cahier-seyes-64",
+    "nameAr": "دفتر سَيِّه 64 صفحة",
+    "nameFr": "Cahier Seyès 64 pages",
+    "category": "cahiers",
+    "price": 65,
+    "brand": null
+  },
+  {
+    "id": "cmsxvwkdq00365lwfsinla77w",
+    "nameAr": "كراس القواعد",
+    "nameFr": "Cahier de règles",
+    "category": "كراسات ودفاتر",
+    "price": 70,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvv4q2000a5lwfsqe1zcyg",
+    "nameAr": "كراس 48 صفحة",
+    "nameFr": "Cahier 48 pages",
+    "category": "كراسات ودفاتر",
+    "price": 70,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvv57j000b5lwf2qa5d826",
+    "nameAr": "كراس 48 صفحة",
+    "nameFr": "Cahier 48 pages",
+    "category": "كراسات ودفاتر",
+    "price": 70,
+    "brand": "Elve"
+  },
+  {
+    "id": "cahier-120-eco",
+    "nameAr": "دفتر 120 صفحة اقتصادي",
+    "nameFr": "Cahier 120 pages éco",
+    "category": "cahiers",
+    "price": 70,
+    "brand": null
+  },
+  {
+    "id": "cmsxvv0c700015lwfetn37itv",
+    "nameAr": "كراس 32 صفحة",
+    "nameFr": "Cahier 32 pages",
+    "category": "كراسات ودفاتر",
+    "price": 70,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvwebx002u5lwfwmvbpuhi",
+    "nameAr": "كراس المحاولات",
+    "nameFr": "Cahier de brouillon",
+    "category": "كراسات ودفاتر",
+    "price": 70,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvwlct00385lwffroqcf3r",
+    "nameAr": "كراس القواعد",
+    "nameFr": "Cahier de règles",
+    "category": "كراسات ودفاتر",
+    "price": 70,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvxhyq00525lwfvti0y5nc",
+    "nameAr": "غراء",
+    "nameFr": "Colle",
+    "category": "الرسم والفنون",
+    "price": 70,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvxme0005b5lwfrmiqkoc7",
+    "nameAr": "مسطرة 30 سم",
+    "nameFr": "Règle 30 cm",
+    "category": "الهندسة والقياس",
+    "price": 70,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvxplj005h5lwfcaf6jxgf",
+    "nameAr": "كوس / مثلث هندسي",
+    "nameFr": "Équerre",
+    "category": "الهندسة والقياس",
+    "price": 70,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvxrk1005l5lwfiftu0ukd",
+    "nameAr": "منقلة",
+    "nameFr": "Rapporteur",
+    "category": "الهندسة والقياس",
+    "price": 70,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvymwr007d5lwf3y8j7bfe",
+    "nameAr": "حافظة أوراق مزدوجة",
+    "nameFr": "Pochette double",
+    "category": "تنظيم وتخزين",
+    "price": 70,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvynvq007f5lwfy9tm2i6b",
+    "nameAr": "حافظة أوراق مزدوجة",
+    "nameFr": "Pochette double",
+    "category": "تنظيم وتخزين",
+    "price": 70,
+    "brand": "Elba"
+  },
+  {
+    "id": "cmsxvzdfe008v5lwfrvh04vdn",
+    "nameAr": "مجلد بلاستيكي",
+    "nameFr": "Chemise plastique",
+    "category": "تنظيم وتخزين",
+    "price": 70,
+    "brand": "Elba"
+  },
+  {
+    "id": "cmsxvzcgg008t5lwfky4tieea",
+    "nameAr": "مجلد بلاستيكي",
+    "nameFr": "Chemise plastique",
+    "category": "تنظيم وتخزين",
+    "price": 70,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvwjwa00355lwfuxejf64o",
+    "nameAr": "كراس القواعد",
+    "nameFr": "Cahier de règles",
+    "category": "كراسات ودفاتر",
+    "price": 75,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvyod3007g5lwft89ziu1u",
+    "nameAr": "حافظة أوراق مزدوجة",
+    "nameFr": "Pochette double",
+    "category": "تنظيم وتخزين",
+    "price": 75,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvzdwq008w5lwfanyg6ts7",
+    "nameAr": "مجلد بلاستيكي",
+    "nameFr": "Chemise plastique",
+    "category": "تنظيم وتخزين",
+    "price": 75,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvzkyw009a5lwfwor2wzad",
+    "nameAr": "لاصق شفاف",
+    "nameFr": "Ruban adhésif transparent",
+    "category": "الرسم والفنون",
+    "price": 75,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvvb19000n5lwf6iqob9id",
+    "nameAr": "كراس 64 صفحة",
+    "nameFr": "Cahier 64 pages",
+    "category": "كراسات ودفاتر",
+    "price": 75,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwnjp003c5lwf3buabbj1",
+    "nameAr": "كراس الموسيقى والسولفيج",
+    "nameFr": "Cahier de musique et solfège",
+    "category": "الموسيقى",
+    "price": 75,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvz3yi008c5lwfzhhs8v9y",
+    "nameAr": "مسطرة مثلثة",
+    "nameFr": "Règle triangulaire",
+    "category": "الهندسة والقياس",
+    "price": 75,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvv3r200085lwf44t3nc25",
+    "nameAr": "كراس 48 صفحة",
+    "nameFr": "Cahier 48 pages",
+    "category": "كراسات ودفاتر",
+    "price": 75,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvwmbt003a5lwfwcfa66zc",
+    "nameAr": "كراس الموسيقى والسولفيج",
+    "nameFr": "Cahier de musique et solfège",
+    "category": "الموسيقى",
+    "price": 75,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvxncx005d5lwfon7jhgh5",
+    "nameAr": "كوس / مثلث هندسي",
+    "nameFr": "Équerre",
+    "category": "الهندسة والقياس",
+    "price": 75,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvva24000l5lwfp7gcc2yx",
+    "nameAr": "كراس 64 صفحة",
+    "nameFr": "Cahier 64 pages",
+    "category": "كراسات ودفاتر",
+    "price": 75,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvwetl002v5lwfw3j6iwic",
+    "nameAr": "كراس المحاولات",
+    "nameFr": "Cahier de brouillon",
+    "category": "كراسات ودفاتر",
+    "price": 75,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvxjws00565lwftb804ea7",
+    "nameAr": "غراء",
+    "nameFr": "Colle",
+    "category": "الرسم والفنون",
+    "price": 80,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvxjfa00555lwf6dxrkpth",
+    "nameAr": "غراء",
+    "nameFr": "Colle",
+    "category": "الرسم والفنون",
+    "price": 80,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvzee5008x5lwfxii35c7g",
+    "nameAr": "مجلد بلاستيكي",
+    "nameFr": "Chemise plastique",
+    "category": "تنظيم وتخزين",
+    "price": 80,
+    "brand": "Avery"
+  },
+  {
+    "id": "cmsxvwn2g003b5lwfry9yxh7s",
+    "nameAr": "كراس الموسيقى والسولفيج",
+    "nameFr": "Cahier de musique et solfège",
+    "category": "الموسيقى",
+    "price": 80,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvv48i00095lwf3p5dbxhd",
+    "nameAr": "كراس 48 صفحة",
+    "nameFr": "Cahier 48 pages",
+    "category": "كراسات ودفاتر",
+    "price": 80,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvyouh007h5lwf128srvhw",
+    "nameAr": "حافظة أوراق مزدوجة",
+    "nameFr": "Pochette double",
+    "category": "تنظيم وتخزين",
+    "price": 80,
+    "brand": "Avery"
+  },
+  {
+    "id": "cmsxvwj7i00345lwfdq130cex",
+    "nameAr": "كراس القواعد",
+    "nameFr": "Cahier de règles",
+    "category": "كراسات ودفاتر",
+    "price": 80,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvyne4007e5lwfylgtk7j1",
+    "nameAr": "حافظة أوراق مزدوجة",
+    "nameFr": "Pochette double",
+    "category": "تنظيم وتخزين",
+    "price": 80,
+    "brand": "Éxacompta"
+  },
+  {
+    "id": "cmsxvv9km000k5lwfadc5pq48",
+    "nameAr": "كراس 64 صفحة",
+    "nameFr": "Cahier 64 pages",
+    "category": "كراسات ودفاتر",
+    "price": 80,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvxotb005g5lwf4eywst16",
+    "nameAr": "كوس / مثلث هندسي",
+    "nameFr": "Équerre",
+    "category": "الهندسة والقياس",
+    "price": 80,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "papier-dessin-eco",
+    "nameAr": "أوراق رسم اقتصادية (20 ورقة)",
+    "nameFr": "Papier dessin éco (20 feuilles)",
+    "category": "arts",
+    "price": 80,
+    "brand": null
+  },
+  {
+    "id": "cmsxvxnug005e5lwfmgy60vh8",
+    "nameAr": "كوس / مثلث هندسي",
+    "nameFr": "Équerre",
+    "category": "الهندسة والقياس",
+    "price": 80,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "chemise-double-eco",
+    "nameAr": "حافظة أوراق مزدوجة اقتصادية",
+    "nameFr": "Chemise double / porte-documents éco",
+    "category": "accessoires",
+    "price": 80,
+    "brand": null
+  },
+  {
+    "id": "cmsxvz4xe008e5lwfeclaggz5",
+    "nameAr": "مسطرة مثلثة",
+    "nameFr": "Règle triangulaire",
+    "category": "الهندسة والقياس",
+    "price": 80,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvzcxx008u5lwf42h6sfwe",
+    "nameAr": "مجلد بلاستيكي",
+    "nameFr": "Chemise plastique",
+    "category": "تنظيم وتخزين",
+    "price": 80,
+    "brand": "Éxacompta"
+  },
+  {
+    "id": "cmsxvxig700535lwf5vcmxqnk",
+    "nameAr": "غراء",
+    "nameFr": "Colle",
+    "category": "الرسم والفنون",
+    "price": 80,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvwi8l00325lwffb734r7y",
+    "nameAr": "كراس القواعد",
+    "nameFr": "Cahier de règles",
+    "category": "كراسات ودفاتر",
+    "price": 85,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvzihb00955lwfh1gmjklk",
+    "nameAr": "لاصق شفاف",
+    "nameFr": "Ruban adhésif transparent",
+    "category": "الرسم والفنون",
+    "price": 85,
+    "brand": "Maped"
+  },
+  {
+    "id": "cahier-seyes-96",
+    "nameAr": "دفتر سَيِّه 96 صفحة",
+    "nameFr": "Cahier Seyès 96 pages",
+    "category": "cahiers",
+    "price": 85,
+    "brand": null
+  },
+  {
+    "id": "cahier-petits-carreaux-96",
+    "nameAr": "دفتر صغير القماش 96 صفحة",
+    "nameFr": "Cahier petits carreaux 96 pages",
+    "category": "cahiers",
+    "price": 85,
+    "brand": null
+  },
+  {
+    "id": "cmsxvxixn00545lwfjp5qrmcb",
+    "nameAr": "غراء",
+    "nameFr": "Colle",
+    "category": "الرسم والفنون",
+    "price": 85,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvvajk000m5lwf2y4nky1d",
+    "nameAr": "كراس 64 صفحة",
+    "nameFr": "Cahier 64 pages",
+    "category": "كراسات ودفاتر",
+    "price": 85,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "feutres-eco",
+    "nameAr": "أقلام لباد اقتصادية (12 لون)",
+    "nameFr": "Feutres éco (12 couleurs)",
+    "category": "arts",
+    "price": 90,
+    "brand": null
+  },
+  {
+    "id": "cmsxvzjy000985lwfk90awizf",
+    "nameAr": "لاصق شفاف",
+    "nameFr": "Ruban adhésif transparent",
+    "category": "الرسم والفنون",
+    "price": 90,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvv932000j5lwfa37f7h5b",
+    "nameAr": "كراس 64 صفحة",
+    "nameFr": "Cahier 64 pages",
+    "category": "كراسات ودفاتر",
+    "price": 90,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvziyt00965lwfpa3nthhf",
+    "nameAr": "لاصق شفاف",
+    "nameFr": "Ruban adhésif transparent",
+    "category": "الرسم والفنون",
+    "price": 90,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvzbyy008s5lwfj7fv7e8k",
+    "nameAr": "ورق لاصق",
+    "nameFr": "Papier adhésif",
+    "category": "الرسم والفنون",
+    "price": 90,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvwipv00335lwfa7rfii7h",
+    "nameAr": "كراس القواعد",
+    "nameFr": "Cahier de règles",
+    "category": "كراسات ودفاتر",
+    "price": 90,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvz3h0008b5lwfllg21xcp",
+    "nameAr": "مسطرة مثلثة",
+    "nameFr": "Règle triangulaire",
+    "category": "الهندسة والقياس",
+    "price": 90,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvy58i006d5lwfaeur1y6i",
+    "nameAr": "ورق Canson",
+    "nameFr": "Papier Canson",
+    "category": "الرسم والفنون",
+    "price": 90,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvz2zr008a5lwfjthuljkx",
+    "nameAr": "مسطرة مثلثة",
+    "nameFr": "Règle triangulaire",
+    "category": "الهندسة والقياس",
+    "price": 90,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvzhsg00945lwfh5m9ys8m",
+    "nameAr": "ملف بلاستيكي بزر",
+    "nameFr": "Pochette plastique à bouton",
+    "category": "تنظيم وتخزين",
+    "price": 90,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvv8lm000i5lwfp3sad8gb",
+    "nameAr": "كراس 64 صفحة",
+    "nameFr": "Cahier 64 pages",
+    "category": "كراسات ودفاتر",
+    "price": 90,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvzkft00995lwf7rcxu0a1",
+    "nameAr": "لاصق شفاف",
+    "nameFr": "Ruban adhésif transparent",
+    "category": "الرسم والفنون",
+    "price": 95,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvw9hk002l5lwf5ya9t2bg",
+    "nameAr": "كراس الأعمال التطبيقية صغير",
+    "nameFr": "Cahier de travaux pratiques petit format",
+    "category": "كراسات ودفاتر",
+    "price": 95,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvz4fs008d5lwf54rxv0mk",
+    "nameAr": "مسطرة مثلثة",
+    "nameFr": "Règle triangulaire",
+    "category": "الهندسة والقياس",
+    "price": 95,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cahier-192-eco",
+    "nameAr": "دفتر 192 صفحة اقتصادي",
+    "nameFr": "Cahier 192 pages éco",
+    "category": "cahiers",
+    "price": 95,
+    "brand": null
+  },
+  {
+    "id": "cmsxvy2sx00685lwfutva5jvz",
+    "nameAr": "ورق Canson",
+    "nameFr": "Papier Canson",
+    "category": "الرسم والفنون",
+    "price": 95,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvzgc400915lwflt1ozyl0",
+    "nameAr": "ملف بلاستيكي بزر",
+    "nameFr": "Pochette plastique à bouton",
+    "category": "تنظيم وتخزين",
+    "price": 95,
+    "brand": "Elba"
+  },
+  {
+    "id": "cmsxvzfda008z5lwfi1zwfcsg",
+    "nameAr": "ملف بلاستيكي بزر",
+    "nameFr": "Pochette plastique à bouton",
+    "category": "تنظيم وتخزين",
+    "price": 95,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvz9jq008n5lwfp83lae0e",
+    "nameAr": "ورق لاصق",
+    "nameFr": "Papier adhésif",
+    "category": "الرسم والفنون",
+    "price": 95,
+    "brand": "Maped"
+  },
+  {
+    "id": "aquarelle-eco",
+    "nameAr": "ألوان مائية اقتصادية",
+    "nameFr": "Aquarelle éco",
+    "category": "arts",
+    "price": 100,
+    "brand": null
+  },
+  {
+    "id": "cmsxvzgtk00925lwfregajpld",
+    "nameAr": "ملف بلاستيكي بزر",
+    "nameFr": "Pochette plastique à bouton",
+    "category": "تنظيم وتخزين",
+    "price": 100,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvzjgb00975lwfg1dkdjrk",
+    "nameAr": "لاصق شفاف",
+    "nameFr": "Ruban adhésif transparent",
+    "category": "الرسم والفنون",
+    "price": 100,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvznvm009g5lwf12x8rvfu",
+    "nameAr": "مقص مدرسي",
+    "nameFr": "Ciseaux scolaires",
+    "category": "الرسم والفنون",
+    "price": 100,
+    "brand": "Bic"
+  },
+  {
+    "id": "couvertures-livres-eco",
+    "nameAr": "أغلفة بلاستيكية شفافة للكتب (حزمة 5)",
+    "nameFr": "Couvertures livres transparentes (lot 5)",
+    "category": "accessoires",
+    "price": 100,
+    "brand": null
+  },
+  {
+    "id": "cmsxvv7mp000g5lwff4co6fhz",
+    "nameAr": "كراس 64 صفحة",
+    "nameFr": "Cahier 64 pages",
+    "category": "كراسات ودفاتر",
+    "price": 100,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvvf02000v5lwfw3l33o14",
+    "nameAr": "كراس 96 صفحة",
+    "nameFr": "Cahier 96 pages",
+    "category": "كراسات ودفاتر",
+    "price": 100,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvw8in002j5lwfrggbtjd8",
+    "nameAr": "كراس الأعمال التطبيقية صغير",
+    "nameFr": "Cahier de travaux pratiques petit format",
+    "category": "كراسات ودفاتر",
+    "price": 100,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvy3ag00695lwf9p5klbtl",
+    "nameAr": "ورق Canson",
+    "nameFr": "Papier Canson",
+    "category": "الرسم والفنون",
+    "price": 105,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvw1p300255lwfcb0cl1lz",
+    "nameAr": "كراس التمارين",
+    "nameFr": "Cahier d'exercices",
+    "category": "كراسات ودفاتر",
+    "price": 105,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvza17008o5lwf7jy9c5mz",
+    "nameAr": "ورق لاصق",
+    "nameFr": "Papier adhésif",
+    "category": "الرسم والفنون",
+    "price": 105,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvv849000h5lwf9lszklmu",
+    "nameAr": "كراس 64 صفحة",
+    "nameFr": "Cahier 64 pages",
+    "category": "كراسات ودفاتر",
+    "price": 105,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvzb03008q5lwfjivao2ss",
+    "nameAr": "ورق لاصق",
+    "nameFr": "Papier adhésif",
+    "category": "الرسم والفنون",
+    "price": 105,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvw5li002d5lwfmzxfatix",
+    "nameAr": "كراس التطبيقات",
+    "nameFr": "Cahier d'applications",
+    "category": "كراسات ودفاتر",
+    "price": 105,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvzhay00935lwfpj461n9q",
+    "nameAr": "ملف بلاستيكي بزر",
+    "nameFr": "Pochette plastique à bouton",
+    "category": "تنظيم وتخزين",
+    "price": 105,
+    "brand": "Avery"
+  },
+  {
+    "id": "cmsxvw816002i5lwf9pbkin9m",
+    "nameAr": "كراس الأعمال التطبيقية صغير",
+    "nameFr": "Cahier de travaux pratiques petit format",
+    "category": "كراسات ودفاتر",
+    "price": 105,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvz926008m5lwf4kpqa6u3",
+    "nameAr": "دفتر ملاحظات",
+    "nameFr": "Carnet de notes",
+    "category": "كراسات ودفاتر",
+    "price": 105,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvy49h006b5lwfpqm42kf0",
+    "nameAr": "ورق Canson",
+    "nameFr": "Papier Canson",
+    "category": "الرسم والفنون",
+    "price": 105,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvzfun00905lwfwy5f1bkl",
+    "nameAr": "ملف بلاستيكي بزر",
+    "nameFr": "Pochette plastique à bouton",
+    "category": "تنظيم وتخزين",
+    "price": 105,
+    "brand": "Éxacompta"
+  },
+  {
+    "id": "cmsxvve0y000t5lwfah4scu05",
+    "nameAr": "كراس 96 صفحة",
+    "nameFr": "Cahier 96 pages",
+    "category": "كراسات ودفاتر",
+    "price": 105,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvw902002k5lwfhtkh0h3m",
+    "nameAr": "كراس الأعمال التطبيقية صغير",
+    "nameFr": "Cahier de travaux pratiques petit format",
+    "category": "كراسات ودفاتر",
+    "price": 110,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvyb6t006p5lwf3dgbqn3l",
+    "nameAr": "فرش رسم رقم 02 و03",
+    "nameFr": "Pinceaux n°02 et n°03",
+    "category": "الرسم والفنون",
+    "price": 110,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvz7u6008k5lwfrit5nuls",
+    "nameAr": "دفتر ملاحظات",
+    "nameFr": "Carnet de notes",
+    "category": "كراسات ودفاتر",
+    "price": 110,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvye4l006v5lwf64x2bv1t",
+    "nameAr": "أوراق ملونة",
+    "nameFr": "Papier coloré",
+    "category": "الرسم والفنون",
+    "price": 110,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvy3s3006a5lwfxg3iyoeu",
+    "nameAr": "ورق Canson",
+    "nameFr": "Papier Canson",
+    "category": "الرسم والفنون",
+    "price": 110,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvyjgq00765lwffykde9mi",
+    "nameAr": "أوراق شفافة",
+    "nameFr": "Feuilles transparentes",
+    "category": "الرسم والفنون",
+    "price": 110,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvzaio008p5lwf1b6e0hn5",
+    "nameAr": "ورق لاصق",
+    "nameFr": "Papier adhésif",
+    "category": "الرسم والفنون",
+    "price": 110,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvy4qz006c5lwfbr9vkqtj",
+    "nameAr": "ورق Canson",
+    "nameFr": "Papier Canson",
+    "category": "الرسم والفنون",
+    "price": 110,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvzbhi008r5lwfbk4x2ce4",
+    "nameAr": "ورق لاصق",
+    "nameFr": "Papier adhésif",
+    "category": "الرسم والفنون",
+    "price": 110,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvzlg8009b5lwfs8rbxaj6",
+    "nameAr": "مقص مدرسي",
+    "nameFr": "Ciseaux scolaires",
+    "category": "الرسم والفنون",
+    "price": 110,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvw4m6002b5lwf50mkioy6",
+    "nameAr": "كراس التطبيقات",
+    "nameFr": "Cahier d'applications",
+    "category": "كراسات ودفاتر",
+    "price": 110,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvvdj6000s5lwf3ucv63xq",
+    "nameAr": "كراس 96 صفحة",
+    "nameFr": "Cahier 96 pages",
+    "category": "كراسات ودفاتر",
+    "price": 110,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvw7jm002h5lwfpyaa3ovk",
+    "nameAr": "كراس الأعمال التطبيقية صغير",
+    "nameFr": "Cahier de travaux pratiques petit format",
+    "category": "كراسات ودفاتر",
+    "price": 110,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvyflb006y5lwfct8p3quo",
+    "nameAr": "أوراق ميليمترية",
+    "nameFr": "Papier millimétré",
+    "category": "الهندسة والقياس",
+    "price": 110,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvw0q800235lwf1kn2g072",
+    "nameAr": "كراس التمارين",
+    "nameFr": "Cahier d'exercices",
+    "category": "كراسات ودفاتر",
+    "price": 110,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvz0kd00855lwfv70niyu4",
+    "nameAr": "مرآة مدرسية",
+    "nameFr": "Miroir scolaire",
+    "category": "أدوات القسم",
+    "price": 110,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvz7ck008j5lwfy4ffpcsw",
+    "nameAr": "دفتر ملاحظات",
+    "nameFr": "Carnet de notes",
+    "category": "كراسات ودفاتر",
+    "price": 115,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvveim000u5lwfkwjh0ico",
+    "nameAr": "كراس 96 صفحة",
+    "nameFr": "Cahier 96 pages",
+    "category": "كراسات ودفاتر",
+    "price": 115,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvw729002g5lwfhggxikg1",
+    "nameAr": "كراس الأعمال التطبيقية صغير",
+    "nameFr": "Cahier de travaux pratiques petit format",
+    "category": "كراسات ودفاتر",
+    "price": 115,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvygk800705lwfc1a01gnv",
+    "nameAr": "أوراق ميليمترية",
+    "nameFr": "Papier millimétré",
+    "category": "الهندسة والقياس",
+    "price": 115,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvw44k002a5lwfmkj1ww9r",
+    "nameAr": "كراس التطبيقات",
+    "nameFr": "Cahier d'applications",
+    "category": "كراسات ودفاتر",
+    "price": 115,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvw08z00225lwffk64nzx3",
+    "nameAr": "كراس التمارين",
+    "nameFr": "Cahier d'exercices",
+    "category": "كراسات ودفاتر",
+    "price": 115,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvz11v00865lwfnklbhp2w",
+    "nameAr": "مرآة مدرسية",
+    "nameFr": "Miroir scolaire",
+    "category": "أدوات القسم",
+    "price": 115,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvzlxk009c5lwfv7lzeatp",
+    "nameAr": "مقص مدرسي",
+    "nameFr": "Ciseaux scolaires",
+    "category": "الرسم والفنون",
+    "price": 115,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvzmwo009e5lwfbpgg7u1y",
+    "nameAr": "مقص مدرسي",
+    "nameFr": "Ciseaux scolaires",
+    "category": "الرسم والفنون",
+    "price": 115,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "crayons-couleurs-eco",
+    "nameAr": "علبة أقلام ملونة اقتصادية (12 لون)",
+    "nameFr": "Boîte crayons de couleur éco (12 couleurs)",
+    "category": "stylos",
+    "price": 120,
+    "brand": null
+  },
+  {
+    "id": "cmsxvw53q002c5lwf59ybome5",
+    "nameAr": "كراس التطبيقات",
+    "nameFr": "Cahier d'applications",
+    "category": "كراسات ودفاتر",
+    "price": 120,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "stylo-bic-bleu",
+    "nameAr": "قلم بيك أزرق",
+    "nameFr": "Stylo Bic Bleu",
+    "category": "stylos",
+    "price": 120,
+    "brand": null
+  },
+  {
+    "id": "cmsxvzne7009f5lwfa9f1hb1t",
+    "nameAr": "مقص مدرسي",
+    "nameFr": "Ciseaux scolaires",
+    "category": "الرسم والفنون",
+    "price": 120,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvw17p00245lwfig13xtjg",
+    "nameAr": "كراس التمارين",
+    "nameFr": "Cahier d'exercices",
+    "category": "كراسات ودفاتر",
+    "price": 120,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvz02x00845lwf9rpww972",
+    "nameAr": "مرآة مدرسية",
+    "nameFr": "Miroir scolaire",
+    "category": "أدوات القسم",
+    "price": 120,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvy8p6006k5lwfwy87xxzm",
+    "nameAr": "فرش رسم رقم 02 و03",
+    "nameFr": "Pinceaux n°02 et n°03",
+    "category": "الرسم والفنون",
+    "price": 120,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvybod006q5lwfrc3vczuw",
+    "nameAr": "أوراق ملونة",
+    "nameFr": "Papier coloré",
+    "category": "الرسم والفنون",
+    "price": 120,
+    "brand": "Maped"
+  },
+  {
+    "id": "stylo-bic-noir",
+    "nameAr": "قلم بيك أسود",
+    "nameFr": "Stylo Bic Noir",
+    "category": "stylos",
+    "price": 120,
+    "brand": null
+  },
+  {
+    "id": "stylo-bic-rouge",
+    "nameAr": "قلم بيك أحمر",
+    "nameFr": "Stylo Bic Rouge",
+    "category": "stylos",
+    "price": 120,
+    "brand": null
+  },
+  {
+    "id": "cmsxvyh1j00715lwf525skmnn",
+    "nameAr": "أوراق شفافة",
+    "nameFr": "Feuilles transparentes",
+    "category": "الرسم والفنون",
+    "price": 120,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvz8bp008l5lwf0eg5dl7s",
+    "nameAr": "دفتر ملاحظات",
+    "nameFr": "Carnet de notes",
+    "category": "كراسات ودفاتر",
+    "price": 120,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvvd1g000r5lwfzi7qddyf",
+    "nameAr": "كراس 96 صفحة",
+    "nameFr": "Cahier 96 pages",
+    "category": "كراسات ودفاتر",
+    "price": 120,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvzmfb009d5lwfalsynhxi",
+    "nameAr": "مقص مدرسي",
+    "nameFr": "Ciseaux scolaires",
+    "category": "الرسم والفنون",
+    "price": 125,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvw3n000295lwfn2xby690",
+    "nameAr": "كراس التطبيقات",
+    "nameFr": "Cahier d'applications",
+    "category": "كراسات ودفاتر",
+    "price": 125,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvvck2000q5lwf89emuonc",
+    "nameAr": "كراس 96 صفحة",
+    "nameFr": "Cahier 96 pages",
+    "category": "كراسات ودفاتر",
+    "price": 125,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvw630002e5lwfj9wk65mu",
+    "nameAr": "كراس الأعمال التطبيقية صغير",
+    "nameFr": "Cahier de travaux pratiques petit format",
+    "category": "كراسات ودفاتر",
+    "price": 125,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvviw800135lwf8uilssrc",
+    "nameAr": "كراس 120 صفحة",
+    "nameFr": "Cahier 120 pages",
+    "category": "كراسات ودفاتر",
+    "price": 125,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvz6v2008i5lwfcwjvjmw1",
+    "nameAr": "دفتر ملاحظات",
+    "nameFr": "Carnet de notes",
+    "category": "كراسات ودفاتر",
+    "price": 125,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvvzrr00215lwf52qadx66",
+    "nameAr": "كراس التمارين",
+    "nameFr": "Cahier d'exercices",
+    "category": "كراسات ودفاتر",
+    "price": 125,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvyem9006w5lwfeipr1cpt",
+    "nameAr": "أوراق ميليمترية",
+    "nameFr": "Papier millimétré",
+    "category": "الهندسة والقياس",
+    "price": 125,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvyf3q006x5lwfujhfyo6r",
+    "nameAr": "أوراق ميليمترية",
+    "nameFr": "Papier millimétré",
+    "category": "الهندسة والقياس",
+    "price": 130,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvvxri001x5lwfcxwpmomn",
+    "nameAr": "كراس الرسم",
+    "nameFr": "Cahier de dessin",
+    "category": "الرسم والفنون",
+    "price": 130,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvvza000205lwf5gebeix8",
+    "nameAr": "كراس التمارين",
+    "nameFr": "Cahier d'exercices",
+    "category": "كراسات ودفاتر",
+    "price": 130,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvx7j4004h5lwfrzzt495m",
+    "nameAr": "علبة أقلام ملونة 6 ألوان",
+    "nameFr": "Boîte de 6 crayons de couleur",
+    "category": "الرسم والفنون",
+    "price": 130,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvyc5x006r5lwf4ke5vuhm",
+    "nameAr": "أوراق ملونة",
+    "nameFr": "Papier coloré",
+    "category": "الرسم والفنون",
+    "price": 130,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvyd5f006t5lwfdjka349j",
+    "nameAr": "أوراق ملونة",
+    "nameFr": "Papier coloré",
+    "category": "الرسم والفنون",
+    "price": 130,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvw35g00285lwfbky1zpsm",
+    "nameAr": "كراس التطبيقات",
+    "nameFr": "Cahier d'applications",
+    "category": "كراسات ودفاتر",
+    "price": 130,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvya7g006n5lwfr8wyoevw",
+    "nameAr": "فرش رسم رقم 02 و03",
+    "nameFr": "Pinceaux n°02 et n°03",
+    "category": "الرسم والفنون",
+    "price": 130,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvz20u00885lwfua1cd4le",
+    "nameAr": "لوحة مدرسية",
+    "nameFr": "Planche scolaire",
+    "category": "أدوات القسم",
+    "price": 130,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvy96r006l5lwf5rki23w5",
+    "nameAr": "فرش رسم رقم 02 و03",
+    "nameFr": "Pinceaux n°02 et n°03",
+    "category": "الرسم والفنون",
+    "price": 130,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvy2bf00675lwfm8jbsbd6",
+    "nameAr": "أوراق الرسم",
+    "nameFr": "Papier à dessin",
+    "category": "الرسم والفنون",
+    "price": 130,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvyhix00725lwfrt01rsa4",
+    "nameAr": "أوراق شفافة",
+    "nameFr": "Feuilles transparentes",
+    "category": "الرسم والفنون",
+    "price": 130,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvvhxf00115lwffqmuizhy",
+    "nameAr": "كراس 120 صفحة",
+    "nameFr": "Cahier 120 pages",
+    "category": "كراسات ودفاتر",
+    "price": 130,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvyihx00745lwfnyeefd8w",
+    "nameAr": "أوراق شفافة",
+    "nameFr": "Feuilles transparentes",
+    "category": "الرسم والفنون",
+    "price": 130,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvxti8005p5lwfk7bu2ng7",
+    "nameAr": "مدور / بركار",
+    "nameFr": "Compas",
+    "category": "الهندسة والقياس",
+    "price": 130,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvz6dk008h5lwfo5583gxi",
+    "nameAr": "دفتر ملاحظات",
+    "nameFr": "Carnet de notes",
+    "category": "كراسات ودفاتر",
+    "price": 130,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvydn3006u5lwf9bwtiahy",
+    "nameAr": "أوراق ملونة",
+    "nameFr": "Papier coloré",
+    "category": "الرسم والفنون",
+    "price": 135,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvw6km002f5lwf4stvz6j4",
+    "nameAr": "كراس الأعمال التطبيقية صغير",
+    "nameFr": "Cahier de travaux pratiques petit format",
+    "category": "كراسات ودفاتر",
+    "price": 135,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvyaoz006o5lwfcjqsty8g",
+    "nameAr": "فرش رسم رقم 02 و03",
+    "nameFr": "Pinceaux n°02 et n°03",
+    "category": "الرسم والفنون",
+    "price": 135,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvyg2w006z5lwf4rviozhh",
+    "nameAr": "أوراق ميليمترية",
+    "nameFr": "Papier millimétré",
+    "category": "الهندسة والقياس",
+    "price": 135,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvyizb00755lwfv4tnv8yx",
+    "nameAr": "أوراق شفافة",
+    "nameFr": "Feuilles transparentes",
+    "category": "الرسم والفنون",
+    "price": 135,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvvbkn000o5lwfgqomf3hb",
+    "nameAr": "كراس 96 صفحة",
+    "nameFr": "Cahier 96 pages",
+    "category": "كراسات ودفاتر",
+    "price": 135,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvxuh7005r5lwfyvlxs8ir",
+    "nameAr": "مدور / بركار",
+    "nameFr": "Compas",
+    "category": "الهندسة والقياس",
+    "price": 140,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvw26j00265lwfdvsdohwd",
+    "nameAr": "كراس التطبيقات",
+    "nameFr": "Cahier d'applications",
+    "category": "كراسات ودفاتر",
+    "price": 140,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvz2ib00895lwfqp8fwp7b",
+    "nameAr": "لوحة مدرسية",
+    "nameFr": "Planche scolaire",
+    "category": "أدوات القسم",
+    "price": 140,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvyi0g00735lwf2rvi6jbs",
+    "nameAr": "أوراق شفافة",
+    "nameFr": "Feuilles transparentes",
+    "category": "الرسم والفنون",
+    "price": 140,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvycnr006s5lwfdl748677",
+    "nameAr": "أوراق ملونة",
+    "nameFr": "Papier coloré",
+    "category": "الرسم والفنون",
+    "price": 140,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvy9px006m5lwf43q7po39",
+    "nameAr": "فرش رسم رقم 02 و03",
+    "nameFr": "Pinceaux n°02 et n°03",
+    "category": "الرسم والفنون",
+    "price": 140,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvvhfx00105lwfrpvutb5m",
+    "nameAr": "كراس 120 صفحة",
+    "nameFr": "Cahier 120 pages",
+    "category": "كراسات ودفاتر",
+    "price": 140,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvz5eq008f5lwf2yc62vh9",
+    "nameAr": "دفتر ملاحظات",
+    "nameFr": "Carnet de notes",
+    "category": "كراسات ودفاتر",
+    "price": 140,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvvy90001y5lwft27vcuwj",
+    "nameAr": "كراس التمارين",
+    "nameFr": "Cahier d'exercices",
+    "category": "كراسات ودفاتر",
+    "price": 140,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvvc25000p5lwfq6m7lz62",
+    "nameAr": "كراس 96 صفحة",
+    "nameFr": "Cahier 96 pages",
+    "category": "كراسات ودفاتر",
+    "price": 140,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvwdu9002t5lwfffg5om1l",
+    "nameAr": "كراس الأعمال التطبيقية كبير",
+    "nameFr": "Cahier de travaux pratiques grand format",
+    "category": "كراسات ودفاتر",
+    "price": 145,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvxzvu00625lwf272sm5fp",
+    "nameAr": "أوراق الرسم",
+    "nameFr": "Papier à dessin",
+    "category": "الرسم والفنون",
+    "price": 145,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvvieu00125lwfyhv6sl0y",
+    "nameAr": "كراس 120 صفحة",
+    "nameFr": "Cahier 120 pages",
+    "category": "كراسات ودفاتر",
+    "price": 145,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvz1jd00875lwfdq4vr9y8",
+    "nameAr": "لوحة مدرسية",
+    "nameFr": "Planche scolaire",
+    "category": "أدوات القسم",
+    "price": 145,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvvvbx001s5lwfsm8h6plf",
+    "nameAr": "كراس الرسم",
+    "nameFr": "Cahier de dessin",
+    "category": "الرسم والفنون",
+    "price": 145,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvx53c004c5lwf8bpyobzx",
+    "nameAr": "علبة أقلام ملونة 6 ألوان",
+    "nameFr": "Boîte de 6 crayons de couleur",
+    "category": "الرسم والفنون",
+    "price": 145,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvvysf001z5lwfq67xax81",
+    "nameAr": "كراس التمارين",
+    "nameFr": "Cahier d'exercices",
+    "category": "كراسات ودفاتر",
+    "price": 150,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvvgyb000z5lwfgb1bvbuo",
+    "nameAr": "كراس 120 صفحة",
+    "nameFr": "Cahier 120 pages",
+    "category": "كراسات ودفاتر",
+    "price": 150,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvw2o100275lwfaxz3jr2t",
+    "nameAr": "كراس التطبيقات",
+    "nameFr": "Cahier d'applications",
+    "category": "كراسات ودفاتر",
+    "price": 150,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "crayon-hb-maped",
+    "nameAr": "قلم رصاص HB مابيد (حزمة 12)",
+    "nameFr": "Crayons HB Maped (lot de 12)",
+    "category": "stylos",
+    "price": 150,
+    "brand": null
+  },
+  {
+    "id": "cmsxvz5vw008g5lwfjkxi9gjc",
+    "nameAr": "دفتر ملاحظات",
+    "nameFr": "Carnet de notes",
+    "category": "كراسات ودفاتر",
+    "price": 150,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvxsj4005n5lwf7au8qhn6",
+    "nameAr": "مدور / بركار",
+    "nameFr": "Compas",
+    "category": "الهندسة والقياس",
+    "price": 150,
+    "brand": "Maped"
+  },
+  {
+    "id": "couvertures-plastique-eco",
+    "nameAr": "أغلفة بلاستيكية للكراريس (حزمة 20)",
+    "nameFr": "Couvertures plastiques cahiers (lot 20)",
+    "category": "accessoires",
+    "price": 150,
+    "brand": null
+  },
+  {
+    "id": "calculatrice-simple-eco",
+    "nameAr": "آلة حاسبة بسيطة اقتصادية",
+    "nameFr": "Calculatrice simple éco",
+    "category": "electronique",
+    "price": 150,
+    "brand": null
+  },
+  {
+    "id": "cmsxvx5ku004d5lwf92h1r0cq",
+    "nameAr": "علبة أقلام ملونة 6 ألوان",
+    "nameFr": "Boîte de 6 crayons de couleur",
+    "category": "الرسم والفنون",
+    "price": 155,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvy1cd00655lwflujtuf95",
+    "nameAr": "أوراق الرسم",
+    "nameFr": "Papier à dessin",
+    "category": "الرسم والفنون",
+    "price": 155,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvxt0q005o5lwf00mmqrlt",
+    "nameAr": "مدور / بركار",
+    "nameFr": "Compas",
+    "category": "الهندسة والقياس",
+    "price": 155,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvwcuz002r5lwf1djb60hz",
+    "nameAr": "كراس الأعمال التطبيقية كبير",
+    "nameFr": "Cahier de travaux pratiques grand format",
+    "category": "كراسات ودفاتر",
+    "price": 155,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvvvti001t5lwfe675zwk7",
+    "nameAr": "كراس الرسم",
+    "nameFr": "Cahier de dessin",
+    "category": "الرسم والفنون",
+    "price": 155,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvvwsm001v5lwf8b80k7u5",
+    "nameAr": "كراس الرسم",
+    "nameFr": "Cahier de dessin",
+    "category": "الرسم والفنون",
+    "price": 155,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvy0dc00635lwfbj96vupj",
+    "nameAr": "أوراق الرسم",
+    "nameFr": "Papier à dessin",
+    "category": "الرسم والفنون",
+    "price": 155,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvvggr000y5lwfktl9iw8s",
+    "nameAr": "كراس 120 صفحة",
+    "nameFr": "Cahier 120 pages",
+    "category": "كراسات ودفاتر",
+    "price": 155,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvx6k6004f5lwfh4a19kg1",
+    "nameAr": "علبة أقلام ملونة 6 ألوان",
+    "nameFr": "Boîte de 6 crayons de couleur",
+    "category": "الرسم والفنون",
+    "price": 155,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvwcdi002q5lwfiaywjk57",
+    "nameAr": "كراس الأعمال التطبيقية كبير",
+    "nameFr": "Cahier de travaux pratiques grand format",
+    "category": "كراسات ودفاتر",
+    "price": 160,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvvxa1001w5lwfqiivlft8",
+    "nameAr": "كراس الرسم",
+    "nameFr": "Cahier de dessin",
+    "category": "الرسم والفنون",
+    "price": 160,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvx71j004g5lwfcuz63ay0",
+    "nameAr": "علبة أقلام ملونة 6 ألوان",
+    "nameFr": "Boîte de 6 crayons de couleur",
+    "category": "الرسم والفنون",
+    "price": 160,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvxtzs005q5lwfp6eo3fvw",
+    "nameAr": "مدور / بركار",
+    "nameFr": "Compas",
+    "category": "الهندسة والقياس",
+    "price": 160,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvy1ty00665lwfcywriqfr",
+    "nameAr": "أوراق الرسم",
+    "nameFr": "Papier à dessin",
+    "category": "الرسم والفنون",
+    "price": 160,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvyw56007w5lwfxbyfn7h8",
+    "nameAr": "سبورة صغيرة",
+    "nameFr": "Ardoise scolaire",
+    "category": "أدوات القسم",
+    "price": 165,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvx62h004e5lwfhecw60f7",
+    "nameAr": "علبة أقلام ملونة 6 ألوان",
+    "nameFr": "Boîte de 6 crayons de couleur",
+    "category": "الرسم والفنون",
+    "price": 170,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvwdcr002s5lwfkac3eb3i",
+    "nameAr": "كراس الأعمال التطبيقية كبير",
+    "nameFr": "Cahier de travaux pratiques grand format",
+    "category": "كراسات ودفاتر",
+    "price": 170,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvy0uw00645lwfltt1rd0o",
+    "nameAr": "أوراق الرسم",
+    "nameFr": "Papier à dessin",
+    "category": "الرسم والفنون",
+    "price": 170,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvywmf007x5lwfx5l03l7w",
+    "nameAr": "سبورة صغيرة",
+    "nameFr": "Ardoise scolaire",
+    "category": "أدوات القسم",
+    "price": 170,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvvwb4001u5lwftfzse3jf",
+    "nameAr": "كراس الرسم",
+    "nameFr": "Cahier de dessin",
+    "category": "الرسم والفنون",
+    "price": 170,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvvfhj000w5lwf1pcw9bce",
+    "nameAr": "كراس 120 صفحة",
+    "nameFr": "Cahier 120 pages",
+    "category": "كراسات ودفاتر",
+    "price": 170,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvwbvv002p5lwfi60ge4mw",
+    "nameAr": "كراس الأعمال التطبيقية كبير",
+    "nameFr": "Cahier de travaux pratiques grand format",
+    "category": "كراسات ودفاتر",
+    "price": 175,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvvfz0000x5lwfht9u6cjg",
+    "nameAr": "كراس 120 صفحة",
+    "nameFr": "Cahier 120 pages",
+    "category": "كراسات ودفاتر",
+    "price": 180,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvyvnf007v5lwfvzzj012y",
+    "nameAr": "سبورة صغيرة",
+    "nameFr": "Ardoise scolaire",
+    "category": "أدوات القسم",
+    "price": 180,
+    "brand": "Maped"
+  },
+  {
+    "id": "cahier-seyes-288",
+    "nameAr": "دفتر سَيِّه 288 صفحة",
+    "nameFr": "Cahier Seyès 288 pages",
+    "category": "cahiers",
+    "price": 180,
+    "brand": null
+  },
+  {
+    "id": "cmsxvwbe6002o5lwfxxn14he0",
+    "nameAr": "كراس الأعمال التطبيقية كبير",
+    "nameFr": "Cahier de travaux pratiques grand format",
+    "category": "كراسات ودفاتر",
+    "price": 180,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "compas-maped-metal",
+    "nameAr": "بركار مابيد معدني",
+    "nameFr": "Compas Maped métal",
+    "category": "geometrie",
+    "price": 180,
+    "brand": null
+  },
+  {
+    "id": "cmsxvw9z8002m5lwfq5fhuoor",
+    "nameAr": "كراس الأعمال التطبيقية كبير",
+    "nameFr": "Cahier de travaux pratiques grand format",
+    "category": "كراسات ودفاتر",
+    "price": 195,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvy85m006j5lwf637kt51t",
+    "nameAr": "ألوان مائية",
+    "nameFr": "Aquarelles",
+    "category": "الرسم والفنون",
+    "price": 200,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvvn1y001b5lwfsvhro8m8",
+    "nameAr": "كراس 192 صفحة",
+    "nameFr": "Cahier 192 pages",
+    "category": "كراسات ودفاتر",
+    "price": 200,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvxain004n5lwfnswxkyn0",
+    "nameAr": "أقلام اللباد",
+    "nameFr": "Feutres",
+    "category": "الرسم والفنون",
+    "price": 200,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvxvxm005u5lwfpj73vcyf",
+    "nameAr": "أدوات هندسية",
+    "nameFr": "Kit de géométrie",
+    "category": "الهندسة والقياس",
+    "price": 200,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvxwws005w5lwfxp6yxjpd",
+    "nameAr": "أدوات هندسية",
+    "nameFr": "Kit de géométrie",
+    "category": "الهندسة والقياس",
+    "price": 205,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvwaim002n5lwfk1e3fhlg",
+    "nameAr": "كراس الأعمال التطبيقية كبير",
+    "nameFr": "Cahier de travaux pratiques grand format",
+    "category": "كراسات ودفاتر",
+    "price": 210,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvvm0k00195lwfhuteglxz",
+    "nameAr": "كراس 192 صفحة",
+    "nameFr": "Cahier 192 pages",
+    "category": "كراسات ودفاتر",
+    "price": 210,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvy5q7006e5lwfufbzf05f",
+    "nameAr": "ألوان مائية",
+    "nameFr": "Aquarelles",
+    "category": "الرسم والفنون",
+    "price": 215,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvx80v004i5lwfdbabnf05",
+    "nameAr": "أقلام اللباد",
+    "nameFr": "Feutres",
+    "category": "الرسم والفنون",
+    "price": 215,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvvlj600185lwfgdedu5dv",
+    "nameAr": "كراس 192 صفحة",
+    "nameFr": "Cahier 192 pages",
+    "category": "كراسات ودفاتر",
+    "price": 220,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvxuyt005s5lwff54bbu78",
+    "nameAr": "أدوات هندسية",
+    "nameFr": "Kit de géométrie",
+    "category": "الهندسة والقياس",
+    "price": 225,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvvmil001a5lwf0u9dktcw",
+    "nameAr": "كراس 192 صفحة",
+    "nameFr": "Cahier 192 pages",
+    "category": "كراسات ودفاتر",
+    "price": 230,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvx8ic004j5lwfjc7psuee",
+    "nameAr": "أقلام اللباد",
+    "nameFr": "Feutres",
+    "category": "الرسم والفنون",
+    "price": 235,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvy76j006h5lwf4utrt08z",
+    "nameAr": "ألوان مائية",
+    "nameFr": "Aquarelles",
+    "category": "الرسم والفنون",
+    "price": 235,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvy67f006f5lwflvveknv1",
+    "nameAr": "ألوان مائية",
+    "nameFr": "Aquarelles",
+    "category": "الرسم والفنون",
+    "price": 235,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvxvg2005t5lwfh8nk9922",
+    "nameAr": "أدوات هندسية",
+    "nameFr": "Kit de géométrie",
+    "category": "الهندسة والقياس",
+    "price": 235,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvx9he004l5lwfchvky05t",
+    "nameAr": "أقلام اللباد",
+    "nameFr": "Feutres",
+    "category": "الرسم والفنون",
+    "price": 235,
+    "brand": "Pebeo"
+  },
+  {
+    "id": "cmsxvvl1g00175lwf62xj83t0",
+    "nameAr": "كراس 192 صفحة",
+    "nameFr": "Cahier 192 pages",
+    "category": "كراسات ودفاتر",
+    "price": 240,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvvkju00165lwf6bcsdvrj",
+    "nameAr": "كراس 192 صفحة",
+    "nameFr": "Cahier 192 pages",
+    "category": "كراسات ودفاتر",
+    "price": 245,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvy7o6006i5lwfuuuozq48",
+    "nameAr": "ألوان مائية",
+    "nameFr": "Aquarelles",
+    "category": "الرسم والفنون",
+    "price": 245,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvx9z1004m5lwfj7d61k91",
+    "nameAr": "أقلام اللباد",
+    "nameFr": "Feutres",
+    "category": "الرسم والفنون",
+    "price": 245,
+    "brand": "Canson"
+  },
+  {
+    "id": "cmsxvxwf9005v5lwfb67syg93",
+    "nameAr": "أدوات هندسية",
+    "nameFr": "Kit de géométrie",
+    "category": "الهندسة والقياس",
+    "price": 245,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvx8zs004k5lwf282cy9uy",
+    "nameAr": "أقلام اللباد",
+    "nameFr": "Feutres",
+    "category": "الرسم والفنون",
+    "price": 250,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvy6p1006g5lwf6m8c9dft",
+    "nameAr": "ألوان مائية",
+    "nameFr": "Aquarelles",
+    "category": "الرسم والفنون",
+    "price": 250,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvvjdn00145lwf2ey73wa2",
+    "nameAr": "كراس 192 صفحة",
+    "nameFr": "Cahier 192 pages",
+    "category": "كراسات ودفاتر",
+    "price": 265,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvvjv500155lwf6jtoxg0w",
+    "nameAr": "كراس 192 صفحة",
+    "nameFr": "Cahier 192 pages",
+    "category": "كراسات ودفاتر",
+    "price": 285,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvvuuc001r5lwfr9fqbwjz",
+    "nameAr": "كراس 288 صفحة ( روصور )",
+    "nameFr": "Cahier 288 pages ( Spirale )",
+    "category": "كراسات ودفاتر",
+    "price": 295,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvvqy4001j5lwfl1202075",
+    "nameAr": "كراس 288 صفحة",
+    "nameFr": "Cahier 288 pages",
+    "category": "كراسات ودفاتر",
+    "price": 295,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvvpyz001h5lwfqsocsex4",
+    "nameAr": "كراس 288 صفحة",
+    "nameFr": "Cahier 288 pages",
+    "category": "كراسات ودفاتر",
+    "price": 310,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvvtv7001p5lwf3juqssus",
+    "nameAr": "كراس 288 صفحة ( روصور )",
+    "nameFr": "Cahier 288 pages ( Spirale )",
+    "category": "كراسات ودفاتر",
+    "price": 310,
+    "brand": "Foroni"
+  },
+  {
+    "id": "cmsxvvphe001g5lwfa3peaqr4",
+    "nameAr": "كراس 288 صفحة",
+    "nameFr": "Cahier 288 pages",
+    "category": "كراسات ودفاتر",
+    "price": 320,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvvtdo001o5lwf8zhwiqsi",
+    "nameAr": "كراس 288 صفحة ( روصور )",
+    "nameFr": "Cahier 288 pages ( Spirale )",
+    "category": "كراسات ودفاتر",
+    "price": 320,
+    "brand": "UNIPAP"
+  },
+  {
+    "id": "cmsxvvucw001q5lwfmwbhc0u4",
+    "nameAr": "كراس 288 صفحة ( روصور )",
+    "nameFr": "Cahier 288 pages ( Spirale )",
+    "category": "كراسات ودفاتر",
+    "price": 335,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "cmsxvvqgl001i5lwfog5751w4",
+    "nameAr": "كراس 288 صفحة",
+    "nameFr": "Cahier 288 pages",
+    "category": "كراسات ودفاتر",
+    "price": 335,
+    "brand": "Calligraphe"
+  },
+  {
+    "id": "canson-croquis-a4",
+    "nameAr": "دفتر رسم كانسون A4",
+    "nameFr": "Bloc de croquis Canson A4",
+    "category": "arts",
+    "price": 350,
+    "brand": null
+  },
+  {
+    "id": "cmsxvvsw2001n5lwf9zj9s6g9",
+    "nameAr": "كراس 288 صفحة ( روصور )",
+    "nameFr": "Cahier 288 pages ( Spirale )",
+    "category": "كراسات ودفاتر",
+    "price": 350,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvvp05001f5lwf5il8dh4q",
+    "nameAr": "كراس 288 صفحة",
+    "nameFr": "Cahier 288 pages",
+    "category": "كراسات ودفاتر",
+    "price": 350,
+    "brand": "Elve"
+  },
+  {
+    "id": "cmsxvvoip001e5lwfc5b5o0fj",
+    "nameAr": "كراس 288 صفحة",
+    "nameFr": "Cahier 288 pages",
+    "category": "كراسات ودفاتر",
+    "price": 365,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvvsep001m5lwfkhtbqwng",
+    "nameAr": "كراس 288 صفحة ( روصور )",
+    "nameFr": "Cahier 288 pages ( Spirale )",
+    "category": "كراسات ودفاتر",
+    "price": 365,
+    "brand": "Hamelin"
+  },
+  {
+    "id": "cmsxvxyf4005z5lwfwl6iswvi",
+    "nameAr": "آلة حاسبة بسيطة",
+    "nameFr": "Calculatrice simple",
+    "category": "الهندسة والقياس",
+    "price": 385,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvvnjn001c5lwfnaf1oc2s",
+    "nameAr": "كراس 288 صفحة",
+    "nameFr": "Cahier 288 pages",
+    "category": "كراسات ودفاتر",
+    "price": 390,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvvrfk001k5lwfr6d8j3vp",
+    "nameAr": "كراس 288 صفحة ( روصور )",
+    "nameFr": "Cahier 288 pages ( Spirale )",
+    "category": "كراسات ودفاتر",
+    "price": 390,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvxzeb00615lwfbajcu4ud",
+    "nameAr": "آلة حاسبة بسيطة",
+    "nameFr": "Calculatrice simple",
+    "category": "الهندسة والقياس",
+    "price": 400,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvvo13001d5lwfnxxew2g9",
+    "nameAr": "كراس 288 صفحة",
+    "nameFr": "Cahier 288 pages",
+    "category": "كراسات ودفاتر",
+    "price": 420,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvvrx9001l5lwfikoyc6o7",
+    "nameAr": "كراس 288 صفحة ( روصور )",
+    "nameFr": "Cahier 288 pages ( Spirale )",
+    "category": "كراسات ودفاتر",
+    "price": 420,
+    "brand": "Clairefontaine"
+  },
+  {
+    "id": "cmsxvxxe9005x5lwf9snxj6e6",
+    "nameAr": "آلة حاسبة بسيطة",
+    "nameFr": "Calculatrice simple",
+    "category": "الهندسة والقياس",
+    "price": 440,
+    "brand": "Maped"
+  },
+  {
+    "id": "trousse-geometrie-maped",
+    "nameAr": "مجموعة هندسة مابيد 8 قطع",
+    "nameFr": "Trousse de géométrie Maped 8 pièces",
+    "category": "geometrie",
+    "price": 450,
+    "brand": null
+  },
+  {
+    "id": "cmsxvxxxe005y5lwfqzdb4x9w",
+    "nameAr": "آلة حاسبة بسيطة",
+    "nameFr": "Calculatrice simple",
+    "category": "الهندسة والقياس",
+    "price": 455,
+    "brand": "Staedtler"
+  },
+  {
+    "id": "cmsxvxywu00605lwfc2sjo8h2",
+    "nameAr": "آلة حاسبة بسيطة",
+    "nameFr": "Calculatrice simple",
+    "category": "الهندسة والقياس",
+    "price": 475,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": "cmsxvzvnj009w5lwf8z6tu5k6",
+    "nameAr": "مقلمة مدرسية",
+    "nameFr": "Trousse scolaire",
+    "category": "تنظيم وتخزين",
+    "price": 495,
+    "brand": "Bic"
+  },
+  {
+    "id": "cmsxvzu6u009t5lwfsx4w2j56",
+    "nameAr": "مقلمة مدرسية",
+    "nameFr": "Trousse scolaire",
+    "category": "تنظيم وتخزين",
+    "price": 540,
+    "brand": "Elba"
+  },
+  {
+    "id": "cmsxvzt83009r5lwf9qj4055o",
+    "nameAr": "مقلمة مدرسية",
+    "nameFr": "Trousse scolaire",
+    "category": "تنظيم وتخزين",
+    "price": 540,
+    "brand": "Maped"
+  },
+  {
+    "id": "cmsxvzuod009u5lwfofjooabl",
+    "nameAr": "مقلمة مدرسية",
+    "nameFr": "Trousse scolaire",
+    "category": "تنظيم وتخزين",
+    "price": 560,
+    "brand": "Oxford"
+  },
+  {
+    "id": "cmsxvztpe009s5lwfgtgq0gob",
+    "nameAr": "مقلمة مدرسية",
+    "nameFr": "Trousse scolaire",
+    "category": "تنظيم وتخزين",
+    "price": 585,
+    "brand": "Éxacompta"
+  },
+  {
+    "id": "cmsxvzv62009v5lwfzdfyg3yy",
+    "nameAr": "مقلمة مدرسية",
+    "nameFr": "Trousse scolaire",
+    "category": "تنظيم وتخزين",
+    "price": 585,
+    "brand": "Avery"
+  },
+  {
+    "id": "sac-a-dos-eco",
+    "nameAr": "حقيبة ظهر مدرسية اقتصادية",
+    "nameFr": "Sac à dos scolaire éco",
+    "category": "cartables",
+    "price": 2200,
+    "brand": null
+  },
+  {
+    "id": "cartable-primaire",
+    "nameAr": "حقيبة ظهر ابتدائي",
+    "nameFr": "Cartable Primaire",
+    "category": "cartables",
+    "price": 2800,
+    "brand": null
+  },
+  {
+    "id": "calculatrice-casio-scientifique",
+    "nameAr": "آلة حاسبة علمية كاسيو fx-991",
+    "nameFr": "Calculatrice scientifique Casio fx-991",
+    "category": "electronique",
+    "price": 3200,
+    "brand": null
+  },
+  {
+    "id": "cartable-college",
+    "nameAr": "حقيبة ظهر متوسط وثانوي",
+    "nameFr": "Sac à dos Collège / Lycée",
+    "category": "cartables",
+    "price": 3500,
+    "brand": null
+  },
+  {
+    "id": "cmsxvzpc1009j5lwfvq2nsntk",
+    "nameAr": "محفظة مدرسية",
+    "nameFr": "Cartable scolaire",
+    "category": "حقائب مدرسية",
+    "price": 3500,
+    "brand": "Cameleon"
+  },
+  {
+    "id": "cmsxvzra2009n5lwf2tpocaog",
+    "nameAr": "محفظة مدرسية",
+    "nameFr": "Cartable scolaire",
+    "category": "حقائب مدرسية",
+    "price": 3750,
+    "brand": "Puma"
+  },
+  {
+    "id": "cmsxvzouf009i5lwfurh0ri33",
+    "nameAr": "محفظة مدرسية",
+    "nameFr": "Cartable scolaire",
+    "category": "حقائب مدرسية",
+    "price": 3750,
+    "brand": "Tann's"
+  },
+  {
+    "id": "cmsxvzsqr009q5lwft3kp0baq",
+    "nameAr": "محفظة مدرسية",
+    "nameFr": "Cartable scolaire",
+    "category": "حقائب مدرسية",
+    "price": 4000,
+    "brand": "DC Shoes"
+  },
+  {
+    "id": "cmsxvzod2009h5lwfwq0ztz18",
+    "nameAr": "محفظة مدرسية",
+    "nameFr": "Cartable scolaire",
+    "category": "حقائب مدرسية",
+    "price": 4000,
+    "brand": "Gulli"
+  },
+  {
+    "id": "cmsxvzrro009o5lwfy0y3zfq9",
+    "nameAr": "محفظة مدرسية",
+    "nameFr": "Cartable scolaire",
+    "category": "حقائب مدرسية",
+    "price": 4000,
+    "brand": "Adidas"
+  },
+  {
+    "id": "cmsxvzqs7009m5lwfu25d4skv",
+    "nameAr": "محفظة مدرسية",
+    "nameFr": "Cartable scolaire",
+    "category": "حقائب مدرسية",
+    "price": 4250,
+    "brand": "Roxy"
+  },
+  {
+    "id": "cmsxvzqaw009l5lwfcqso924u",
+    "nameAr": "محفظة مدرسية",
+    "nameFr": "Cartable scolaire",
+    "category": "حقائب مدرسية",
+    "price": 4250,
+    "brand": "Quiksilver"
+  },
+  {
+    "id": "cmsxvzptj009k5lwfl3liq4l3",
+    "nameAr": "محفظة مدرسية",
+    "nameFr": "Cartable scolaire",
+    "category": "حقائب مدرسية",
+    "price": 4500,
+    "brand": "Eastpak"
+  },
+  {
+    "id": "cmsxvzs99009p5lwfgr08wtkn",
+    "nameAr": "محفظة مدرسية",
+    "nameFr": "Cartable scolaire",
+    "category": "حقائب مدرسية",
+    "price": 4500,
+    "brand": "Nike"
+  }
+]
