@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '@/components/language-provider';
-import { getAllPacksAdmin, createPack, updatePack, deletePack, uploadPacksCSV, downloadPacksCSV } from '@/lib/admin-actions';
+import { getAllPacksAdmin, createPack, updatePack, deletePack, deleteAllPacks, uploadPacksCSV, downloadPacksCSV } from '@/lib/admin-actions';
 import { getAllProducts } from '@/lib/admin-actions';
 import { Button } from '@/components/ui/button';
 import { Sheet } from '@/components/ui/sheet';
@@ -185,6 +185,19 @@ export default function AdminPacksPage() {
     fetchData();
   };
 
+  const handleDeleteAll = async () => {
+    if (!confirm(t('هل أنت متأكد من حذف ALL الحقائب؟ لا يمكن التراجع عن هذا!', 'Êtes-vous sûr de vouloir supprimer TOUS les packs ? Cette action est irréversible !'))) return;
+    setLoading(true);
+    const result = await deleteAllPacks();
+    setLoading(false);
+    if (result.success) {
+      alert(t(`تم حذف ${result.count} حقيبة`, `${result.count} pack(s) supprimé(s)`));
+    } else {
+      alert(t('فشل الحذف', 'Échec de la suppression'));
+    }
+    fetchData();
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -237,6 +250,10 @@ export default function AdminPacksPage() {
           <Button variant="outline" onClick={handleDownload} className="gap-2">
             <Download className="h-4 w-4" />
             {t('تحميل CSV', 'Exporter CSV')}
+          </Button>
+          <Button variant="destructive" onClick={handleDeleteAll} className="gap-2">
+            <Trash2 className="h-4 w-4" />
+            {t('حذف الكل', 'Tout supprimer')}
           </Button>
           <Button onClick={openCreate} className="gap-2">
             <Plus className="h-4 w-4" />

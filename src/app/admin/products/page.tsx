@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '@/components/language-provider';
-import { getAllProducts, createProduct, updateProduct, deleteProduct, uploadProductsCSV, downloadProductsCSV } from '@/lib/admin-actions';
+import { getAllProducts, createProduct, updateProduct, deleteProduct, deleteAllProducts, uploadProductsCSV, downloadProductsCSV } from '@/lib/admin-actions';
 import { Button } from '@/components/ui/button';
 import { Sheet } from '@/components/ui/sheet';
 import { formatDZD } from '@/lib/utils';
-import { Plus, Pencil, Trash2, Package, Upload, Download, FileText, X, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Plus, Pencil, Trash2, Package, Upload, Download, FileText, X, CheckCircle2, AlertCircle, Search } from 'lucide-react';
 
 interface ProductFormData {
   id?: string;
@@ -15,7 +15,8 @@ interface ProductFormData {
   descriptionAr: string;
   descriptionFr: string;
   brand: string;
-  category: string;
+  categoryAr: string;
+  categoryFr: string;
   unitPriceDZD: number;
   costPriceDZD: number;
   retailPriceDZD: number;
@@ -30,15 +31,14 @@ const emptyForm: ProductFormData = {
   descriptionAr: '',
   descriptionFr: '',
   brand: '',
-  category: '',
+  categoryAr: '',
+  categoryFr: '',
   unitPriceDZD: 0,
   costPriceDZD: 0,
   retailPriceDZD: 0,
   stockQuantity: 0,
   imageUrl: '',
 };
-
-const categories = ['cahiers', 'stylos', 'geometrie', 'arts', 'cartables', 'accessoires', 'electronique'];
 
 export default function AdminProductsPage() {
   const { t, isAr } = useLanguage();
@@ -53,6 +53,7 @@ export default function AdminProductsPage() {
   const [csvText, setCsvText] = useState('');
   const [uploading, setUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState<any>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
@@ -82,7 +83,8 @@ export default function AdminProductsPage() {
       descriptionAr: product.descriptionAr || '',
       descriptionFr: product.descriptionFr || '',
       brand: product.brand || '',
-      category: product.category,
+      categoryAr: product.categoryAr || '',
+      categoryFr: product.categoryFr || '',
       unitPriceDZD: product.unitPriceDZD,
       costPriceDZD: product.costPriceDZD ?? 0,
       retailPriceDZD: product.retailPriceDZD ?? 0,
@@ -104,7 +106,9 @@ export default function AdminProductsPage() {
         descriptionAr: form.descriptionAr || undefined,
         descriptionFr: form.descriptionFr || undefined,
         brand: form.brand || undefined,
-        category: form.category,
+        category: form.categoryAr || 'autre',
+        categoryAr: form.categoryAr || undefined,
+        categoryFr: form.categoryFr || undefined,
         unitPriceDZD: form.unitPriceDZD,
         costPriceDZD: form.costPriceDZD,
         retailPriceDZD: form.retailPriceDZD,
@@ -118,7 +122,9 @@ export default function AdminProductsPage() {
         descriptionAr: form.descriptionAr || undefined,
         descriptionFr: form.descriptionFr || undefined,
         brand: form.brand || undefined,
-        category: form.category,
+        category: form.categoryAr || 'autre',
+        categoryAr: form.categoryAr || undefined,
+        categoryFr: form.categoryFr || undefined,
         unitPriceDZD: form.unitPriceDZD,
         costPriceDZD: form.costPriceDZD,
         retailPriceDZD: form.retailPriceDZD,
@@ -135,6 +141,19 @@ export default function AdminProductsPage() {
   const handleDelete = async (id: string) => {
     if (!confirm(t('هل أنت متأكد من حذف هذا المنتج؟', 'Êtes-vous sûr de vouloir supprimer ce produit ?'))) return;
     await deleteProduct(id);
+    fetchProducts();
+  };
+
+  const handleDeleteAll = async () => {
+    if (!confirm(t('هل أنت متأكد من حذف ALL المنتجات؟ لا يمكن التراجع عن هذا!', 'Êtes-vous sûr de vouloir supprimer TOUS les produits ? Cette action est irréversible !'))) return;
+    setLoading(true);
+    const result = await deleteAllProducts();
+    setLoading(false);
+    if (result.success) {
+      alert(t(`تم حذف ${result.count} منتج`, `${result.count} produit(s) supprimé(s)`));
+    } else {
+      alert(t('فشل الحذف', 'Échec de la suppression'));
+    }
     fetchProducts();
   };
 
@@ -177,12 +196,22 @@ export default function AdminProductsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">{t('المنتجات', 'Produits')}</h1>
           <p className="text-muted-foreground text-sm">{t('إدارة قطع القرطاسية', 'Gérer les articles de papeterie')}</p>
         </div>
         <div className="flex items-center gap-2">
+          <div className="relative">
+            <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={t('بحث في المنتجات...', 'Rechercher des produits...')}
+              className="h-9 w-48 rounded-lg border border-input bg-background pl-9 pr-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring sm:w-64"
+            />
+          </div>
           <Button variant="outline" onClick={() => { setUploadOpen(true); setCsvText(''); setUploadResult(null); }} className="gap-2">
             <Upload className="h-4 w-4" />
             {t('رفع CSV', 'Importer CSV')}
@@ -190,6 +219,10 @@ export default function AdminProductsPage() {
           <Button variant="outline" onClick={handleDownload} className="gap-2">
             <Download className="h-4 w-4" />
             {t('تحميل CSV', 'Exporter CSV')}
+          </Button>
+          <Button variant="destructive" onClick={handleDeleteAll} className="gap-2">
+            <Trash2 className="h-4 w-4" />
+            {t('حذف الكل', 'Tout supprimer')}
           </Button>
           <Button onClick={openCreate} className="gap-2">
             <Plus className="h-4 w-4" />
@@ -211,6 +244,7 @@ export default function AdminProductsPage() {
               <thead>
                 <tr className="border-b bg-muted/50">
                   <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('المنتج', 'Produit')}</th>
+                  <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('العلامة', 'Marque')}</th>
                   <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('الفئة', 'Catégorie')}</th>
                   <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('السعر', 'Prix')}</th>
                   <th className={`px-4 py-3 ${isAr ? 'text-right' : 'text-left'} font-medium`}>{t('المخزون', 'Stock')}</th>
@@ -219,7 +253,34 @@ export default function AdminProductsPage() {
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => (
+                {(() => {
+                  const terms = searchQuery.trim().toLowerCase().split(/\s+/).filter(Boolean);
+                  const filtered = terms.length
+                    ? products.filter((p) => {
+                        const haystack = [
+                          p.nameAr,
+                          p.nameFr,
+                          p.brand,
+                          p.category,
+                          p.categoryAr,
+                          p.categoryFr,
+                        ]
+                          .filter(Boolean)
+                          .join(' ')
+                          .toLowerCase();
+                        return terms.every((t) => haystack.includes(t));
+                      })
+                    : products;
+                  if (filtered.length === 0) {
+                    return (
+                      <tr>
+                        <td colSpan={7} className="text-center py-8 text-muted-foreground text-sm">
+                          {t('لا توجد نتائج مطابقة', 'Aucun résultat correspondant')}
+                        </td>
+                      </tr>
+                    );
+                  }
+                  return filtered.map((product) => (
                   <tr key={product.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
@@ -227,13 +288,16 @@ export default function AdminProductsPage() {
                           <Package className="h-5 w-5 text-muted-foreground" />
                         </div>
                         <div>
-                          <p className="font-medium">{product.nameAr}</p>
-                          <p className="text-xs text-muted-foreground">{product.nameFr}</p>
+                          <p className="font-medium">{isAr ? product.nameAr : (product.nameFr || product.nameAr)}</p>
+                          <p className="text-xs text-muted-foreground">{isAr ? (product.nameFr || product.nameAr) : product.nameAr}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs">{product.category}</span>
+                      <span className="text-xs text-muted-foreground">{product.brand || '-'}</span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs">{isAr ? (product.categoryAr || product.category) : (product.categoryFr || product.category)}</span>
                     </td>
                     <td className="px-4 py-3 font-bold text-primary">{formatDZD(product.unitPriceDZD, isAr ? 'ar-DZ' : 'fr-DZ')}</td>
                     <td className="px-4 py-3">{product.stockQuantity}</td>
@@ -253,7 +317,8 @@ export default function AdminProductsPage() {
                       </div>
                     </td>
                   </tr>
-                ))}
+                ));
+              })()}
               </tbody>
             </table>
           </div>
@@ -277,8 +342,8 @@ export default function AdminProductsPage() {
             <div className="space-y-4">
               <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
                 <p className="font-bold">{t('تنسيق الملف المطلوب:', 'Format de fichier requis :')}</p>
-                <p>{t('الأعمدة:', 'Colonnes :')} id, nameAr, nameFr, descriptionAr, descriptionFr, brand, category, unitPriceDZD, costPriceDZD, retailPriceDZD, stockQuantity, imageUrl, isActive</p>
-                <p>{t('الأعمدة المطلوبة:', 'Colonnes obligatoires :')} nameAr, category, unitPriceDZD</p>
+                <p>{t('الأعمدة:', 'Colonnes :')} id, nameAr, nameFr, descriptionAr, descriptionFr, brand, categoryAr, categoryFr, unitPriceDZD, costPriceDZD, retailPriceDZD, stockQuantity, imageUrl, isActive</p>
+                <p>{t('الأعمدة المطلوبة:', 'Colonnes obligatoires :')} nameAr, categoryAr, unitPriceDZD</p>
                 <p>{t('إذا وُجد id، سيتم تحديث المنتج الموجود. إذا تركته فارغاً، سيتم إنشاء منتج جديد.', 'Si l\'id existe, le produit sera mis à jour. Sinon, un nouveau produit sera créé.')}</p>
               </div>
 
@@ -348,11 +413,12 @@ export default function AdminProductsPage() {
             <input value={form.nameFr} onChange={(e) => setForm({ ...form, nameFr: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">{t('الفئة', 'Catégorie')} *</label>
-            <select required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              <option value="">{t('اختر الفئة', 'Choisir une catégorie')}</option>
-              {categories.map((c) => (<option key={c} value={c}>{c}</option>))}
-            </select>
+            <label className="text-sm font-medium">{t('الفئة (عربي)', 'Catégorie (arabe)')} *</label>
+            <input required value={form.categoryAr} onChange={(e) => setForm({ ...form, categoryAr: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-sm font-medium">{t('الفئة (فرنسي)', 'Catégorie (français)')}</label>
+            <input value={form.categoryFr} onChange={(e) => setForm({ ...form, categoryFr: e.target.value })} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           </div>
           <div className="space-y-1.5">
             <label className="text-sm font-medium">{t('العلامة التجارية', 'Marque')}</label>

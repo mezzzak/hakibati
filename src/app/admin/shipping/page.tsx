@@ -2,10 +2,10 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '@/components/language-provider';
-import { getAllShippingRates, upsertShippingRate, toggleShippingRate, uploadShippingRatesCSV, downloadShippingRatesCSV, seedDefaultShippingRates } from '@/lib/admin-actions';
+import { getAllShippingRates, upsertShippingRate, toggleShippingRate, deleteAllShippingRates, uploadShippingRatesCSV, downloadShippingRatesCSV, seedDefaultShippingRates } from '@/lib/admin-actions';
 import { Button } from '@/components/ui/button';
 import { WILAYAS } from '@/lib/wilayas';
-import { Truck, Home, Building2, Save, CheckCircle2, AlertCircle, Upload, Download, FileText, X } from 'lucide-react';
+import { Truck, Home, Building2, Save, CheckCircle2, AlertCircle, Upload, Download, FileText, X, Trash2 } from 'lucide-react';
 
 const METHODS = [
   { key: 'HOME_DELIVERY', labelAr: 'توصيل للمنزل', labelFr: 'Livraison à domicile', icon: Home },
@@ -148,6 +148,20 @@ export default function AdminShippingPage() {
     }
   };
 
+  const handleDeleteAll = async () => {
+    if (!confirm(t('هل أنت متأكد من حذف ALL أسعار التوصيل؟ لا يمكن التراجع عن هذا!', 'Êtes-vous sûr de vouloir supprimer TOUS les tarifs de livraison ? Cette action est irréversible !'))) return;
+    setLoading(true);
+    const result = await deleteAllShippingRates();
+    setLoading(false);
+    if (result.success) {
+      setToast({ message: t(`تم حذف ${result.count} سعر`, `${result.count} tarif(s) supprimé(s)`), type: 'success' });
+      fetchRates();
+    } else {
+      setToast({ message: result.error || t('فشل الحذف', 'Échec de la suppression'), type: 'error' });
+    }
+    setTimeout(() => setToast(null), 4000);
+  };
+
   const handleSeed = async () => {
     if (!confirm(t('سيتم تعبئة جميع الولايات بـ 0 د.ج لنقطة الاستلام و 400 د.ج للتوصيل للمنزل. هل أنت متأكد؟', 'Toutes les wilayas seront remplies avec 0 DZD pour le point de retrait et 400 DZD pour la livraison à domicile. Êtes-vous sûr ?'))) return;
     setLoading(true);
@@ -181,6 +195,10 @@ export default function AdminShippingPage() {
           <Button variant="outline" onClick={handleSeed} className="gap-2">
             <Truck className="h-4 w-4" />
             {t('تعبئة افتراضية', 'Remplissage par défaut')}
+          </Button>
+          <Button variant="destructive" onClick={handleDeleteAll} className="gap-2">
+            <Trash2 className="h-4 w-4" />
+            {t('حذف الكل', 'Tout supprimer')}
           </Button>
           {METHODS.map((m) => (
             <div key={m.key} className="flex items-center gap-1.5 text-sm text-muted-foreground">

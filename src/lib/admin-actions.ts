@@ -227,7 +227,9 @@ export async function createProduct(data: {
   descriptionAr?: string;
   descriptionFr?: string;
   brand?: string;
-  category: string;
+  category?: string;
+  categoryAr?: string;
+  categoryFr?: string;
   unitPriceDZD: number;
   costPriceDZD?: number;
   retailPriceDZD?: number;
@@ -235,7 +237,11 @@ export async function createProduct(data: {
   imageUrl?: string;
 }) {
   try {
-    const product = await prisma.supplyItem.create({ data });
+    const payload = {
+      ...data,
+      category: data.category || data.categoryAr || 'autre',
+    };
+    const product = await prisma.supplyItem.create({ data: payload });
     revalidatePath('/admin/products');
     return { success: true, product };
   } catch (error) {
@@ -253,6 +259,8 @@ export async function updateProduct(
     descriptionFr?: string;
     brand?: string;
     category?: string;
+    categoryAr?: string;
+    categoryFr?: string;
     unitPriceDZD?: number;
     costPriceDZD?: number;
     retailPriceDZD?: number;
@@ -262,7 +270,11 @@ export async function updateProduct(
   }
 ) {
   try {
-    const product = await prisma.supplyItem.update({ where: { id }, data });
+    const payload = { ...data };
+    if (payload.categoryAr && !payload.category) {
+      payload.category = payload.categoryAr;
+    }
+    const product = await prisma.supplyItem.update({ where: { id }, data: payload });
     revalidatePath('/admin/products');
     return { success: true, product };
   } catch (error) {
@@ -279,6 +291,17 @@ export async function deleteProduct(id: string) {
   } catch (error) {
     console.error('Delete product error:', error);
     return { success: false, error: 'Failed to delete product' };
+  }
+}
+
+export async function deleteAllProducts() {
+  try {
+    const { count } = await prisma.supplyItem.deleteMany({});
+    revalidatePath('/admin/products');
+    return { success: true, count };
+  } catch (error) {
+    console.error('Delete all products error:', error);
+    return { success: false, error: 'Failed to delete all products' };
   }
 }
 
@@ -426,7 +449,9 @@ function parseCSVLine(line: string): string[] {
 }
 
 function parseCSV(content: string): string[][] {
-  const lines = content.split(/\r?\n/).filter((l) => l.trim() !== '');
+  // Strip UTF-8 BOM that Excel and other tools prepend
+  const clean = content.replace(/^\uFEFF/, '');
+  const lines = clean.split(/\r?\n/).filter((l) => l.trim() !== '');
   return lines.map(parseCSVLine);
 }
 
@@ -454,7 +479,7 @@ export async function uploadProductsCSV(csvContent: string) {
     }
 
     const headers = rows[0];
-    const required = ['nameAr', 'category', 'unitPriceDZD'];
+    const required = ['nameAr', 'categoryAr', 'unitPriceDZD'];
     const missing = required.filter((h) => !headers.includes(h));
     if (missing.length > 0) {
       return { success: false, error: `الأعمدة المطلوبة ناقصة: ${missing.join(', ')}` };
@@ -484,7 +509,9 @@ export async function uploadProductsCSV(csvContent: string) {
           descriptionAr: getCol(row, 'descriptionAr') || null,
           descriptionFr: getCol(row, 'descriptionFr') || null,
           brand: getCol(row, 'brand') || null,
-          category: getCol(row, 'category') || 'autre',
+          category: getCol(row, 'category') || getCol(row, 'categoryAr') || 'autre',
+          categoryAr: getCol(row, 'categoryAr') || null,
+          categoryFr: getCol(row, 'categoryFr') || null,
           unitPriceDZD: Number(getCol(row, 'unitPriceDZD')) || 0,
           costPriceDZD: Number(getCol(row, 'costPriceDZD')) || 0,
           retailPriceDZD: Number(getCol(row, 'retailPriceDZD')) || 0,
@@ -493,8 +520,14 @@ export async function uploadProductsCSV(csvContent: string) {
           isActive: getCol(row, 'isActive')?.toLowerCase() === 'false' ? false : true,
         };
         if (id) {
-          await prisma.supplyItem.update({ where: { id }, data });
-          results.updated++;
+          const existing = await prisma.supplyItem.findUnique({ where: { id } });
+          if (existing) {
+            await prisma.supplyItem.update({ where: { id }, data });
+            results.updated++;
+          } else {
+            await prisma.supplyItem.create({ data });
+            results.created++;
+          }
         } else {
           await prisma.supplyItem.create({ data });
           results.created++;
@@ -682,6 +715,17 @@ export async function toggleShippingRate(id: string, isActive: boolean) {
   }
 }
 
+export async function deleteAllShippingRates() {
+  try {
+    const { count } = await prisma.shippingRate.deleteMany({});
+    revalidatePath('/admin/shipping');
+    return { success: true, count };
+  } catch (error) {
+    console.error('Delete all shipping rates error:', error);
+    return { success: false, error: 'Failed to delete all shipping rates' };
+  }
+}
+
 export async function uploadShippingRatesCSV(csvContent: string) {
   try {
     const rows = parseCSV(csvContent);
@@ -754,7 +798,7 @@ export async function downloadProductsCSV() {
       orderBy: { createdAt: 'desc' },
     });
 
-    const headers = ['id', 'nameAr', 'nameFr', 'descriptionAr', 'descriptionFr', 'brand', 'category', 'unitPriceDZD', 'costPriceDZD', 'retailPriceDZD', 'stockQuantity', 'imageUrl', 'isActive'];
+    const headers = ['id', 'nameAr', 'nameFr', 'descriptionAr', 'descriptionFr', 'brand', 'categoryAr', 'categoryFr', 'unitPriceDZD', 'costPriceDZD', 'retailPriceDZD', 'stockQuantity', 'imageUrl', 'isActive'];
     const rows = products.map((p) => [
       p.id,
       p.nameAr,
@@ -762,7 +806,8 @@ export async function downloadProductsCSV() {
       p.descriptionAr,
       p.descriptionFr,
       p.brand,
-      p.category,
+      p.categoryAr,
+      p.categoryFr,
       p.unitPriceDZD,
       p.costPriceDZD,
       p.retailPriceDZD,

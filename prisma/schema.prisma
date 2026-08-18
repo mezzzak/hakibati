@@ -75,6 +75,8 @@ model SupplyItem {
   descriptionFr  String?
   brand          String?
   category       String
+  categoryAr     String?
+  categoryFr     String?
   imageUrl       String?
   unitPriceDZD   Int
   costPriceDZD   Int      @default(0)

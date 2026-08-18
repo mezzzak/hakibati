@@ -130,13 +130,7 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
             discountPercent: 0,
             items: [],
           });
-          setItems(
-            suppliesData.data.map((item: SupplyItem) => ({
-              supplyItem: item,
-              quantity: 1,
-              included: false,
-            }))
-          );
+          setItems([]);
         } else {
           if (packData.success && packData.data.length > 0) {
             if (packData.data.length === 1) {
@@ -250,13 +244,21 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
 
   const filteredAddItems = useMemo(() => {
     if (!searchQuery.trim()) return getAvailableItemsToAdd;
-    const q = searchQuery.toLowerCase();
-    return getAvailableItemsToAdd.filter(
-      (item) =>
-        item.nameAr.toLowerCase().includes(q) ||
-        (item.nameFr?.toLowerCase().includes(q) ?? false) ||
-        item.category.toLowerCase().includes(q)
-    );
+    const terms = searchQuery.toLowerCase().split(/\s+/).filter(Boolean);
+    return getAvailableItemsToAdd.filter((item) => {
+      const haystack = [
+        item.nameAr,
+        item.nameFr,
+        item.brand,
+        item.category,
+        (item as any).categoryAr,
+        (item as any).categoryFr,
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+      return terms.every((t) => haystack.includes(t));
+    });
   }, [getAvailableItemsToAdd, searchQuery]);
 
   const addToCart = useCallback(() => {
@@ -791,8 +793,13 @@ export function PackBuilderClient({ initialGrade }: { initialGrade?: string }) {
                             {item.nameFr && item.nameAr && (
                               <p className="text-xs text-muted-foreground">{isAr ? item.nameFr : item.nameAr}</p>
                             )}
+                            {item.brand && (
+                              <p className="text-xs text-muted-foreground mt-0.5">
+                                {t('العلامة:', 'Marque:')} {item.brand}
+                              </p>
+                            )}
                             <p className="text-xs text-muted-foreground mt-0.5">
-                              {t('الفئة:', 'Catégorie:')} {item.category}
+                              {t('الفئة:', 'Catégorie:')} {isAr ? ((item as any).categoryAr || item.category) : ((item as any).categoryFr || item.category)}
                             </p>
                           </div>
                           <div className="text-end shrink-0">
